@@ -1,0 +1,25 @@
+<div class="modal-header">
+    <h4 class="modal-title">Add Memory Folder</h4>
+    <button type="button" class="btn" aria-label="Close" (click)="closeModal()">
+        <img src="../../../../assets/icons/form/close-lg.svg">
+    </button>
+</div>
+
+<form [formGroup]="addFolderForm" (submit)="submit()">
+
+    <div class="modal-body">
+        <div class="mb-3">
+            <label for="name" class="col-form-label">Folder Name</label>
+            <input type="text" placeholder="Folder Name" class="form-control" id="name"
+                formControlName="folder_name">
+        </div>
+    </div>
+    
+    <div class="modal-footer d-flex justify-content-end">
+        
+        <button class="btn submit-button">
+            Save
+        </button>
+    </div>
+
+</form>

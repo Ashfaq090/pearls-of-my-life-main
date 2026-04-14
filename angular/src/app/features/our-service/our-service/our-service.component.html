@@ -1,0 +1,183 @@
+<div class="page-container">
+  <app-hero
+    title="Services"
+    bgImage="/assets/pexels-anhdanghihi-16416068.jpg"
+    subtitle="Here is what you want family members to know before you graduate into eternity"
+  >
+  </app-hero>
+
+  <app-nav-bar></app-nav-bar>
+
+  <!-- NEW: Two side-by-side service cards -->
+  <section class="service-cards-section" aria-label="Quick service choices">
+    <div class="container">
+      <div class="service-cards">
+        <article
+          class="service-card legacy-gradient-red-green"
+          aria-labelledby="card-auto-obit"
+        >
+          <h3 id="card-auto-obit">Auto Obituary</h3>
+          <p class="card-body">
+            Quickly create an accurate obituary using guided fields — birth
+            dates, family, achievements, schools, employment and more. Start now
+            to ensure your story is preserved exactly as you want.
+          </p>
+          <div class="card-actions">
+            <button
+              class="cta-primary"
+              (click)="scrollToTop()"
+              aria-label="Start Auto obituary now"
+            >
+              Start Auto obituary
+            </button>
+            <button
+              class="cta-secondary"
+              (click)="goToPage('moments-to-share')"
+              aria-label="See Moments to Share"
+            >
+              Moments to Share
+            </button>
+          </div>
+        </article>
+
+        <article
+          class="service-card legacy-gradient-yellow-green"
+          aria-labelledby="card-legacy"
+        >
+          <h3 id="card-legacy">Legacy</h3>
+          <p class="card-body">
+            Create a Legacy plan with longer-form memories — voice notes, video,
+            photos and tributes for future generations. Preserve wisdom, values
+            and stories the way you want them remembered.
+          </p>
+          <div class="card-actions">
+            <button
+              class="cta-primary"
+              (click)="goToPage('legacy')"
+              aria-label="Get Legacy plan"
+            >
+              Get Legacy Plan
+            </button>
+            <button
+              class="cta-secondary"
+              (click)="goToPage('legacy')"
+              aria-label="Learn more about Legacy"
+            >
+              Learn more
+            </button>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Existing content (keeps your services-section; now pushed down by the new block above) -->
+  <section class="services-section">
+    <div class="container">
+      <div class="services-content">
+        <div class="services-text">
+          <p>
+            Who will do your eulogy and how do they know the things that you
+            cherish most in your life? Is your information correct? Leave it
+            yourself for free in the Auto obituary section. Help the pastor or
+            priest with your eulogy so that they are not searching for
+            information about you or the things that you loved about your life.
+            You lived your life and only you can tell your story the way you
+            experience it.
+          </p>
+
+          <h4>What Services We Provide</h4>
+
+          <h6>Auto Obituary</h6>
+          <ul>
+            <li>Leave accurate biographical information.</li>
+            <li>
+              Leave accurate birth dates, schools, parents info, spouse info,
+              life achievements, awards achieved, employment held, community,
+              work, and more.
+            </li>
+          </ul>
+
+          <h6>Legacy</h6>
+          <ul>
+            <li>
+              A heartfelt tribute based on memories, values, and experiences.
+            </li>
+            <li>Cherished moments that reflect meaningful relationships.</li>
+            <li>Wisdom passed down from elders to younger generations.</li>
+          </ul>
+
+          <p>
+            These are all pearls that each one of us have experienced and know
+            carry with us. They should not be tossed away or forgotten upon our
+            graduation into eternity.
+          </p>
+
+          <p>
+            What if PEARLS OF MY LYFE existed in the past? You could click a
+            place in this website and see an old family member talking to you
+            about the things they cherished the most and want to leave the
+            memory behind for you to have; or what if they left behind some
+            wisdom that could keep you out of trouble and on a good path in
+            life. That is how it is supposed to be, family passing down
+            traditions, wisdom, knowledge and many other things.
+          </p>
+
+          <p>
+            Sometimes we don’t have the words when we are in front of loved
+            ones. Some relationships are estranged and it’s hard to communicate.
+            You still care about them and have value to give them. Now, you can
+            take your time, think about what this life and your loved ones have
+            meant to you; and leave it all in your PEARLS OF MY LYFE account.
+          </p>
+
+          <p>
+            If you don’t know where to start and need help, visit the “Moments
+            to Share” section to spark ideas.
+          </p>
+
+          <div class="services-cta">
+            <!-- Primary CTAs -->
+            <button
+              class="gradient-orange"
+              (click)="scrollToTop()"
+              aria-label="Start your Auto obituary now"
+            >
+              Start your Auto obituary now
+            </button>
+
+            <button
+              class="gradient-orange"
+              (click)="scrollToTop()"
+              aria-label="Get Legacy Plan Now"
+            >
+              Get Legacy Plan Now
+            </button>
+
+            <!-- LEGACY BUTTON -->
+            <!-- <button
+              class="legacy-nav-btn legacy gradient-orange"
+              (click)="goToPage('legacy')"
+              aria-label="Go to Legacy page"
+            >
+              Legacy
+            </button> -->
+
+            <!-- Logo -->
+            <img
+              class="services-image"
+              src="assets/images/logo.webp"
+              alt="Pearls of My Lyfe Logo"
+            />
+          </div>
+        </div>
+
+        <div class="services-image-container">
+          <!-- Optional image area. Uncomment or replace src as needed -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <app-footer></app-footer>
+</div>

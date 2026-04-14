@@ -1,0 +1,24 @@
+<div class="container memory-folders p-0">
+
+    <div class="row m-0">
+        <div class="col-6 col-md-4 col-lg-3 col-xl-2 p-3" *ngFor="let item of memoryFolders">
+    
+            <div class="memory-folders-pic pointer" [routerLink]="['/memories/folder',item?.id]">
+                <!-- <img *ngIf="!item?.image_path" src="../../../assets/images/mask-group.png"> -->
+                <img *ngIf="item?.image_path" [src]="item?.image_path">
+            </div>
+            <h6>
+                <a class="text-decoration-none text-link">
+                    <app-editable-heading [text]="item.folder_name" (newValue)="renameFolder($event)"></app-editable-heading>
+                </a>
+            </h6>
+    
+        </div>
+        <div *ngIf="!isKeyHolder" class="col-6 col-md-4 col-lg-3 col-xl-2 p-3">
+            <div class="memory-folders-pic add-memory-folder pointer" (click)="openMemoryFolderPopup()">
+            </div>
+        </div>
+    </div>
+
+    
+</div>

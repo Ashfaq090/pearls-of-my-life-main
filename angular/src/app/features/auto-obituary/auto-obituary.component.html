@@ -1,0 +1,190 @@
+<!-- src/app/pages/auto-obituary/auto-obituary.component.html -->
+<div class="page-container">
+  <app-hero title="Auto-Obituary" bgImage="assets/auto-orbituary.jpg"></app-hero>
+  <app-nav-bar></app-nav-bar>
+
+  <section class="content-section" >
+    <div class="container">
+
+      <div class="key-holder-row">
+        <div class="key-holder-card">
+          <div class="icon-container">
+            <img src="assets/icons/side-bar/key-holders.svg" alt="Key Holder Icon" />
+          </div>
+          <h2>Key holder</h2>
+          <p>
+            Enter information for up to 2 keyholders. A Keyholder should be
+            someone you trust to carry out your final wishes for your homegoing
+            services. Complete the key holder information and an email will be
+            sent to verify their acceptance. Keyholders will be allowed access
+            to the account with viewing and printing capability only. They are
+            not editing ability.
+          </p>
+          <div class="learn-more">
+            <a routerLink="/obituary" (click)="scrollToTop()">Learn more <span class="icon">↗</span></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-plan-row">
+
+        <!-- LEFT: plan summary -->
+        <div class="obituary-plan">
+          <h2>Auto-Obituary Plan</h2>
+          <div class="price">
+            <span class="dollar">$</span>
+            <span class="amount">0</span>
+          </div>
+          <p>Includes basic obituary information to be placed in your funeral program.</p>
+
+          <div class="form-fields">
+            <div class="form-field">Birth Name (First / Middle / Last)</div>
+            <div class="form-field">Married Name (First / Middle / Last)</div>
+            <div class="form-field">Current Name (First / Middle / Last)</div>
+            <div class="form-field">Birth City / Birth State</div>
+            <div class="form-field">Parents (mother / father) and step-parents</div>
+            <div class="form-field">Child(ren) names and Living/Deceased</div>
+            <div class="form-field">Siblings names and relationship</div>
+          </div>
+
+          <div class="cta-button">
+            <button class="black-btn" (click)="scrollToTop()">Get It Now!</button>
+          </div>
+        </div>
+
+        <!-- RIGHT: detailed form -->
+        <!-- <div class="obituary-form">
+          <h2>Auto-Obituary Form</h2>
+
+          <form (submit)="onSubmit($event)">
+
+            <div class="field-group">
+              <label>Birth Name</label>
+              <div class="triple">
+                <input type="text" placeholder="First name" [(ngModel)]="form.birthName.first" name="birthFirst"/>
+                <input type="text" placeholder="Middle name" [(ngModel)]="form.birthName.middle" name="birthMiddle"/>
+                <input type="text" placeholder="Last name" [(ngModel)]="form.birthName.last" name="birthLast"/>
+              </div>
+            </div>
+
+            <div class="field-group">
+              <label>Married Name</label>
+              <div class="triple">
+                <input type="text" placeholder="First name" [(ngModel)]="form.marriedName.first" name="marriedFirst"/>
+                <input type="text" placeholder="Middle name" [(ngModel)]="form.marriedName.middle" name="marriedMiddle"/>
+                <input type="text" placeholder="Last name" [(ngModel)]="form.marriedName.last" name="marriedLast"/>
+              </div>
+            </div>
+
+            <div class="field-group">
+              <label>Current Name</label>
+              <div class="triple">
+                <input type="text" placeholder="First name" [(ngModel)]="form.currentName.first" name="currentFirst"/>
+                <input type="text" placeholder="Middle name" [(ngModel)]="form.currentName.middle" name="currentMiddle"/>
+                <input type="text" placeholder="Last name" [(ngModel)]="form.currentName.last" name="currentLast"/>
+              </div>
+            </div>
+
+            <div class="field-group">
+              <label>Birthplace</label>
+              <div class="double">
+                <input type="text" placeholder="Birth City" [(ngModel)]="form.birthCity" name="birthCity"/>
+                <input type="text" placeholder="Birth State" [(ngModel)]="form.birthState" name="birthState"/>
+              </div>
+            </div>
+
+            <div class="field-group parents-group">
+              <label>Biological Mother</label>
+              <div class="triple">
+                <input type="text" placeholder="First" [(ngModel)]="form.mother.first" name="motherFirst"/>
+                <input type="text" placeholder="Middle" [(ngModel)]="form.mother.middle" name="motherMiddle"/>
+                <input type="text" placeholder="Last" [(ngModel)]="form.mother.last" name="motherLast"/>
+              </div>
+
+              <label>Biological Father</label>
+              <div class="triple">
+                <input type="text" placeholder="First" [(ngModel)]="form.father.first" name="fatherFirst"/>
+                <input type="text" placeholder="Middle" [(ngModel)]="form.father.middle" name="fatherMiddle"/>
+                <input type="text" placeholder="Last" [(ngModel)]="form.father.last" name="fatherLast"/>
+              </div>
+
+              <label>Stepmother</label>
+              <div class="triple">
+                <input type="text" placeholder="First" [(ngModel)]="form.stepMother.first" name="stepMotherFirst"/>
+                <input type="text" placeholder="Middle" [(ngModel)]="form.stepMother.middle" name="stepMotherMiddle"/>
+                <input type="text" placeholder="Last" [(ngModel)]="form.stepMother.last" name="stepMotherLast"/>
+              </div>
+
+              <label>Stepfather</label>
+              <div class="triple">
+                <input type="text" placeholder="First" [(ngModel)]="form.stepFather.first" name="stepFatherFirst"/>
+                <input type="text" placeholder="Middle" [(ngModel)]="form.stepFather.middle" name="stepFatherMiddle"/>
+                <input type="text" placeholder="Last" [(ngModel)]="form.stepFather.last" name="stepFatherLast"/>
+              </div>
+            </div>
+
+            <div class="field-group list-group">
+              <label>
+                Children
+                <button type="button" class="add-btn" (click)="addChild()">+ Add child</button>
+              </label>
+
+              <div *ngFor="let c of form.children; let i = index" class="list-item">
+                <div class="triple">
+                  <input type="text" placeholder="First" [(ngModel)]="c.first" name="childFirst{{i}}"/>
+                  <input type="text" placeholder="Middle" [(ngModel)]="c.middle" name="childMiddle{{i}}"/>
+                  <input type="text" placeholder="Last" [(ngModel)]="c.last" name="childLast{{i}}"/>
+                </div>
+
+                <div class="child-meta">
+                  <input type="text" placeholder="Relationship (e.g., son, daughter)" [(ngModel)]="c.relationship" name="childRel{{i}}"/>
+                  <label class="living-checkbox">
+                    <input type="checkbox" [(ngModel)]="c.isLiving" name="childLiving{{i}}"/>
+                    Living
+                  </label>
+                  <button type="button" class="remove-btn" (click)="removeChild(i)">Remove</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="field-group list-group">
+              <label>
+                Siblings & relatives
+                <button type="button" class="add-btn" (click)="addSibling()">+ Add sibling/relative</button>
+              </label>
+
+              <div *ngFor="let s of form.siblings; let i = index" class="list-item">
+                <div class="triple">
+                  <input type="text" placeholder="First" [(ngModel)]="s.first" name="sibFirst{{i}}"/>
+                  <input type="text" placeholder="Middle" [(ngModel)]="s.middle" name="sibMiddle{{i}}"/>
+                  <input type="text" placeholder="Last" [(ngModel)]="s.last" name="sibLast{{i}}"/>
+                </div>
+
+                <div class="child-meta">
+                  <input type="text" placeholder="Relationship description (e.g., cousin, half-sibling)" [(ngModel)]="s.relationship" name="sibRel{{i}}"/>
+                  <button type="button" class="remove-btn" (click)="removeSibling(i)">Remove</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" class="gradient-green" (click)="scrollToTop()">
+                Save / Continue
+              </button>
+            </div>
+          </form>
+        </div> -->
+      </div>
+    </div>
+  </section>
+
+  <!-- <section class="upgrade-section">
+    <div class="container">
+      <div class="upgrade-button-container">
+        <button class="gradient-orange" (click)="goToPage()">Upgrade Your Plan</button>
+      </div>
+    </div>
+  </section> -->
+</div>
+
+<app-footer></app-footer>

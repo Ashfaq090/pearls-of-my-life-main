@@ -1,0 +1,148 @@
+<div class="admin-users">
+  <div class="page-header mb-4">
+    <h2>User Management</h2>
+    <p class="text-muted">Manage all users in the system</p>
+  </div>
+
+  <!-- Filters -->
+  <div class="card mb-4">
+    <div class="card-body">
+      <div class="row g-3">
+        <div class="col-md-6">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Search by name or email..."
+            [(ngModel)]="searchTerm"
+            (keyup.enter)="onSearch()"
+          />
+        </div>
+        <div class="col-md-3">
+          <select class="form-select" [(ngModel)]="statusFilter" (change)="onStatusChange()">
+            <option value="all">All Status</option>
+            <option value="active">Active</option>
+            <option value="inactive">Inactive</option>
+            <option value="terminated">Terminated</option>
+          </select>
+        </div>
+        <div class="col-md-3">
+          <button class="btn btn-primary w-100" (click)="onSearch()">
+            <i class="bi bi-search"></i> Search
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Users Table -->
+  <div class="card">
+    <div class="card-body">
+      <div *ngIf="loading" class="text-center py-5">
+        <div class="spinner-border text-primary" role="status"></div>
+      </div>
+
+      <div *ngIf="!loading">
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Status</th>
+                <th>Created</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let user of users">
+                <td>{{ user.first_name }} {{ user.last_name }}</td>
+                <td>{{ user.email }}</td>
+                <td>
+                  <span class="badge bg-secondary">{{ user.role }}</span>
+                </td>
+                <td>
+                  <span
+                    class="badge"
+                    [ngClass]="{
+                      'bg-success': user.is_active && !user.is_terminated,
+                      'bg-warning': !user.is_active && !user.is_terminated,
+                      'bg-danger': user.is_terminated
+                    }"
+                  >
+                    {{
+                      user.is_terminated
+                        ? 'Terminated'
+                        : user.is_active
+                        ? 'Active'
+                        : 'Inactive'
+                    }}
+                  </span>
+                </td>
+                <td>{{ user.created_on | date: 'short' }}</td>
+                <td>
+                  <div class="btn-group" role="group">
+                    <button
+                      class="btn btn-outline-primary"
+                      (click)="viewUser(user.id)"
+                      title="View Details"
+                    >
+                      <i class="bi bi-eye"></i> View
+                    </button>
+                    <button
+                      *ngIf="!user.is_active && !user.is_terminated"
+                      class="btn btn-outline-success"
+                      (click)="activateUser(user.id)"
+                      title="Activate"
+                    >
+                      <i class="bi bi-check-circle"></i> Activate
+                    </button>
+                    <button
+                      *ngIf="user.is_active && !user.is_terminated"
+                      class="btn btn-outline-warning"
+                      (click)="deactivateUser(user.id)"
+                      title="Deactivate"
+                    >
+                      <i class="bi bi-x-circle"></i> Deactivate
+                    </button>
+                    <button
+                      *ngIf="!user.is_terminated"
+                      class="btn btn-outline-danger"
+                      (click)="terminateUser(user.id)"
+                      title="Terminate"
+                    >
+                      <i class="bi bi-trash"></i> Terminate
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              <tr *ngIf="users.length === 0">
+                <td colspan="6" class="text-center text-muted py-4">No users found</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Pagination -->
+        <nav *ngIf="totalPages > 1" class="mt-3">
+          <ul class="pagination justify-content-center">
+            <li class="page-item" [class.disabled]="page === 1">
+              <a class="page-link" (click)="goToPage(page - 1)">Previous</a>
+            </li>
+            <li
+              class="page-item"
+              *ngFor="let p of [].constructor(totalPages); let i = index"
+              [class.active]="page === i + 1"
+            >
+              <a class="page-link" (click)="goToPage(i + 1)">{{ i + 1 }}</a>
+            </li>
+            <li class="page-item" [class.disabled]="page === totalPages">
+              <a class="page-link" (click)="goToPage(page + 1)">Next</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</div>
+

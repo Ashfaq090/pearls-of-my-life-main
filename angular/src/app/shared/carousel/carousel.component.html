@@ -1,0 +1,28 @@
+<div class="modal-header">
+    <h4 class="modal-title">{{data.heading}}</h4>
+    <button type="button" class="btn" aria-label="Close" (click)="closeModal()">
+        <img src="../../../../assets/icons/form/close-lg.svg">
+    </button>
+</div>
+
+
+<div class="modal-body">
+    <ngb-carousel *ngIf="data.images.length" class="fixed-carousel position-relative">
+        <ng-template ngbSlide *ngFor="let img of data.images; let i = index" [id]="'slide-' + i">
+            <div class="img-box">
+                <img [src]="img.url" class="d-block w-100 carousel-image" alt="Slide {{ i + 1 }}">
+            </div>
+            <div class="carousel-caption position-absolute">
+                <h5 *ngIf="img.date">{{img.date | date: 'mediumDate'}}</h5>
+                <p *ngIf="img.description">{{img?.description}}</p>
+            </div>
+        </ng-template>
+    </ngb-carousel>
+</div>
+
+<div class="modal-footer d-flex justify-content-end">
+        
+    <button class="btn submit-button" (click)="closeModal()">
+        Close
+    </button>
+</div>

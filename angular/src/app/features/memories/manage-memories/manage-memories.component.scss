@@ -1,0 +1,31 @@
+.manage-memories{
+    .profile-pic{
+        position: relative;
+        width: 188px;
+        height: 188px;
+        img{
+            width: 100%;
+        }
+        .w-100{
+            border-radius: 5%;
+            border: 2px dashed gray;
+            overflow: hidden;
+            width: 188px;
+            height: 188px;
+            img{
+                width: 188px;
+                height: 188px;
+            }
+        }
+        button{
+            position: absolute;
+            height: auto;
+            padding: 8px;
+            bottom: 4px;
+            right: 4px;
+        }
+    }
+    textarea{
+        resize: none;
+    }
+}

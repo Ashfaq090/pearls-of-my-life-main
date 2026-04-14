@@ -1,0 +1,66 @@
+.header {
+    .current-plan {
+        background-color: #FBAB7E;
+        background-image: linear-gradient(62deg, #FBAB7E 0%, #F7CE68 100%);
+        color: #fff;
+    }
+    .dropdown {
+        .dropdown-toggle::after {
+            display: none;
+        }
+
+        .dropdown-menu {
+            background-color: #FBAB7E;
+            background-image: linear-gradient(62deg, #FBAB7E 0%, #F7CE68 100%);
+
+            .dropdown-item {
+                cursor: pointer;
+
+                &:hover {
+                    background-color: #FBAB7E;
+                    background-image: linear-gradient(62deg, #FBAB7E 0%, #F7CE68 100%);
+                    color: #fff;
+                }
+            }
+        }
+    }
+}
+
+.nav-link img {
+    border-radius: 20px;
+    // margin-top: 20px;
+}
+
+// Mobile responsiveness
+@media (max-width: 768px) {
+    .header {
+        padding: 1rem 0.5rem !important;
+        
+        .d-md-flex {
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .dropdown {
+            .dropdown-menu {
+                right: 0;
+                left: auto;
+            }
+        }
+    }
+}
+
+@media (max-width: 480px) {
+    .header {
+        padding: 0.75rem 0.5rem !important;
+        
+        h5 {
+            font-size: 1rem;
+        }
+        
+        .nav-link img {
+            width: 32px;
+            height: 32px;
+        }
+    }
+}

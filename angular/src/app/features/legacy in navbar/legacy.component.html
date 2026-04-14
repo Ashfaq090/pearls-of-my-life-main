@@ -1,0 +1,216 @@
+<!-- src/app/pages/legacy/legacy.component.html -->
+<div class="page-container">
+  <app-hero
+    title="Legacy"
+    bgImage="/assets/hero_bg_pol.jpg"
+    subtitle="Your Whole Life Is A Legacy"
+  >
+  </app-hero>
+  <app-nav-bar></app-nav-bar>
+  <section class="legacy-cards-section">
+    <div class="container">
+      <div class="legacy-cards">
+        <div
+          *ngFor="let card of legacyCards"
+          class="legacy-card"
+          [ngClass]="'gradient-' + card.gradient"
+        >
+          <div class="icon-container">
+            <img [src]="card.icon" alt="Feature icon" />
+          </div>
+          <h2>{{ card.title }}</h2>
+          <p>{{ card.description }}</p>
+          <!-- <div class="learn-more">
+            <a href="#">Learn more <i class="fas fa-arrow-right ms-1" aria-hidden="true"></i></a>
+          </div> -->
+          <div class="learn-more">
+            <a
+              [routerLink]="card.route || '/legacy'"
+              (click)="handleCardClick(card, $event)"
+              >Learn more <i class="fas fa-arrow-right ms-1" aria-hidden="true"></i></a
+            >
+          </div>
+          <div
+            class="text-center mt-2"
+            *ngIf="card.title === 'Video Box' || card.title === 'Written Notes'"
+          >
+            <span
+              class="text-decoration-underline"
+              role="button"
+              (click)="openMomentsModal()"
+            >
+              Suggestions for moments to share
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="plan-cards-section">
+    <div class="container">
+      <div class="plan-cards">
+        <div
+          *ngFor="let plan of (apiPlans.length ? apiPlans : planCards)"
+          class="plan-card"
+          [ngClass]="(plan?.title === 'Advanced Auto-Obituary Plan' || plan?.name === 'Advanced Auto-Obituary Plan') ? 'gradient-blue' : 'gradient-yellow'"
+        >
+          <h2>{{ plan.title }}</h2>
+          <div class="price">
+            <span class="dollar">$</span>
+            <span class="amount">{{ getDisplayYearly(plan) }}</span>
+            <span class="period">/year</span>
+          </div>
+          <span class="annual-note">{{ getMembershipLabel(plan) }}</span>
+          <span class="auto-renewal">{{ plan.auto }}</span>
+          <p class="description">{{ plan.description }}</p>
+          <ul class="features">
+            <li *ngFor="let feature of (plan.featuresList || plan.features)">
+              {{ feature }}
+            </li>
+          </ul>
+          <div class="cta-button">
+            <app-button (click)="scrollToTop()" variant="primary"
+              >Get It Now!</app-button
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="moments-to-share-btn-wrapper">
+      <button class="moments-to-share-btn" (click)="openMomentsModal()">
+        Moments To Share
+      </button>
+    </div> -->
+    <div class="moments-description">
+      <!-- <div class="modal-content">
+        <h2>Moments to Share Suggestion</h2>
+        <p>
+          Below are some examples of memories you can share when leaving the
+          details of the life your living. Remember…Your whole life is your
+          legacy. The experiences, laughter, lessons, etc. Let’s get started!
+        </p>
+        <ul>
+          <li>Favorite memories about your friends (childhood, adulthood)</li>
+          <li>
+            Family pictures. Explain who the people are in the picture; where
+            and when that picture was taken; who took the picture; what led up
+            to the event that day, etc.
+          </li>
+          <li>
+            Explain some of the best foods you’ve ever tasted; where you tasted;
+            who made it; who makes it best in your opinion; why you are partial
+            to this/these foods.
+          </li>
+          <li>List some of your favorite places to visit, and why.</li>
+          <li>
+            Reminisce about some of your favorite childhood games; how to play
+            them; why you enjoyed them.
+          </li>
+          <li>
+            Something learned/remembered in church, at a friend’s house, in
+            school, by a stranger, by a famous person.
+          </li>
+          <li>
+            Talk to your family and share a life lesson you’ve come to
+            understand; or one you are struggling to get. (It’s OK to be
+            vulnerable)
+          </li>
+          <li>
+            Talk about a favorite song to share and who, what or where it
+            reminds you of.
+          </li>
+          <li>Send a loving message to someone specific.</li>
+        </ul>
+        <p>
+          There are many more subjects you can pick from life’s journey to leave
+          for relatives to enjoy and remember you.
+        </p>
+      </div> -->
+      <p>
+        PEARLS OF MY LYFE are the things that I have cherished the most. There
+        are many experiences that bring us joy and we wish to share with family.
+        Things like the old neighborhood, spending time with grandparents, old
+        friends, old hangout places, the way things used to be or older family
+        members who instilled value in you.
+      </p>
+      <p>
+        These are all pearls that each one of us have experienced and know carry
+        with us. They should not be tossed away or forgotten upon our graduation
+        into eternity.
+      </p>
+      <p>
+        What if POML existed in the past? You could click a place in this
+        website and see an old family member talking to you about the things
+        they cherished the most and want to leave the memory behind for you to
+        have (smile); or what if they left behind some wisdom that could keep
+        you out of trouble and on a good path in life. That is how it is
+        supposed to be, family passing down traditions, wisdom, knowledge and
+        many other things.
+      </p>
+      <p>
+        Sometimes we don’t have the words when we are in front of loved ones.
+        Some relationships are estranged and it’s hard to communicate. You still
+        care about them and have value to give them. Now, you can take your
+        time, think about what this life and your loved ones have meant to you;
+        and leave it all in your PEARLS OF MY LYFE account.
+      </p>
+      <p>
+        If you don’t know where to start and need help. Visit the “moments to
+        share” section to spark ideas.
+      </p>
+    </div>
+    <div class="moments-modal-backdrop" *ngIf="showMomentsModal">
+      <div class="moments-modal">
+        <button class="close-btn" (click)="closeMomentsModal()">
+          &#10005;
+        </button>
+        <h2>Moments to Share Suggestion</h2>
+        <div class="modal-content">
+          <p>
+            Below are some examples of memories you can share when leaving the
+            details of the life your living. Remember…Your whole life is your
+            legacy. The experiences, laughter, lessons, etc. Let’s get started!
+          </p>
+          <ul>
+            <li>Favorite memories about your friends (childhood, adulthood)</li>
+            <li>
+              Family pictures. Explain who the people are in the picture; where
+              and when that picture was taken; who took the picture; what led up
+              to the event that day, etc.
+            </li>
+            <li>
+              Explain some of the best foods you’ve ever tasted; where you
+              tasted; who made it; who makes it best in your opinion; why you
+              are partial to this/these foods.
+            </li>
+            <li>List some of your favorite places to visit, and why.</li>
+            <li>
+              Reminisce about some of your favorite childhood games; how to play
+              them; why you enjoyed them.
+            </li>
+            <li>
+              Something learned/remembered in church, at a friend’s house, in
+              school, by a stranger, by a famous person.
+            </li>
+            <li>
+              Talk to your family and share a life lesson you’ve come to
+              understand; or one you are struggling to get. (It’s OK to be
+              vulnerable)
+            </li>
+            <li>
+              Talk about a favorite song to share and who, what or where it
+              reminds you of.
+            </li>
+            <li>Send a loving message to someone specific.</li>
+          </ul>
+          <p>
+            There are many more subjects you can pick from life’s journey to
+            leave for relatives to enjoy and remember you.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+<app-footer></app-footer>

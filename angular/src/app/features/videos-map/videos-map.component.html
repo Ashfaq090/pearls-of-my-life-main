@@ -1,0 +1,36 @@
+<div class="videos-map-page">
+  <div class="page-header mb-4">
+    <h2>RELAX, REMEMBER & RECORD YOUR LEGACY MEMORIES HERE</h2>
+    <p class="text-muted">
+      Use the stages below to guide your recordings and capture the moments
+      that matter most.
+    </p>
+  </div>
+
+  <div class="videos-map-grid">
+    <svg
+      class="videos-map-connectors"
+      viewBox="0 0 100 100"
+      preserveAspectRatio="none"
+      aria-hidden="true"
+    >
+      <line x1="50" y1="16.6" x2="16.6" y2="16.6"></line>
+      <line x1="16.6" y1="16.6" x2="83.3" y2="16.6"></line>
+      <line x1="83.3" y1="16.6" x2="83.3" y2="50"></line>
+      <line x1="83.3" y1="50" x2="50" y2="50"></line>
+      <line x1="50" y1="50" x2="16.6" y2="50"></line>
+      <line x1="16.6" y1="50" x2="16.6" y2="83.3"></line>
+    </svg>
+
+    <button
+      *ngFor="let stage of renderedStages; let i = index"
+      type="button"
+      class="stage-circle-btn"
+      [ngClass]="gradientClasses[i]"
+      [style.gridArea]="areaMap[stage.key]"
+      (click)="goToStage(stage.key)"
+    >
+      {{ stage.label }}
+    </button>
+  </div>
+</div>

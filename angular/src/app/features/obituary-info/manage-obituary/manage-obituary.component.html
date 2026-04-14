@@ -1,0 +1,1016 @@
+<div class="modal-header">
+  <h4 class="modal-title">{{ data.name }} Obituary Information</h4>
+  <button type="button" class="btn" aria-label="Close" (click)="closeModal()">
+    <img src="../../../../assets/icons/form/close-lg.svg" />
+  </button>
+</div>
+
+<form [formGroup]="obituaryForm" (submit)="submit()">
+  <div class="modal-body" style="max-height: 70vh; overflow-y: auto;">
+    <!-- Basic Information -->
+    <div class="row mb-3">
+      <div class="col-md-4">
+        <div class="form-group">
+          <label for="birth_name" class="col-form-label">Birth Name*</label>
+          <input
+            type="text"
+            class="form-control"
+            [class.is-invalid]="
+              obituaryForm.get('birth_name')?.touched &&
+              obituaryForm.get('birth_name')?.invalid
+            "
+            id="birth_name"
+            formControlName="birth_name"
+            placeholder="Full birth name"
+          />
+          <div
+            class="invalid-feedback"
+            *ngIf="obituaryForm.get('birth_name')?.errors?.['required'] && obituaryForm.get('birth_name')?.touched"
+          >
+            Birth name is required
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label for="married_name" class="col-form-label">Married Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="married_name"
+            formControlName="married_name"
+            placeholder="Married name (if applicable)"
+          />
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label for="current_name" class="col-form-label">Current Name*</label>
+          <input
+            type="text"
+            class="form-control"
+            [class.is-invalid]="
+              obituaryForm.get('current_name')?.touched &&
+              obituaryForm.get('current_name')?.invalid
+            "
+            id="current_name"
+            formControlName="current_name"
+            placeholder="Current legal name"
+          />
+          <div
+            class="invalid-feedback"
+            *ngIf="obituaryForm.get('current_name')?.errors?.['required'] && obituaryForm.get('current_name')?.touched"
+          >
+            Current name is required
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-md-4">
+        <div class="form-group">
+          <label for="birth_date" class="col-form-label">Birth Date* (MM-DD-YY)</label>
+          <input
+            type="date"
+            class="form-control"
+            [class.is-invalid]="
+              obituaryForm.get('birth_date')?.touched &&
+              obituaryForm.get('birth_date')?.invalid
+            "
+            id="birth_date"
+            formControlName="birth_date"
+          />
+          <div
+            class="invalid-feedback"
+            *ngIf="obituaryForm.get('birth_date')?.errors?.['required'] && obituaryForm.get('birth_date')?.touched"
+          >
+            Birth date is required
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label for="birth_city" class="col-form-label">Birth City*</label>
+          <input
+            type="text"
+            class="form-control"
+            [class.is-invalid]="
+              obituaryForm.get('birth_city')?.touched &&
+              obituaryForm.get('birth_city')?.invalid
+            "
+            id="birth_city"
+            formControlName="birth_city"
+            placeholder="City of birth"
+          />
+          <div
+            class="invalid-feedback"
+            *ngIf="obituaryForm.get('birth_city')?.errors?.['required'] && obituaryForm.get('birth_city')?.touched"
+          >
+            Birth city is required
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label for="birth_state" class="col-form-label">Birth State*</label>
+          <input
+            type="text"
+            class="form-control"
+            [class.is-invalid]="
+              obituaryForm.get('birth_state')?.touched &&
+              obituaryForm.get('birth_state')?.invalid
+            "
+            id="birth_state"
+            formControlName="birth_state"
+            placeholder="State of birth"
+          />
+          <div
+            class="invalid-feedback"
+            *ngIf="obituaryForm.get('birth_state')?.errors?.['required'] && obituaryForm.get('birth_state')?.touched"
+          >
+            Birth state is required
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Biological Parents -->
+    <div class="card mb-3">
+      <div class="card-header">
+        <h5>Biological Parents</h5>
+      </div>
+      <div class="card-body">
+        <div class="row mb-3">
+          <div class="col-12">
+            <label class="form-label">Biological Mother</label>
+          </div>
+          <div class="col-md-4">
+            <input
+              type="text"
+              class="form-control"
+              formControlName="biological_mother_first"
+              placeholder="First Name"
+            />
+          </div>
+          <div class="col-md-4">
+            <input
+              type="text"
+              class="form-control"
+              formControlName="biological_mother_middle"
+              placeholder="Middle Name"
+            />
+          </div>
+          <div class="col-md-4">
+            <input
+              type="text"
+              class="form-control"
+              formControlName="biological_mother_last"
+              placeholder="Last Name"
+            />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <label class="form-label">Biological Father</label>
+          </div>
+          <div class="col-md-4">
+            <input
+              type="text"
+              class="form-control"
+              formControlName="biological_father_first"
+              placeholder="First Name"
+            />
+          </div>
+          <div class="col-md-4">
+            <input
+              type="text"
+              class="form-control"
+              formControlName="biological_father_middle"
+              placeholder="Middle Name"
+            />
+          </div>
+          <div class="col-md-4">
+            <input
+              type="text"
+              class="form-control"
+              formControlName="biological_father_last"
+              placeholder="Last Name"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step Parents -->
+    <div class="card mb-3">
+      <div class="card-header">
+        <h5>Step Parents (Optional)</h5>
+      </div>
+      <div class="card-body">
+        <div class="row mb-3">
+          <div class="col-12">
+            <label class="form-label">Stepmother</label>
+          </div>
+          <div class="col-md-4">
+            <input
+              type="text"
+              class="form-control"
+              formControlName="stepmother_first"
+              placeholder="First Name"
+            />
+          </div>
+          <div class="col-md-4">
+            <input
+              type="text"
+              class="form-control"
+              formControlName="stepmother_middle"
+              placeholder="Middle Name"
+            />
+          </div>
+          <div class="col-md-4">
+            <input
+              type="text"
+              class="form-control"
+              formControlName="stepmother_last"
+              placeholder="Last Name"
+            />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <label class="form-label">Stepfather</label>
+          </div>
+          <div class="col-md-4">
+            <input
+              type="text"
+              class="form-control"
+              formControlName="stepfather_first"
+              placeholder="First Name"
+            />
+          </div>
+          <div class="col-md-4">
+            <input
+              type="text"
+              class="form-control"
+              formControlName="stepfather_middle"
+              placeholder="Middle Name"
+            />
+          </div>
+          <div class="col-md-4">
+            <input
+              type="text"
+              class="form-control"
+              formControlName="stepfather_last"
+              placeholder="Last Name"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="spouse_name" class="col-form-label">
+            Married (Full Name of Spouse)
+          </label>
+          <input
+            type="text"
+            class="form-control"
+            id="spouse_name"
+            formControlName="spouse_name"
+            placeholder="Spouse's full name"
+          />
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="spouse_marriage_date" class="col-form-label">
+            Date of Marriage
+          </label>
+          <input
+            type="date"
+            class="form-control"
+            id="spouse_marriage_date"
+            formControlName="spouse_marriage_date"
+          />
+        </div>
+      </div>
+    </div>
+
+    <!-- Children Section -->
+    <div class="card mb-3">
+      <div
+        class="card-header d-flex justify-content-between align-items-center"
+      >
+        <h5>Children</h5>
+        <button
+          type="button"
+          class="btn btn-sm btn-success"
+          (click)="saveAndAddChild('children')"
+        >
+          Save & Add Another Child
+        </button>
+      </div>
+      <div class="card-body">
+        <div formArrayName="children">
+          <div
+            *ngFor="let child of childrenArray.controls; let i = index"
+            [formGroupName]="i"
+            class="row mb-3 border-bottom pb-3"
+          >
+            <div class="col-md-3">
+              <input
+                type="text"
+                class="form-control"
+                [class.is-invalid]="
+                  child.get('first')?.touched && child.get('first')?.invalid
+                "
+                placeholder="First Name*"
+                formControlName="first"
+              />
+            </div>
+            <div class="col-md-3">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Middle Name"
+                formControlName="middle"
+              />
+            </div>
+            <div class="col-md-3">
+              <input
+                type="text"
+                class="form-control"
+                [class.is-invalid]="
+                  child.get('last')?.touched && child.get('last')?.invalid
+                "
+                placeholder="Last Name*"
+                formControlName="last"
+              />
+            </div>
+            <div class="col-md-3">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Relationship"
+                formControlName="relationship"
+              />
+            </div>
+            <div class="col-md-4 mt-2">
+              <label class="col-form-label">Date of Birth* (MM-DD-YY)</label>
+              <input
+                type="date"
+                class="form-control"
+                [class.is-invalid]="
+                  child.get('dateOfBirth')?.touched &&
+                  child.get('dateOfBirth')?.invalid
+                "
+                formControlName="dateOfBirth"
+              />
+            </div>
+            <div class="col-md-4 mt-2">
+              <div class="form-check mt-4">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  [checked]="!(child.get('isLiving')?.value)"
+                  (change)="onChildLivingToggle(child, $event)"
+                  id="childLiving{{i}}"
+                />
+                <label class="form-check-label" for="childLiving{{i}}">
+                  Deceased
+                </label>
+              </div>
+            </div>
+            <div class="col-md-4 mt-2">
+              <button
+                type="button"
+                class="btn btn-danger btn-sm mt-4"
+                (click)="removeChild('children', i)"
+              >
+                Remove
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="spouse2_name" class="col-form-label">
+            2nd Married (Full Name of Spouse)
+          </label>
+          <input
+            type="text"
+            class="form-control"
+            id="spouse2_name"
+            formControlName="spouse2_name"
+            placeholder="Spouse's full name"
+          />
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="spouse2_marriage_date" class="col-form-label">
+            Date of Marriage
+          </label>
+          <input
+            type="date"
+            class="form-control"
+            id="spouse2_marriage_date"
+            formControlName="spouse2_marriage_date"
+          />
+        </div>
+      </div>
+    </div>
+
+    <!-- 2nd Children Section -->
+    <div class="card mb-3">
+      <div
+        class="card-header d-flex justify-content-between align-items-center"
+      >
+        <h5>Children</h5>
+        <button
+          type="button"
+          class="btn btn-sm btn-success"
+          (click)="saveAndAddChild('children2')"
+        >
+          Save & Add Another Child
+        </button>
+      </div>
+      <div class="card-body">
+        <div formArrayName="children2">
+          <div
+            *ngFor="let child of children2Array.controls; let i = index"
+            [formGroupName]="i"
+            class="row mb-3 border-bottom pb-3"
+          >
+            <div class="col-md-3">
+              <input
+                type="text"
+                class="form-control"
+                [class.is-invalid]="
+                  child.get('first')?.touched && child.get('first')?.invalid
+                "
+                placeholder="First Name*"
+                formControlName="first"
+              />
+            </div>
+            <div class="col-md-3">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Middle Name"
+                formControlName="middle"
+              />
+            </div>
+            <div class="col-md-3">
+              <input
+                type="text"
+                class="form-control"
+                [class.is-invalid]="
+                  child.get('last')?.touched && child.get('last')?.invalid
+                "
+                placeholder="Last Name*"
+                formControlName="last"
+              />
+            </div>
+            <div class="col-md-3">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Relationship"
+                formControlName="relationship"
+              />
+            </div>
+            <div class="col-md-4 mt-2">
+              <label class="col-form-label">Date of Birth* (MM-DD-YY)</label>
+              <input
+                type="date"
+                class="form-control"
+                [class.is-invalid]="
+                  child.get('dateOfBirth')?.touched &&
+                  child.get('dateOfBirth')?.invalid
+                "
+                formControlName="dateOfBirth"
+              />
+            </div>
+            <div class="col-md-4 mt-2">
+              <div class="form-check mt-4">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  [checked]="!(child.get('isLiving')?.value)"
+                  (change)="onChildLivingToggle(child, $event)"
+                  id="child2Living{{i}}"
+                />
+                <label class="form-check-label" for="child2Living{{i}}">
+                  Deceased
+                </label>
+              </div>
+            </div>
+            <div class="col-md-4 mt-2">
+              <button
+                type="button"
+                class="btn btn-danger btn-sm mt-4"
+                (click)="removeChild('children2', i)"
+              >
+                Remove
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="spouse3_name" class="col-form-label">
+            3rd Married (Full Name of Spouse)
+          </label>
+          <input
+            type="text"
+            class="form-control"
+            id="spouse3_name"
+            formControlName="spouse3_name"
+            placeholder="Spouse's full name"
+          />
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="spouse3_marriage_date" class="col-form-label">
+            Date of Marriage
+          </label>
+          <input
+            type="date"
+            class="form-control"
+            id="spouse3_marriage_date"
+            formControlName="spouse3_marriage_date"
+          />
+        </div>
+      </div>
+    </div>
+
+    <!-- 3rd Children Section -->
+    <div class="card mb-3">
+      <div
+        class="card-header d-flex justify-content-between align-items-center"
+      >
+        <h5>Children</h5>
+        <button
+          type="button"
+          class="btn btn-sm btn-success"
+          (click)="saveAndAddChild('children3')"
+        >
+          Save & Add Another Child
+        </button>
+      </div>
+      <div class="card-body">
+        <div formArrayName="children3">
+          <div
+            *ngFor="let child of children3Array.controls; let i = index"
+            [formGroupName]="i"
+            class="row mb-3 border-bottom pb-3"
+          >
+            <div class="col-md-3">
+              <input
+                type="text"
+                class="form-control"
+                [class.is-invalid]="
+                  child.get('first')?.touched && child.get('first')?.invalid
+                "
+                placeholder="First Name*"
+                formControlName="first"
+              />
+            </div>
+            <div class="col-md-3">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Middle Name"
+                formControlName="middle"
+              />
+            </div>
+            <div class="col-md-3">
+              <input
+                type="text"
+                class="form-control"
+                [class.is-invalid]="
+                  child.get('last')?.touched && child.get('last')?.invalid
+                "
+                placeholder="Last Name*"
+                formControlName="last"
+              />
+            </div>
+            <div class="col-md-3">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Relationship"
+                formControlName="relationship"
+              />
+            </div>
+            <div class="col-md-4 mt-2">
+              <label class="col-form-label">Date of Birth* (MM-DD-YY)</label>
+              <input
+                type="date"
+                class="form-control"
+                [class.is-invalid]="
+                  child.get('dateOfBirth')?.touched &&
+                  child.get('dateOfBirth')?.invalid
+                "
+                formControlName="dateOfBirth"
+              />
+            </div>
+            <div class="col-md-4 mt-2">
+              <div class="form-check mt-4">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  [checked]="!(child.get('isLiving')?.value)"
+                  (change)="onChildLivingToggle(child, $event)"
+                  id="child3Living{{i}}"
+                />
+                <label class="form-check-label" for="child3Living{{i}}">
+                  Deceased
+                </label>
+              </div>
+            </div>
+            <div class="col-md-4 mt-2">
+              <button
+                type="button"
+                class="btn btn-danger btn-sm mt-4"
+                (click)="removeChild('children3', i)"
+              >
+                Remove
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Siblings Section -->
+    <div class="card mb-3">
+      <div
+        class="card-header d-flex justify-content-between align-items-center"
+      >
+        <h5>Siblings</h5>
+        <button
+          type="button"
+          class="btn btn-sm btn-success"
+          (click)="addSibling()"
+        >
+          Add Sibling
+        </button>
+      </div>
+      <div class="card-body">
+        <div formArrayName="siblings">
+          <div
+            *ngFor="let sibling of siblingsArray.controls; let i = index"
+            [formGroupName]="i"
+            class="row mb-3 border-bottom pb-3"
+          >
+            <div class="col-md-3">
+              <input
+                type="text"
+                class="form-control"
+                [class.is-invalid]="
+                  sibling.get('first')?.touched && sibling.get('first')?.invalid
+                "
+                placeholder="First Name*"
+                formControlName="first"
+              />
+            </div>
+            <div class="col-md-3">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Middle Name"
+                formControlName="middle"
+              />
+            </div>
+            <div class="col-md-3">
+              <input
+                type="text"
+                class="form-control"
+                [class.is-invalid]="
+                  sibling.get('last')?.touched && sibling.get('last')?.invalid
+                "
+                placeholder="Last Name*"
+                formControlName="last"
+              />
+            </div>
+            <div class="col-md-3">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Relationship"
+                formControlName="relationship"
+              />
+            </div>
+            <div class="col-md-4 mt-2">
+              <div class="form-check mt-4">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  formControlName="deceased"
+                  id="siblingAlive{{i}}"
+                />
+                <label class="form-check-label" for="siblingAlive{{i}}">
+                  Deceased
+                </label>
+              </div>
+            </div>
+            <div class="col-md-4 mt-2">
+              <button
+                type="button"
+                class="btn btn-danger btn-sm mt-4"
+                (click)="removeSibling(i)"
+              >
+                Remove
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="showPremiumFields">
+      <h5 class="mt-4">Advance Auto-Obituary</h5>
+
+      <div class="card mb-3">
+        <div
+          class="card-header d-flex justify-content-between align-items-center"
+        >
+          <h5>Schools (Dates & Degrees)</h5>
+          <button type="button" class="btn btn-sm btn-success" (click)="addSchool()">
+            Add School
+          </button>
+        </div>
+        <div class="card-body">
+          <div formArrayName="schools">
+            <div
+              *ngFor="let school of schoolsArray.controls; let i = index"
+              [formGroupName]="i"
+              class="row mb-3 border-bottom pb-3"
+            >
+              <div class="col-md-4">
+                <input type="text" class="form-control" formControlName="school_name" placeholder="School name" />
+              </div>
+              <div class="col-md-4">
+                <input type="text" class="form-control" formControlName="degree" placeholder="Degree" />
+              </div>
+              <div class="col-md-2">
+                <input type="date" class="form-control" formControlName="start_date" />
+              </div>
+              <div class="col-md-2">
+                <input type="date" class="form-control" formControlName="end_date" />
+              </div>
+              <div class="col-md-12 mt-2">
+                <button type="button" class="btn btn-danger btn-sm" (click)="removeSchool(i)">
+                  Remove
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card mb-3">
+        <div
+          class="card-header d-flex justify-content-between align-items-center"
+        >
+          <h5>Employment (Titles & Dates)</h5>
+          <button type="button" class="btn btn-sm btn-success" (click)="addEmployment()">
+            Add Employment
+          </button>
+        </div>
+        <div class="card-body">
+          <div formArrayName="employment">
+            <div
+              *ngFor="let job of employmentArray.controls; let i = index"
+              [formGroupName]="i"
+              class="row mb-3 border-bottom pb-3"
+            >
+              <div class="col-md-4">
+                <input type="text" class="form-control" formControlName="employer" placeholder="Employer" />
+              </div>
+              <div class="col-md-4">
+                <input type="text" class="form-control" formControlName="title" placeholder="Title" />
+              </div>
+              <div class="col-md-2">
+                <input type="date" class="form-control" formControlName="start_date" />
+              </div>
+              <div class="col-md-2">
+                <input type="date" class="form-control" formControlName="end_date" />
+              </div>
+              <div class="col-md-12 mt-2">
+                <button type="button" class="btn btn-danger btn-sm" (click)="removeEmployment(i)">
+                  Remove
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card mb-3">
+        <div
+          class="card-header d-flex justify-content-between align-items-center"
+        >
+          <h5>Career Achievements (Titles & Dates)</h5>
+          <button type="button" class="btn btn-sm btn-success" (click)="addCareerAchievement()">
+            Add Achievement
+          </button>
+        </div>
+        <div class="card-body">
+          <div formArrayName="career_achievements">
+            <div
+              *ngFor="let entry of careerAchievementsArray.controls; let i = index"
+              [formGroupName]="i"
+              class="row mb-3 border-bottom pb-3"
+            >
+              <div class="col-md-8">
+                <input type="text" class="form-control" formControlName="title" placeholder="Title" />
+              </div>
+              <div class="col-md-4">
+                <input type="date" class="form-control" formControlName="date" />
+              </div>
+              <div class="col-md-12 mt-2">
+                <button type="button" class="btn btn-danger btn-sm" (click)="removeCareerAchievement(i)">
+                  Remove
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card mb-3">
+        <div class="card-header">
+          <h5>Church Affiliation / Titles Held / Year Joined</h5>
+        </div>
+        <div class="card-body" formGroupName="church_affiliation">
+          <div class="row">
+            <div class="col-md-4">
+              <input type="text" class="form-control" formControlName="church_name" placeholder="Church name" />
+            </div>
+            <div class="col-md-4">
+              <input type="text" class="form-control" formControlName="titles_held" placeholder="Titles held" />
+            </div>
+            <div class="col-md-4">
+              <input type="text" class="form-control" formControlName="year_joined" placeholder="Year joined" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card mb-3">
+        <div
+          class="card-header d-flex justify-content-between align-items-center"
+        >
+          <h5>Other Achievements</h5>
+          <button type="button" class="btn btn-sm btn-success" (click)="addOtherAchievement()">
+            Add
+          </button>
+        </div>
+        <div class="card-body">
+          <div formArrayName="other_achievements">
+            <div
+              *ngFor="let entry of otherAchievementsArray.controls; let i = index"
+              [formGroupName]="i"
+              class="row mb-3 border-bottom pb-3"
+            >
+              <div class="col-md-10">
+                <input type="text" class="form-control" formControlName="text" placeholder="Achievement" />
+              </div>
+              <div class="col-md-2">
+                <button type="button" class="btn btn-danger btn-sm" (click)="removeOtherAchievement(i)">
+                  Remove
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card mb-3">
+        <div
+          class="card-header d-flex justify-content-between align-items-center"
+        >
+          <h5>Club Memberships</h5>
+          <button type="button" class="btn btn-sm btn-success" (click)="addClubMembership()">
+            Add
+          </button>
+        </div>
+        <div class="card-body">
+          <div formArrayName="club_memberships">
+            <div
+              *ngFor="let entry of clubMembershipsArray.controls; let i = index"
+              [formGroupName]="i"
+              class="row mb-3 border-bottom pb-3"
+            >
+              <div class="col-md-10">
+                <input type="text" class="form-control" formControlName="text" placeholder="Club membership" />
+              </div>
+              <div class="col-md-2">
+                <button type="button" class="btn btn-danger btn-sm" (click)="removeClubMembership(i)">
+                  Remove
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card mb-3">
+        <div
+          class="card-header d-flex justify-content-between align-items-center"
+        >
+          <h5>Other Group Affiliations</h5>
+          <button type="button" class="btn btn-sm btn-success" (click)="addOtherGroupAffiliation()">
+            Add
+          </button>
+        </div>
+        <div class="card-body">
+          <div formArrayName="other_group_affiliations">
+            <div
+              *ngFor="let entry of otherGroupAffiliationsArray.controls; let i = index"
+              [formGroupName]="i"
+              class="row mb-3 border-bottom pb-3"
+            >
+              <div class="col-md-10">
+                <input type="text" class="form-control" formControlName="text" placeholder="Group affiliation" />
+              </div>
+              <div class="col-md-2">
+                <button type="button" class="btn btn-danger btn-sm" (click)="removeOtherGroupAffiliation(i)">
+                  Remove
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card mb-3">
+        <div
+          class="card-header d-flex justify-content-between align-items-center"
+        >
+          <h5>Greatest Friendships</h5>
+          <button type="button" class="btn btn-sm btn-success" (click)="addGreatestFriendship()">
+            Add
+          </button>
+        </div>
+        <div class="card-body">
+          <div formArrayName="greatest_friendships">
+            <div
+              *ngFor="let entry of greatestFriendshipsArray.controls; let i = index"
+              [formGroupName]="i"
+              class="row mb-3 border-bottom pb-3"
+            >
+              <div class="col-md-10">
+                <input type="text" class="form-control" formControlName="text" placeholder="Friendship" />
+              </div>
+              <div class="col-md-2">
+                <button type="button" class="btn btn-danger btn-sm" (click)="removeGreatestFriendship(i)">
+                  Remove
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card mb-3">
+        <div class="card-header">
+          <h5>Special Instructions</h5>
+        </div>
+        <div class="card-body">
+          <textarea
+            rows="4"
+            class="form-control"
+            formControlName="special_instructions"
+            placeholder="Special instructions"
+          ></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <button
+      type="submit"
+      class="btn submit-button"
+      [disabled]="!obituaryForm.valid"
+    >
+      {{ data?.item?.id ? "Update" : "Save" }}
+    </button>
+  </div>
+</form>

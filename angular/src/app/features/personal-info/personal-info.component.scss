@@ -1,0 +1,92 @@
+.personal-info {
+  .container {
+    max-width: 720px;
+    .email {
+      height: 36px;
+      background-color: #d9d9d9;
+    }
+    .profile-pic {
+      position: relative;
+      width: 188px;
+      height: 188px;
+      margin: 0 auto;
+      img {
+        width: 100%;
+      }
+      .w-100 {
+        border-radius: 50%;
+        overflow: hidden;
+        img {
+          width: 188px;
+          height: 188px;
+          object-fit: cover;
+        }
+      }
+      .d-flex {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        z-index: 10;
+      }
+
+      button {
+        height: auto;
+        padding: 8px;
+        margin: 0 2px;
+      }
+    }
+  }
+
+  // Mobile responsiveness
+  @media (max-width: 768px) {
+    .container {
+      padding: 1rem;
+
+      .profile-pic {
+        width: 150px;
+        height: 150px;
+
+        .w-100 img {
+          width: 150px;
+          height: 150px;
+        }
+      }
+
+      .modal-footer {
+        flex-direction: column;
+        gap: 0.5rem;
+
+        button {
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 480px) {
+    .container {
+      .profile-pic {
+        width: 120px;
+        height: 120px;
+
+        .w-100 img {
+          width: 120px;
+          height: 120px;
+        }
+      }
+    }
+  }
+}
+
+// Modal styles for image resize
+.modal {
+  &.show {
+    display: block;
+  }
+}
+
+.modal-backdrop {
+  &.show {
+    opacity: 0.5;
+  }
+}

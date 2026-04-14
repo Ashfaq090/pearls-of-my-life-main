@@ -1,0 +1,23 @@
+<div class="container obituary p-0">
+  <h5 class="pt-4">
+    {{ year }}
+  </h5>
+
+  <ng-container *ngIf="obituaryList?.length; else noRecords">
+    <ng-container *ngFor="let monthList of obituaryListByMonths">
+      <h6 class="text-secondary m-0 mt-3">
+        {{ monthList[0]?.birth_date | date : "MMMM" }}
+      </h6>
+      <app-obituary-card
+        [items]="obituaryList"
+        (editObituary)="openObituaryPopup($event)"
+        (deleteObituary)="openDeleteDialog($event)"
+        [showAll]="true"
+      ></app-obituary-card>
+    </ng-container>
+  </ng-container>
+
+  <ng-template #noRecords>
+    <div class="text-center my-4">No records found</div>
+  </ng-template>
+</div>

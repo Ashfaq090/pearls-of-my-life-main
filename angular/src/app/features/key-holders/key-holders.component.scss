@@ -1,0 +1,99 @@
+.key-holders{
+    .key-holder-pic{
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        border-radius: 20px;
+        overflow: hidden;
+        margin-bottom: 8px;
+        // background-color: #FFC000;
+        background-color: #FBAB7E;
+        background-image: linear-gradient(62deg, #FBAB7E 0%, #F7CE68 100%);
+        position: relative;
+        background-repeat: no-repeat;
+        background-size: auto;
+        background-position: center;
+        &::before{
+            content: '';
+            position: absolute;
+            background: url(../../../assets/icons/person.svg);
+            top: 0;
+            bottom: 0;
+            right: 0;
+            left: 0;
+            z-index: 122;
+            background-repeat: no-repeat;
+            // background-size: cover;
+            background-position: center;
+        }
+        &:hover{
+            background-color: #fff;
+            background: url(../../../assets/icons/person-hover.svg);
+            background-repeat: no-repeat;
+            background-size: auto;
+            background-position: center;
+            border: 2px solid #FFC000;
+            img {
+                transform: scale(1.3); /* Zoom the image by 20% */
+            }
+            &::before{
+                content: '';
+                background: none;
+            }
+        }
+        img{
+            transition: transform 0.3s ease;
+            width: 100%;
+        }
+    }
+    .add-keyholder{
+        // background: url(../../../assets/icons/add-keyholder.svg);
+        // background-color: #FFC000;
+        background-color: #FBAB7E;
+        background-image: linear-gradient(62deg, #FBAB7E 0%, #F7CE68 100%);
+        background-repeat: no-repeat;
+        background-size: auto;
+        background-position: center;
+        &:hover{
+            background: url(../../../assets/icons/add-keyholder-hover.svg);
+            background-repeat: no-repeat;
+            background-size: auto;
+            background-position: center;
+        }
+        &::before{
+            content: '';
+            position: absolute;
+            background: url(../../../assets/icons/add-keyholder.svg);
+            top: 0;
+            bottom: 0;
+            right: 0;
+            left: 0;
+            z-index: 122;
+            background-repeat: no-repeat;
+            // background-size: cover;
+            background-position: center;
+        }
+    }
+    .funeral-home-card{
+        background-color: #6EE7B7;
+        background-image: linear-gradient(62deg, #6EE7B7 0%, #3B82F6 100%);
+        &::before{
+            content: '';
+            position: absolute;
+            background: url(../../../assets/icons/side-bar/notes.svg);
+            top: 0;
+            bottom: 0;
+            right: 0;
+            left: 0;
+            z-index: 122;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        &:hover{
+            background: none;
+            border: 2px solid #3B82F6;
+            &::before{
+                background: none;
+            }
+        }
+    }
+}

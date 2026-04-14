@@ -1,0 +1,171 @@
+<div class="legacy-hero">
+  <video
+    #bgVideo
+    autoplay
+    muted
+    loop
+    playsinline
+    preload="auto"
+    class="legacy-video-bg"
+  >
+    <source src="/assets/PearlVideo.mp4" type="video/mp4" />
+  </video>
+
+  <audio #bgAudio id="bgAudio" autoplay preload="auto">
+    <source src="/assets/Audios.mp3" type="audio/mp3" />
+  </audio>
+
+  <!-- Audio Control Button -->
+  <button class="audio-control" (click)="toggleAudio(bgAudio)">
+    <i
+      class="fas"
+      [ngClass]="isAudioMuted ? 'fa-volume-mute' : 'fa-volume-up'"
+    ></i>
+  </button>
+
+  <!-- Audio Control Button -->
+  <!-- <button class="audio-control" (click)="toggleAudio()">
+    <i class="fas fa-volume-up"></i>
+  </button> -->
+  <div class="legacy-header">
+    <img
+      src="/assets/images/logo.webp"
+      alt="Pearls of Lyfe Logo"
+      class="legacy-logo"
+    />
+    <!-- <div class="nav-buttons">
+      <button class="nav-button" [routerLink]="['/legacy']">Home</button>
+      <button class="nav-button" [routerLink]="['/about-us']">About Us</button>
+      <button class="nav-button" [routerLink]="['/pricing']">Pricing</button>
+      <button class="nav-button" [routerLink]="['/our-service']">
+        Services
+      </button>
+      <button class="nav-button" [routerLink]="['/contact-us']">
+        Contact Us
+      </button>
+      <button class="nav-button" [routerLink]="['/auto-obituary']">
+        auto-obituary here
+      </button>
+    </div> -->
+    <div class="legacy-auth-buttons">
+      <button class="legacy-login-btn" (click)="goToLogin('login')">
+        Login
+      </button>
+      <button class="legacy-signup-btn" (click)="goToLogin('signup')">
+        Sign Up
+      </button>
+    </div>
+  </div>
+
+  <div class="legacy-title-group">
+    <h2 class="legacy-welcome">WELCOME TO PEARLS OF MY LYFE</h2>
+
+    <h1 class="legacy-title">Reimagining How We Leave Our Legacy</h1>
+    <p class="legacy-subtitle">
+      The Gift of Your LIFE's Moments is Your Legacy
+    </p>
+    <div class="legacy-main-btn-wrapper">
+      <button class="legacy-main-btn" (click)="goToPage('our-service')">
+        <span class="legacy-main-btn-inner-text">
+          Start your free auto-obituary here
+        </span>
+      </button>
+    </div>
+    <div class="legacy-nav-btns">
+      <button class="legacy-nav-btn about" (click)="goToPage('about-us')">
+        About Us
+      </button>
+      <button class="legacy-nav-btn services" (click)="goToPage('our-service')">
+        Our Services
+      </button>
+      <button class="legacy-nav-btn pricing" (click)="goToPage('pricing')">
+        Pricing
+      </button>
+
+      <button class="legacy-nav-btn contact" (click)="goToPage('contact-us')">
+        Contact Us
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Platform Description Section -->
+<section class="platform-description">
+  <div class="container">
+    <div class="description-content">
+      <!-- <h2>Create Your Life's Story</h2> -->
+      <p>
+        At Pearls of My Lyfe, we believe that every moment you live is a
+        precious pearl contributing to the beautiful necklace of your life's
+        story. Our platform empowers you to create a personalized obituary and
+        legacy page, allowing you to celebrate your journey, share cherished
+        memories, and leave a meaningful legacy for generations to come.
+      </p>
+    </div>
+  </div>
+</section>
+<div class="features-grid legacy-cta-section">
+  <h2 class="legacy-cta-title">
+    Start your free account here. Leave your accurate life story starting with
+    basic info for an obituary.
+  </h2>
+  <!-- <img
+    src="assets/contact-us.jpg"
+    alt="Call to Action Background"
+    class="cta-bg-img"
+  /> -->
+  <div class="legacy-cta-buttons">
+    <button
+      class="legacy-cta-btn outline"
+      routerLink=""
+      fragment="top"
+      (click)="scrollToTop('dashboard')"
+    >
+      Click Here
+    </button>
+    <button
+      class="legacy-cta-btn solid"
+      routerLink=""
+      fragment="top"
+      (click)="scrollToTop('signup')"
+    >
+      Sign Up Now
+    </button>
+  </div>
+</div>
+<!-- Call to Action Section -->
+<!-- <section class="cta-section">
+  <div class="container">
+    <div class="cta-content">
+      <h2>Ready to Begin Your Legacy?</h2>
+      <p>
+        Whether you're planning ahead or honoring a loved one, Pearls of My Life
+        provides the perfect space to immortalize life's most treasured moments.
+      </p>
+      <div class="cta-buttons">
+        <button class="cta-primary" routerLink="/auth/register">
+          Start for Free
+        </button>
+        <button class="cta-secondary" routerLink="/about">Learn More</button>
+      </div>
+    </div>
+  </div>
+</section> -->
+
+<!-- Navigation Footer -->
+<!-- <footer class="legacy-footer">
+  <div class="container">
+    <div class="footer-nav">
+      <button class="footer-nav-btn about">About Us</button>
+      <button class="footer-nav-btn services">Our Services</button>
+      <button class="footer-nav-btn pricing">Pricing</button>
+      <button class="footer-nav-btn legacy">Legacy</button>
+      <button class="footer-nav-btn contact">Contact Us</button>
+    </div>
+    <div class="footer-copyright">
+      <p>© 2023 Pearls of My Lyfe. All rights reserved.</p>
+    </div>
+  </div>
+</footer> -->
+<!-- Updated Footer Section -->
+<app-footer></app-footer>

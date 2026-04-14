@@ -1,0 +1,80 @@
+<div class="admin-settings">
+  <div class="page-header mb-4">
+    <h2>System Settings</h2>
+    <p class="text-muted">Configure system-wide settings</p>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <h5 class="mb-0">PayPal Configuration</h5>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="settingsForm">
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label class="form-label">PayPal Mode</label>
+            <select class="form-select" formControlName="paypalMode">
+              <option value="sandbox">Sandbox</option>
+              <option value="live">Live</option>
+            </select>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">PayPal Client ID</label>
+            <input type="text" class="form-control" formControlName="paypalClientId" />
+          </div>
+          <div class="col-12">
+            <label class="form-label">PayPal Client Secret</label>
+            <input type="password" class="form-control" formControlName="paypalClientSecret" />
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="card mt-4">
+    <div class="card-header">
+      <h5 class="mb-0">Email Configuration</h5>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="settingsForm">
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label class="form-label">From Email</label>
+            <input type="email" class="form-control" formControlName="emailFrom" />
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Admin Email</label>
+            <input type="email" class="form-control" formControlName="adminEmail" />
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="card mt-4">
+    <div class="card-header">
+      <h5 class="mb-0">File Upload Limits</h5>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="settingsForm">
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label class="form-label">Max File Size (MB)</label>
+            <input type="number" class="form-control" formControlName="maxFileSize" />
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Allowed File Types</label>
+            <input type="text" class="form-control" formControlName="allowedFileTypes" placeholder="jpg,png,mp4,mp3" />
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="mt-4">
+    <button class="btn btn-primary" (click)="saveSettings()">
+      <i class="bi bi-save"></i> Save Settings
+    </button>
+  </div>
+</div>
+

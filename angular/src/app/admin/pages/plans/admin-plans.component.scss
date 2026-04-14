@@ -1,0 +1,36 @@
+.admin-plans {
+  .page-header {
+    h2 {
+      color: #2c3e50;
+      font-weight: 600;
+    }
+  }
+
+  .table {
+    th {
+      font-weight: 600;
+      background-color: #f8f9fa;
+    }
+  }
+
+  .btn-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+
+    .btn {
+      border-radius: 6px;
+      padding: 0.5rem 1rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+
+      i {
+        font-size: 1rem;
+      }
+    }
+  }
+}

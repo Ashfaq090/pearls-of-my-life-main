@@ -1,0 +1,56 @@
+{
+  "development": {
+    "username": "sa",
+    "password": "pakistan1@",
+    "database": "PearlsOfLife",
+    "host": "localhost",
+    "port": 1433,
+    "dialect": "mssql",
+    "dialectOptions": {
+      "options": {
+        "encrypt": false,
+        "trustServerCertificate": true,
+        "enableArithAbort": true,
+        "connectTimeout": 30000,
+        "requestTimeout": 30000
+      }
+    },
+    "pool": {
+      "max": 5,
+      "min": 0,
+      "acquire": 60000,
+      "idle": 30000
+    },
+    "logging": true
+  },
+  "test": {
+    "username": "sa",
+    "password": "pakistan1@",
+    "database": "PearlsOfLife_Test",
+    "host": "localhost",
+    "port": 1433,
+    "dialect": "mssql",
+    "dialectOptions": {
+      "options": {
+        "encrypt": false,
+        "trustServerCertificate": true,
+        "enableArithAbort": true
+      }
+    }
+  },
+  "production": {
+    "username": "sa",
+    "password": "pakistan1@",
+    "database": "PearlsOfLife_Prod",
+    "host": "localhost",
+    "port": 1433,
+    "dialect": "mssql",
+    "dialectOptions": {
+      "options": {
+        "encrypt": true,
+        "trustServerCertificate": true,
+        "enableArithAbort": true
+      }
+    }
+  }
+}

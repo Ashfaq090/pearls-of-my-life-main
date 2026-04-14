@@ -1,0 +1,136 @@
+/* You can add global styles to this file, and also import other style files */
+body{
+
+    .fs-14{
+        font-size: 14px;
+    }
+
+    .submit-button{
+        // border: 1px solid #C55A11;
+        // color: #C55A11;
+        color: #fff;
+        background-color: #FBAB7E;
+        background-image: linear-gradient(62deg, #FBAB7E 0%, #F7CE68 100%);
+        &:hover{
+            // background: #C55A11;
+            background: #fff;
+            border: 1px solid #FBAB7E;
+            color: #FBAB7E;
+            font-weight: 600;
+        }
+    }
+
+    .icon-button{
+        background-color: #FBAB7E;
+        background-image: linear-gradient(62deg, #FBAB7E 0%, #F7CE68 100%);
+        // border: 1px solid #C55A11;
+        // background: #C55A11;
+        &:hover{
+            // background: #C55A11;
+            background-color: #e9dfe9;
+            background-image: linear-gradient(0deg, #e9dfe9 0%, #c1e6eb 100%);
+        }
+    }
+
+    .secondary-button{
+        color: #fff;
+        background-color: #FBAB7E;
+        background-image: linear-gradient(62deg, #FBAB7E 0%, #F7CE68 100%);
+        &:hover{
+            color: #000;
+        }
+    }
+
+    .text-blue{
+        color: #1F4E79 !important;
+    }
+
+    .text-yellow{
+        color: #FBAB7E !important;
+    }
+
+    .bg-yellow{
+        background: #FFC000 !important;
+    }
+
+    .text-gray{
+        color: #C7C7C7;
+    }
+
+    .pointer{
+        cursor: pointer !important;
+    }
+
+    .text-link{
+        color: #385723;
+        &:hover{
+            color: #C55A11;
+        }
+    }
+
+    .toast {
+        z-index: 1200;
+        text-align: left;
+        border-radius: 0px;
+        font-weight: 500;
+        position: fixed;
+        top: 1rem;
+        right: 1rem;
+        color: #fff;
+        letter-spacing: 1px;
+        font-weight: 400;
+        border-radius: 8px;
+        &.error {
+            .toast-header {
+                background-color: transparent;
+                border-bottom: unset;
+                padding-bottom: 0;
+                strong {
+                    font-weight: 400;
+                    color: #fff;
+                }
+                .btn-close {
+                    display: none;
+                }
+            }
+            .toast-header + .toast-body {
+                font-size: 14px;
+                position: relative;
+                padding-top: 0.5rem;
+                padding-bottom: 0.5rem;
+                text-indent: 15px;
+                &::before {
+                    width: 5px;
+                    height: 5px;
+                    content: '';
+                    background: #fff;
+                    position: absolute;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    left: 12px;
+                }
+            }
+            background-color: #d9534f;
+            border: 1px solid #d9534f;
+            box-shadow: 0px 9px 18px rgba($color: #d9534f, $alpha: 0.1);
+        }
+        &.success {
+            background-color: #385723;
+            border: 1px solid #385723;
+            box-shadow: 0px 9px 18px rgba($color: #385723, $alpha: 0.1);
+        }
+        &.warning {
+            background-color: #f0ad4e;
+            border: 1px solid #f0ad4e;
+            box-shadow: 0px 9px 18px rgba($color: #f0ad4e, $alpha: 0.1);
+        }
+    }
+
+    .modal-header{
+        color: #fff;
+        background-color: #FBAB7E;
+        background-image: linear-gradient(62deg, #FBAB7E 0%, #F7CE68 100%);
+
+    }
+
+}

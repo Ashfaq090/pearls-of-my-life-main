@@ -1,0 +1,10 @@
+<!-- src/app/shared/button/button.component.html -->
+<button
+  [class]="'btn ' + variant"
+  [type]="type"
+  [disabled]="disabled"
+  [style.background]="dynamicColor"
+  (click)="onClick.emit($event)"
+>
+  <ng-content></ng-content>
+</button>

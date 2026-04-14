@@ -1,0 +1,25 @@
+<div class="sideNavBar">
+  <div class="d-flex justify-content-center mb-4">
+    <div class="logo">
+      <img src="../../assets/images/logo.webp" [routerLink]="'/home'" />
+    </div>
+  </div>
+
+  <div class="tabs pe-lg-4">
+    <ul class="nav flex-column">
+      <li class="nav-item" *ngFor="let item of navList" [hidden]="item.hidden">
+        <a
+          class="nav-link"
+          [routerLink]="item?.link"
+          [routerLinkActive]="'active'"
+        >
+          <img
+            src="assets/icons/side-bar/{{ item?.component }}.svg"
+            class="px-3"
+          />
+          {{ item?.name }}
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>

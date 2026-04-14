@@ -1,0 +1,43 @@
+<!-- src/app/components/navbar/navbar.component.html -->
+<header>
+  <div class="green-overlay"></div>
+  <nav class="navbar">
+    <div class="logo">
+      <a routerLink="/">
+        <span>PEARLS OF MY LYFE</span>
+      </a>
+    </div>
+    <div class="nav-links" [class.open]="isMenuOpen">
+      <a routerLink="/about-us" routerLinkActive="active" (click)="toggleMenu()"
+        >About Us</a
+      >
+      <a routerLink="/services" routerLinkActive="active" (click)="toggleMenu()"
+        >Services</a
+      >
+      <a routerLink="/legacy" routerLinkActive="active" (click)="toggleMenu()"
+        >Legacy</a
+      >
+      <a
+        routerLink="/auto-obituary"
+        routerLinkActive="active"
+        (click)="toggleMenu()"
+        >Auto Obituary</a
+      >
+      <a
+        routerLink="/contact-us"
+        routerLinkActive="active"
+        (click)="toggleMenu()"
+        >Contact Us</a
+      >
+      <a routerLink="/pricing" routerLinkActive="active" (click)="toggleMenu()"
+        >Pricing</a
+      >
+      <a class="cta-btn" routerLink="/contact-us">Get Started</a>
+    </div>
+    <div class="hamburger" (click)="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </nav>
+</header>

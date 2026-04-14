@@ -1,0 +1,39 @@
+.sidebar {
+    position: fixed; /* Makes the element stay fixed in place */
+    top: 0; /* Aligns to the top of the viewport */
+    left: 0;
+    min-width: 300px;
+    min-height: fit-content;
+    height: 100vh;
+    // background: #385723;
+    transition: all 0.3s ease-in-out;
+    background-color: #FBAB7E;
+    background-image: linear-gradient(62deg, #FBAB7E 0%, #F7CE68 100%);
+
+}
+.sidebar.active {
+    width: 0;
+    overflow: hidden;
+}
+.main-content {
+    margin-left: 300px;
+    transition: all 0.3s ease-in-out;
+}
+.sidebar.active ~ .main-content {
+    margin-left: 0;
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        left: -300px; /* Hidden by default on mobile */
+        z-index: 1000;
+    }
+    .sidebar.active {
+        left: 0; /* Slide in when active */
+        width: 300px; /* Restore width */
+        overflow: visible;
+    }
+    .main-content {
+        margin-left: 0 !important;
+    }
+}

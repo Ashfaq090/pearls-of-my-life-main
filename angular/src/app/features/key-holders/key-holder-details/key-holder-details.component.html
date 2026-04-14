@@ -1,0 +1,82 @@
+<!-- {{keyHolder | json}} -->
+
+<div class="key-holder-details">
+  <div class="container">
+    <div
+      class="d-flex align-items-center mb-3 cursor-pointer"
+      (click)="goBack()"
+    >
+      <span class="me-2 fs-20">←</span>
+      <span class="fw-semibold">Back to Key Holders</span>
+    </div>
+    <div class="card p-3 p-lg-4 p-xl-5">
+      <div class="profile-pic mx-auto my-3 position-relative">
+        <div class="w-100">
+          <img
+            *ngIf="!imageUrl"
+            src="../../../assets/images/user-default-image.avif"
+          />
+          <img *ngIf="imageUrl" [src]="imageUrl" alt="Fetched Image" />
+        </div>
+        <!-- <button type="button" class="btn position-absolute bg-yellow border-0" (click)="fileInput.click()">
+                    <img src="../../../assets/icons/form/camera-broken.svg">
+                </button> -->
+        <!-- <input type="file" #fileInput accept="image/*" id="profile-pic-input" class="d-none" (change)="uploadFile(fileInput.files)"> -->
+      </div>
+
+      <div class="row my-3">
+        <div class="col-12 col-lg-6 mb-3">
+          <span class="title"> First Name: </span>
+          {{ keyHolder?.first_name || "--" }}
+        </div>
+        <div class="col-12 col-lg-6 mb-3 text-start text-lg-end">
+          <span class="title"> Last Name: </span>
+          {{ keyHolder?.last_name || "--" }}
+        </div>
+
+        <div class="col-12 col-lg-6 mb-3">
+          <span class="title"> Email: </span>
+          {{ keyHolder?.email || "--" }}
+        </div>
+        <div class="col-12 col-lg-6 mb-3 text-start text-lg-end">
+          <span class="title"> Phone Number: </span>
+          {{ keyHolder?.phone_number || "--" }}
+        </div>
+
+        <div class="col-12 col-lg-6 mb-3">
+          <span class="title"> Relation: </span>
+          {{ keyHolder?.relation || "--" }}
+        </div>
+        <!-- <div class="col-12 col-lg-6 mb-3 text-start text-lg-end">
+                    <span class="title">
+                        Address: 
+                    </span>
+                    {{keyHolder?.address || '--'}}
+                </div> -->
+        <div class="col-12 col-lg-6 mb-3 text-start text-lg-end">
+          <span class="title">Street:</span> {{ keyHolder?.street || "--" }}
+        </div>
+        <div class="col-12 col-lg-6 mb-3">
+          <span class="title">City:</span> {{ keyHolder?.city || "--" }}
+        </div>
+        <div class="col-12 col-lg-6 mb-3 text-start text-lg-end">
+          <span class="title">State:</span> {{ keyHolder?.state || "--" }}
+        </div>
+        <div class="col-12 col-lg-6 mb-3">
+          <span class="title">Zip Code:</span> {{ keyHolder?.zip || "--" }}
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-end my-3" *ngIf="!isKeyHolder">
+        <button type="button" class="btn submit-button me-3" (click)="openEditDialog()">Edit</button>
+        <button
+          type="button"
+          class="btn btn-danger"
+          (click)="openKeyHolderDialog()"
+        >
+          Delete
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

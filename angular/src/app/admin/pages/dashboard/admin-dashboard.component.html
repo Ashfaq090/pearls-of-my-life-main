@@ -1,0 +1,148 @@
+<div class="admin-dashboard">
+  <div class="dashboard-header mb-4">
+    <h2>Dashboard</h2>
+    <p class="text-muted">Overview of your system</p>
+  </div>
+
+  <div *ngIf="loading" class="text-center py-5">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+
+  <div *ngIf="!loading">
+    <!-- Stats Cards -->
+    <div class="row g-4 mb-4">
+      <div class="col-md-3">
+        <div class="stat-card">
+          <div class="stat-icon bg-primary">
+            <i class="bi bi-people"></i>
+          </div>
+          <div class="stat-content">
+            <h3>{{ stats.totalUsers || 0 }}</h3>
+            <p>Total Users</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="stat-card">
+          <div class="stat-icon bg-success">
+            <i class="bi bi-key"></i>
+          </div>
+          <div class="stat-content">
+            <h3>{{ stats.totalKeyHolders || 0 }}</h3>
+            <p>Key Holders</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="stat-card">
+          <div class="stat-icon bg-info">
+            <i class="bi bi-credit-card"></i>
+          </div>
+          <div class="stat-content">
+            <h3>{{ stats.activeSubscriptions || 0 }}</h3>
+            <p>Active Subscriptions</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="stat-card">
+          <div class="stat-icon bg-warning">
+            <i class="bi bi-cash-coin"></i>
+          </div>
+          <div class="stat-content">
+            <h3>{{ formatCurrency(stats.totalRevenue || 0) }}</h3>
+            <p>Total Revenue</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recent Activity -->
+    <div class="row g-4">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header">
+            <h5 class="mb-0">Recent Payments</h5>
+          </div>
+          <div class="card-body">
+            <div *ngIf="stats.recentPayments && stats.recentPayments.length > 0; else noPayments">
+              <table class="table table-sm">
+                <thead>
+                  <tr>
+                    <th>User</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let payment of stats.recentPayments.slice(0, 5)">
+                    <td>{{ payment.user?.email || 'N/A' }}</td>
+                    <td>{{ formatCurrency(payment.amount) }}</td>
+                    <td>
+                      <span
+                        class="badge"
+                        [ngClass]="{
+                          'bg-success': payment.status === 'completed',
+                          'bg-warning': payment.status === 'pending',
+                          'bg-danger': payment.status === 'failed'
+                        }"
+                      >
+                        {{ payment.status }}
+                      </span>
+                    </td>
+                    <td>{{ payment.created_on | date: 'short' }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <ng-template #noPayments>
+              <p class="text-muted text-center py-3">No recent payments</p>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header">
+            <h5 class="mb-0">Recent Uploads</h5>
+          </div>
+          <div class="card-body">
+            <div *ngIf="stats.recentUploads && stats.recentUploads.length > 0; else noUploads">
+              <table class="table table-sm">
+                <thead>
+                  <tr>
+                    <th>User</th>
+                    <th>Type</th>
+                    <th>Title</th>
+                    <th>Date</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let upload of stats.recentUploads.slice(0, 5)">
+                    <td>{{ upload.user?.email || 'N/A' }}</td>
+                    <td>
+                      <span class="badge bg-secondary">{{ upload.content_type }}</span>
+                    </td>
+                    <td>{{ upload.title }}</td>
+                    <td>{{ upload.created_on | date: 'short' }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <ng-template #noUploads>
+              <p class="text-muted text-center py-3">No recent uploads</p>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,109 @@
+<div class="audios-page">
+  <div class="page-header mb-4">
+    <h2>Audios</h2>
+    <div class="action-buttons" *ngIf="!isKeyHolder">
+      <button class="btn btn-primary" (click)="toggleUploadForm()">
+        <i class="bi bi-upload"></i> Upload Audio
+      </button>
+      <button class="btn btn-success" (click)="toggleRecordForm()">
+        <i class="bi bi-mic"></i> Record Audio
+      </button>
+    </div>
+  </div>
+
+  <!-- Upload Form -->
+  <div class="card mb-4" *ngIf="showUploadForm && !isKeyHolder">
+    <div class="card-header">
+      <h5>Upload Audio</h5>
+    </div>
+    <div class="card-body">
+      <div class="mb-3">
+        <label class="form-label">Title *</label>
+        <input type="text" class="form-control" [(ngModel)]="uploadTitle" placeholder="Audio title">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Description</label>
+        <textarea class="form-control" rows="3" [(ngModel)]="uploadDescription" placeholder="Audio description"></textarea>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Select Audio File *</label>
+        <input type="file" class="form-control" accept="audio/*" (change)="onFileSelected($event)">
+      </div>
+      <div class="d-flex gap-2">
+        <button class="btn btn-primary" (click)="uploadAudio()" [disabled]="!selectedFile || !uploadTitle">Upload</button>
+        <button class="btn btn-secondary" (click)="resetUploadForm()">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Record Form -->
+  <div class="card mb-4" *ngIf="showRecordForm && !isKeyHolder">
+    <div class="card-header">
+      <h5>Record Audio</h5>
+    </div>
+    <div class="card-body">
+      <app-audio-recorder (recordComplete)="onRecordComplete()"></app-audio-recorder>
+    </div>
+  </div>
+
+  <!-- Audios List -->
+  <div *ngIf="loading" class="text-center py-5">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+
+  <div *ngIf="!loading && audios.length === 0" class="text-center py-5">
+    <p class="text-muted">No audios found. Upload or record your first audio!</p>
+  </div>
+
+  <div class="row" *ngIf="!loading && audios.length > 0">
+    <div class="col-md-4 col-lg-3 mb-4" *ngFor="let audio of audios">
+      <div class="card h-100">
+        <div class="card-img-top d-flex align-items-center justify-content-center" style="height: 200px; width: 100%;">
+          <!-- <i class="bi bi-mic text-white" style="font-size: 3rem;"></i> -->
+           <img src="assets/icons/headphone.png" alt="Audio Icon" style="width: 100%; max-height: 100%; object-fit: cover;">
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">{{ audio.title }}</h5>
+          <p class="card-text text-muted small">{{ audio.description || 'No description' }}</p>
+          <div class="audio-meta small text-muted mb-2">
+            <div *ngIf="audio.duration">
+              <i class="bi bi-clock"></i> {{ formatDuration(audio.duration) }}
+            </div>
+            <div *ngIf="audio.size">
+              <i class="bi bi-file-earmark"></i> {{ formatFileSize(audio.size) }}
+            </div>
+            <div *ngIf="audio.created_on">
+              <i class="bi bi-calendar"></i> {{ audio.created_on | date:'short' }}
+            </div>
+          </div>
+          <audio [src]="audio.url" controls class="w-100 mb-2" *ngIf="audio.url"></audio>
+          <div class="d-flex gap-2" *ngIf="!isKeyHolder">
+            <a [href]="audio.url" target="_blank" class="btn btn-sm btn-outline-primary" download>Download</a>
+            <button class="btn btn-sm btn-outline-danger" (click)="deleteAudio(audio.id)">Delete</button>
+          </div>
+          <div *ngIf="isKeyHolder">
+            <a [href]="audio.url" target="_blank" class="btn btn-sm btn-outline-primary" download>Download</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pagination -->
+  <nav *ngIf="!loading && totalItems > pageSize" aria-label="Page navigation">
+    <ul class="pagination justify-content-center">
+      <li class="page-item" [class.disabled]="currentPage === 1">
+        <a class="page-link" (click)="currentPage > 1 && onPageChange(currentPage - 1)">Previous</a>
+      </li>
+      <li class="page-item" *ngFor="let page of getPageNumbers(); let i = index" [class.active]="currentPage === i + 1">
+        <a class="page-link" (click)="onPageChange(i + 1)">{{ i + 1 }}</a>
+      </li>
+      <li class="page-item" [class.disabled]="currentPage === getTotalPages()">
+        <a class="page-link" (click)="currentPage < getTotalPages() && onPageChange(currentPage + 1)">Next</a>
+      </li>
+    </ul>
+  </nav>
+</div>
+

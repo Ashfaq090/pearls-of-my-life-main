@@ -1,0 +1,175 @@
+<div class="admin-user-details">
+  <div class="page-header mb-4">
+    <button class="btn btn-outline-secondary" (click)="goBack()">
+      <i class="bi bi-arrow-left"></i> Back to Users
+    </button>
+    <h2 class="mt-3">User Details</h2>
+  </div>
+
+  <div *ngIf="loading" class="text-center py-5">
+    <div class="spinner-border text-primary" role="status"></div>
+  </div>
+
+  <div *ngIf="!loading && user" class="row g-4">
+    <!-- User Info -->
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header">
+          <h5 class="mb-0">User Information</h5>
+        </div>
+        <div class="card-body">
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <strong>Name:</strong> {{ user.first_name }} {{ user.last_name }}
+            </div>
+            <div class="col-md-6">
+              <strong>Email:</strong> {{ user.email }}
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <strong>Username:</strong> {{ user.username }}
+            </div>
+            <div class="col-md-6">
+              <strong>Phone:</strong> {{ user.phone_number || 'N/A' }}
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <strong>Role:</strong>
+              <span class="badge bg-secondary">{{ user.role }}</span>
+            </div>
+            <div class="col-md-6">
+              <strong>Status:</strong>
+              <span
+                class="badge"
+                [ngClass]="{
+                  'bg-success': user.is_active && !user.is_terminated,
+                  'bg-warning': !user.is_active && !user.is_terminated,
+                  'bg-danger': user.is_terminated
+                }"
+              >
+                {{
+                  user.is_terminated
+                    ? 'Terminated'
+                    : user.is_active
+                    ? 'Active'
+                    : 'Inactive'
+                }}
+              </span>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <strong>Created:</strong> {{ user.created_on | date: 'medium' }}
+            </div>
+            <div class="col-md-6" *ngIf="user.terminated_at">
+              <strong>Terminated:</strong> {{ user.terminated_at | date: 'medium' }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Subscriptions -->
+      <div class="card mt-4">
+        <div class="card-header">
+          <h5 class="mb-0">Subscriptions</h5>
+        </div>
+        <div class="card-body">
+          <div *ngIf="user.subscriptions && user.subscriptions.length > 0; else noSubscriptions">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Plan</th>
+                  <th>Status</th>
+                  <th>Start Date</th>
+                  <th>End Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let sub of user.subscriptions">
+                  <td>{{ sub.plan?.name || 'N/A' }}</td>
+                  <td>
+                    <span class="badge bg-success">{{ sub.status }}</span>
+                  </td>
+                  <td>{{ sub.startDate | date: 'short' }}</td>
+                  <td>{{ sub.endDate | date: 'short' }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <ng-template #noSubscriptions>
+            <p class="text-muted">No subscriptions</p>
+          </ng-template>
+        </div>
+      </div>
+
+      <!-- Uploads -->
+      <div class="card mt-4">
+        <div class="card-header">
+          <h5 class="mb-0">Recent Uploads</h5>
+        </div>
+        <div class="card-body">
+          <div *ngIf="user.uploadedContent && user.uploadedContent.length > 0; else noUploads">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Type</th>
+                  <th>Title</th>
+                  <th>Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let upload of user.uploadedContent.slice(0, 10)">
+                  <td>
+                    <span class="badge bg-secondary">{{ upload.content_type }}</span>
+                  </td>
+                  <td>{{ upload.title }}</td>
+                  <td>{{ upload.created_on | date: 'short' }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <ng-template #noUploads>
+            <p class="text-muted">No uploads</p>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-header">
+          <h5 class="mb-0">Actions</h5>
+        </div>
+        <div class="card-body">
+          <div class="d-grid gap-2">
+            <button
+              *ngIf="!user.is_active && !user.is_terminated"
+              class="btn btn-success"
+              (click)="activateUser()"
+            >
+              <i class="bi bi-check-circle"></i> Activate User
+            </button>
+            <button
+              *ngIf="user.is_active && !user.is_terminated"
+              class="btn btn-warning"
+              (click)="deactivateUser()"
+            >
+              <i class="bi bi-x-circle"></i> Deactivate User
+            </button>
+            <button
+              *ngIf="!user.is_terminated"
+              class="btn btn-danger"
+              (click)="terminateUser()"
+            >
+              <i class="bi bi-trash"></i> Terminate Account
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

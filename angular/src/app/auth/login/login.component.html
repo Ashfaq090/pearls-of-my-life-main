@@ -1,0 +1,53 @@
+<form [formGroup]="loginForm" class="loginForm" (submit)="login()">
+  <div class="my-2">
+    <label for="email" class="col-form-label text-white">Email</label>
+    <input
+      type="email"
+      placeholder="Email"
+      class="form-control"
+      id="email"
+      formControlName="email"
+    />
+  </div>
+  <div class="my-2">
+    <label for="password" class="col-form-label text-white">Password</label>
+    <div class="input-group">
+      <input
+        [type]="showPassword ? 'text' : 'password'"
+        placeholder="Password"
+        class="form-control"
+        id="password"
+        formControlName="password"
+      />
+      <span class="input-group-text" style="cursor: pointer;" (click)="showPassword = !showPassword">
+        <img
+          width="24"
+          [src]="
+            showPassword
+              ? '../../../assets/icons/form/eye-show.svg'
+              : '../../../assets/icons/form/eye-hide.svg'
+          "
+        />
+      </span>
+    </div>
+  </div>
+
+  <div class="my-3 text-end">
+    <a
+      class="text-white text-decoration-none"
+      [routerLink]="['/auth/forget-password']"
+      >Forget Password?</a
+    >
+  </div>
+
+  <div class="my-3">
+    <button type="submit" class="btn secondary-button w-100">Sign in</button>
+  </div>
+
+  <div class="mt-4 text-center text-white">
+    Don't have an Account?
+    <a class="text-white text-decoration-none" (click)="goToRegister()"
+      >Create Account</a
+    >
+  </div>
+</form>

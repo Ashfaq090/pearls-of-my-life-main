@@ -1,0 +1,30 @@
+.manage-key-holder{
+    .profile-pic{
+        position: relative;
+        width: 188px;
+        height: 188px;
+        img{
+            width: 100%;
+        }
+        .w-100{
+            border-radius: 50%;
+            overflow: hidden;
+            img{
+                width: 188px;
+                height: 188px;
+            }
+        }
+        .d-flex {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            z-index: 10;
+        }
+        
+        button{
+            height: auto;
+            padding: 8px;
+            margin: 0 2px;
+        }
+    }
+}

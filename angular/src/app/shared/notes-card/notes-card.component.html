@@ -1,0 +1,31 @@
+<div class="row pt-4 notes" *ngIf="itemsList && itemsList?.length">
+    <div class="col-sm-12 col-md-6 col-lg-4 pb-3" *ngFor="let item of itemsList">
+        <div class="card notes-card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <h6 class="card-title">
+                        {{item?.heading}} <br>
+                        <small class="text-date">{{item?.note_date | date: 'd/M/y'}}</small>
+                    </h6>
+                    <div>
+                        <button type="button" class="btn btn-sm icon-button me-2" (click)="edit(item)">
+                            <img src="../../../assets/icons/form/edit.svg" width="16" height="16">
+                        </button>
+                        <button type="button" class="btn btn-sm icon-button" (click)="delete(item)">
+                            <img src="../../../assets/icons/form/delete.svg" width="16" height="16">
+                        </button>
+                    </div>
+                </div>
+                <p class="card-text fs-14 text-content">{{item?.description}}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-6 col-lg-4 pb-3" *ngIf="!showAll && items.length > 6">
+        <div class="card see-more-card">
+            <div class="card-body text-center" (click)="redirectToYear('2024')">
+                See More
+            </div>
+        </div>
+    </div>
+</div>
+

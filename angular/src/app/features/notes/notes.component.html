@@ -1,0 +1,27 @@
+<div class="container notes p-0">
+
+    <app-add-items-card [items]="addCardItems" (label)="openNotePopup($event)"></app-add-items-card>
+
+    <!-- <h5 class="pt-4">
+        <a class="text-decoration-none text-link" [routerLink]="['/notes/2024']" >2024</a>
+    </h5> -->
+
+    <ng-container *ngIf="notes?.length; else noRecords">
+        <div class="d-flex gap-3 py-4">
+            <h5 class="py-3 px-5 link rounded pointer" *ngFor="let yearList of notesListByYear" routerLink="{{yearList[0]?.note_date | date: 'YYYY'}}">
+                {{yearList[0]?.note_date | date: 'YYYY'}}
+            </h5>
+            <!-- <h6 class="text-secondary m-0 mt-3">{{yearList[0]?.note_date | date: 'YYYY'}}</h6> -->
+                 
+        </div>
+    </ng-container>
+
+    <ng-template #noRecords>
+        <div class="text-center my-4">
+            No records found
+        </div>
+    </ng-template>
+
+    <!-- <app-notes-card [items]="notes" [showAll]="true" (editNote)="openNotePopup($event)" (deleteNote)="openDeleteDialog($event)" (seeMore)="seeMore($event)"></app-notes-card> -->
+
+</div>

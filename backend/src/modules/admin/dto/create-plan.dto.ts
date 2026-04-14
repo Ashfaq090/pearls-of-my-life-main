@@ -1,0 +1,77 @@
+import {
+  IsNotEmpty,
+  IsString,
+  IsNumber,
+  IsOptional,
+  IsBoolean,
+} from 'class-validator';
+
+export class CreatePlanDto {
+  @IsNotEmpty()
+  @IsString()
+  name: string;
+
+  @IsNotEmpty()
+  @IsNumber()
+  price: number;
+
+  @IsOptional()
+  @IsString()
+  description?: string;
+
+  @IsOptional()
+  @IsString()
+  features?: string;
+
+  @IsOptional()
+  @IsBoolean()
+  isActive?: boolean;
+
+  // Video limits
+  @IsOptional()
+  @IsBoolean()
+  videoRecordingAllowed?: boolean;
+
+  @IsOptional()
+  @IsNumber()
+  maxVideoLengthInSeconds?: number;
+
+  @IsOptional()
+  @IsNumber()
+  maxVideoUploads?: number;
+
+  // Audio limits
+  @IsOptional()
+  @IsBoolean()
+  audioRecordingAllowed?: boolean;
+
+  @IsOptional()
+  @IsNumber()
+  maxAudioLengthInSeconds?: number;
+
+  @IsOptional()
+  @IsNumber()
+  maxAudioUploads?: number;
+
+  // Other limits
+  @IsOptional()
+  @IsNumber()
+  max_images?: number;
+
+  @IsOptional()
+  @IsNumber()
+  maxNotes?: number;
+
+  // Legacy fields for backward compatibility
+  @IsOptional()
+  @IsNumber()
+  max_video_length?: number;
+
+  @IsOptional()
+  @IsNumber()
+  max_uploads?: number;
+
+  @IsOptional()
+  @IsString()
+  billing_period?: string;
+}

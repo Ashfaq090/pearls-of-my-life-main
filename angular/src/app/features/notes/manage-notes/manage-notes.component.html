@@ -1,0 +1,89 @@
+<div class="modal-header">
+  <h4 class="modal-title">{{ data.name }} Note</h4>
+  <button type="button" class="btn" aria-label="Close" (click)="closeModal()">
+    <img src="../../../../assets/icons/form/close-lg.svg" />
+  </button>
+</div>
+
+<form [formGroup]="noteForm" (submit)="submit()">
+  <div class="modal-body manage-note">
+    <div class="mb-3">
+      <label for="heading" class="col-form-label">Title</label>
+      <input
+        type="text"
+        placeholder="Title"
+        class="form-control"
+        [class.is-invalid]="
+          (noteForm.get('heading')?.touched ||
+            noteForm.get('heading')?.dirty) &&
+          noteForm.get('heading')?.invalid
+        "
+        id="heading"
+        formControlName="heading"
+      />
+      <div
+        class="invalid-feedback"
+        *ngIf="noteForm.get('heading')?.errors?.['required'] && (noteForm.get('heading')?.touched || noteForm.get('heading')?.dirty)"
+      >
+        Title is required
+      </div>
+      <div
+        class="invalid-feedback"
+        *ngIf="noteForm.get('heading')?.errors?.['maxlength'] && (noteForm.get('heading')?.touched || noteForm.get('heading')?.dirty)"
+      >
+        Title cannot be more than 20 characters
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="note_date" class="col-form-label">Date</label>
+      <div class="input-group position-relative mb-3">
+        <input
+          class="form-control pe-5"
+          [class.is-invalid]="
+            (noteForm.get('note_date')?.touched ||
+              noteForm.get('note_date')?.dirty) &&
+            noteForm.get('note_date')?.invalid
+          "
+          placeholder="MM-DD-YY"
+          name="noteDate"
+          formControlName="note_date"
+          ngbDatepicker
+          #noteDate="ngbDatepicker"
+          readonly
+        />
+        <span class="input-group-text" (click)="noteDate.toggle()">
+          <img src="../../../../assets/icons/form/calender.svg" />
+        </span>
+        <div
+          class="invalid-feedback"
+          *ngIf="noteForm.get('note_date')?.errors?.['required'] && (noteForm.get('note_date')?.touched || noteForm.get('note_date')?.dirty)"
+        >
+          Date is required
+        </div>
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="description" class="col-form-label">Description</label>
+      <textarea
+        class="form-control"
+        rows="3"
+        [class.is-invalid]="
+          (noteForm.get('description')?.touched ||
+            noteForm.get('description')?.dirty) &&
+          noteForm.get('description')?.invalid
+        "
+        formControlName="description"
+      ></textarea>
+      <div
+        class="invalid-feedback"
+        *ngIf="noteForm.get('description')?.errors?.['required'] && (noteForm.get('description')?.touched || noteForm.get('description')?.dirty)"
+      >
+        Description is required
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-footer d-flex justify-content-end">
+    <button class="btn submit-button">Save</button>
+  </div>
+</form>

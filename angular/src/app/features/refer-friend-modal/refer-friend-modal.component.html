@@ -1,0 +1,35 @@
+<div class="modal-overlay" (click)="onClose()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <button class="close-button" (click)="onClose()">&times;</button>
+
+    <h2>Refer a Friend</h2>
+
+    <form [formGroup]="emailForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="email">Friend's Email</label>
+        <input
+          type="email"
+          id="email"
+          formControlName="email"
+          placeholder="Enter your friend's email"
+          [ngClass]="{
+            'is-invalid':
+              emailForm.get('email')?.invalid && emailForm.get('email')?.touched
+          }"
+        />
+        <div
+          *ngIf="
+            emailForm.get('email')?.invalid && emailForm.get('email')?.touched
+          "
+          class="error-message"
+        >
+          Please enter a valid email address
+        </div>
+      </div>
+
+      <button type="submit" [disabled]="emailForm.invalid" class="send-button">
+        Send Invitation
+      </button>
+    </form>
+  </div>
+</div>

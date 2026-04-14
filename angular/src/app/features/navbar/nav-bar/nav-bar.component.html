@@ -1,0 +1,96 @@
+<div class="legacy-hero">
+  <div class="legacy-header">
+    <img
+      src="/assets/images/logo.webp"
+      alt="Pearls of Lyfe Logo"
+      class="legacy-logo"
+      [routerLink]="['/home']"
+    />
+
+    <!-- Mobile Hamburger Button -->
+    <button class="mobile-menu-toggle" (click)="toggleMobileMenu()">
+      <span class="hamburger-icon">☰</span>
+      <span class="close-icon" style="display: none">✕</span>
+    </button>
+    <!-- Navigation Buttons -->
+    <div class="nav-buttons" [class.mobile-active]="isMobileMenuOpen">
+      <button
+        class="nav-button"
+        [routerLink]="['/home']"
+        (click)="goToPage('home')"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        Home
+      </button>
+      <button
+        class="nav-button"
+        (click)="goToPage('about-us')"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        About Us
+      </button>
+      <button
+        class="nav-button"
+        (click)="goToPage('pricing')"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        Pricing
+      </button>
+      <button
+        class="nav-button"
+        (click)="goToPage('our-service')"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        Services
+      </button>
+      <!-- <button class="nav-button" routerLink="/legacy" routerLinkActive="active">
+        Legacy
+      </button> -->
+      <!-- <button
+        class="nav-button"
+        routerLink="/auto-obituary1"
+        routerLinkActive="active"
+      >
+        Auto Obituary
+      </button> -->
+      <button
+        class="nav-button"
+        (click)="goToPage('contact-us')"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        Contact-Us
+      </button>
+      <button
+        class="nav-button"
+        (click)="goToPage('obituary')"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        Auto-Obituary
+      </button>
+      <button
+        class="nav-button"
+        (click)="goToPage('legacy')"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        Legacy
+      </button>
+    </div>
+
+    <!-- Auth Buttons - Hidden on mobile -->
+    <div class="legacy-auth-buttons">
+      <button class="legacy-login-btn" (click)="goToPage('auth/login')">
+        Login
+      </button>
+      <button class="legacy-signup-btn" (click)="goToPage('auth/register')">
+        Sign Up
+      </button>
+    </div>
+  </div>
+</div>

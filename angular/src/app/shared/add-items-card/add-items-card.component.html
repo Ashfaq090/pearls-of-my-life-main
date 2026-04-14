@@ -1,0 +1,28 @@
+<div class="d-flex gap-3 justify-content-start add-items-card">
+  <ng-container *ngFor="let item of items">
+    <a class="link-grid" (click)="emit(item?.label)">
+      <img
+        [ngClass]="{ 'd-none': !item?.label }"
+        src="../../../assets/icons/side-bar/{{ item.label }}.svg"
+      />
+      {{ item?.text || "TEXT" }}
+    </a>
+  </ng-container>
+
+  <!-- <a class="link-grid" [routerLink]="['/memories']">
+        <img src="../../../assets/icons/side-bar/memories.svg">
+        Memories
+    </a>
+    <a class="link-grid" [routerLink]="['/notes']">
+        <img src="../../../assets/icons/side-bar/notes.svg">
+        Add Notes
+    </a>
+    <a class="link-grid" [routerLink]="['/assets']">
+        <img src="../../../assets/icons/side-bar/assets.svg">
+        Assets
+    </a>
+    <a class="link-grid" [routerLink]="['/passwords']">
+        <img src="../../../assets/icons/side-bar/passwords.svg">
+        Add Passwords
+    </a> -->
+</div>

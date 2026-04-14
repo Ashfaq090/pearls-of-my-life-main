@@ -1,0 +1,59 @@
+<div class="container legacy-photos mt-4">
+  <h2>Photos for Home Going Program</h2>
+  <p class="text-muted">
+    Upload photos to be used as part of your home going program.
+  </p>
+
+  <div *ngIf="!canUpload" class="alert alert-warning">
+    You have reached the maximum of {{ MAX_IMAGES }} photos for your plan.
+  </div>
+
+  <div *ngIf="canUpload" class="card p-3 mb-4">
+    <h5>Upload Photos</h5>
+    <app-file-upload
+      type="image"
+      (uploadComplete)="onUploadComplete()"
+    ></app-file-upload>
+  </div>
+
+  <div *ngIf="loading" class="text-center py-5">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="!loading && images.length > 0">
+    <div class="col-md-4 mb-3" *ngFor="let image of images">
+      <div class="card h-100">
+        <div
+          class="card-img-top"
+          [style.background-image]="'url(' + image.url + ')'"
+          style="height: 200px; background-size: cover; background-position: center;"
+        ></div>
+        <div class="card-body">
+          <h5 class="card-title">{{ image.title }}</h5>
+          <p class="card-text">{{ image.description || 'No description' }}</p>
+          <small class="text-muted">{{ image.created_on | date }}</small>
+          <div class="d-flex gap-2 mt-2">
+            <a
+              class="btn btn-sm btn-outline-primary"
+              [href]="image.url"
+              target="_blank"
+              >View Full</a
+            >
+            <button
+              class="btn btn-sm btn-outline-danger"
+              (click)="deleteImage(image)"
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!loading && images.length === 0" class="text-center py-4">
+    <p class="text-muted">No photos uploaded yet.</p>
+  </div>
+</div>

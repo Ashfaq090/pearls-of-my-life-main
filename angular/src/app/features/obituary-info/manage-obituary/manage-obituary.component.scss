@@ -1,0 +1,25 @@
+.manage-obituary {
+    textarea {
+        resize: none;
+    }
+}
+
+.invalid-feedback {
+    color: #dc3545;
+    font-size: 0.875em;
+}
+
+.is-invalid {
+    border-color: #dc3545 !important;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+    color: white;
+
+    &:hover {
+        background-color: #c82333;
+        border-color: #bd2130;
+    }
+}

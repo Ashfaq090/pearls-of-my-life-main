@@ -1,0 +1,63 @@
+<div class="container key-holders p-0">
+  <div *ngIf="personKeyholders?.length === 0" class="text-center my-5">
+    <h5>You haven't assigned any key holders yet</h5>
+    <p class="text-muted">
+      To use all features of the application, please add at least one key
+      holder.
+    </p>
+    <button class="btn btn-primary" (click)="openKeyHolderPopup($event)">
+      Add Key Holder
+    </button>
+  </div>
+
+  <div class="row m-0" *ngIf="personKeyholders.length > 0">
+    <div
+      class="col-6 col-md-4 col-lg-3 col-xl-2 p-3 pointer"
+      *ngFor="let item of personKeyholders"
+    >
+      <div class="key-holder-pic" [routerLink]="['./', item?.id]">
+        <img *ngIf="item?.image_path" [src]="item?.image_path" />
+      </div>
+      <h6>
+        <a
+          class="text-decoration-none text-link"
+          [routerLink]="['./', item?.id]"
+          >{{ item?.first_name }} {{ item?.last_name }}</a
+        >
+      </h6>
+    </div>
+    <div
+      *ngIf="!isKeyHolder && personKeyholders.length < MAX_KEYHOLDERS"
+      class="col-6 col-md-4 col-lg-3 col-xl-2 p-3 pointer"
+      (click)="openKeyHolderPopup($event)"
+    >
+      <div class="key-holder-pic add-keyholder"></div>
+    </div>
+    <div
+      *ngIf="!isKeyHolder && personKeyholders.length >= MAX_KEYHOLDERS"
+      class="col-12 px-3"
+    >
+      <p class="text-muted mb-0">
+        You've reached the maximum of 3 key holders.
+      </p>
+    </div>
+  </div>
+
+  <div class="row m-0 mt-2" *ngIf="!isKeyHolder">
+    <div class="col-6 col-md-4 col-lg-3 col-xl-2 p-3 pointer">
+      <div
+        class="key-holder-pic funeral-home-card"
+        (click)="openFuneralHomePopup()"
+      ></div>
+      <h6 class="mb-0">Funeral Home</h6>
+      <small class="text-muted">
+        {{
+          funeralHome?.funeral_home_name
+            ? funeralHome.funeral_home_name
+            : 'Add funeral home'
+        }}
+      </small>
+    </div>
+  </div>
+
+</div>

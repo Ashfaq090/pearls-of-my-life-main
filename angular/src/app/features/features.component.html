@@ -1,0 +1,19 @@
+<div class="d-flex position-relative">
+  <!-- Sidebar -->
+  <nav class="text-white sidebar py-3" [class.active]="isCollapsed">
+    <app-side-nav [navList]="navList" [activeItem]="activeItem"> </app-side-nav>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="main-content flex-grow-1 px-3 px-md-5">
+    <app-header [activeItem]="activeItem" [currentUserPlanName]="currentUserPlanName"></app-header>
+    <div class="pt-0 pb-5">
+      <router-outlet></router-outlet>
+      <div class="mt-4" *ngIf="!isHighestPlan && !hasAnyPlan">
+        <button class="btn btn-primary w-100" (click)="goToPricing()">
+          Click here to upgrade your plan to leave photos, videos and more
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

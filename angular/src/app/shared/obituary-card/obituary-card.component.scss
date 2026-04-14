@@ -1,0 +1,50 @@
+.obituaries {
+    .obituary-card {
+        border-radius: 8px;
+        min-height: 150px;
+
+        .text-date {
+            color: #666;
+            font-size: 12px;
+        }
+
+        .text-content {
+            color: #666;
+            font-size: 0.875rem;
+            overflow: hidden;
+
+            p {
+                margin-bottom: 0.5rem;
+            }
+
+            ul {
+                font-size: 0.85rem;
+                margin-left: 1rem;
+            }
+        }
+
+        .list-unstyled {
+            list-style: none;
+            padding-left: 0;
+        }
+    }
+
+    .see-more-card {
+        border-radius: 8px;
+        min-height: 150px;
+        background-color: #f8f9fa;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &:hover {
+            background-color: #e9ecef;
+        }
+    }
+
+    .icon-button {
+        padding: 4px;
+        line-height: 1;
+    }
+}

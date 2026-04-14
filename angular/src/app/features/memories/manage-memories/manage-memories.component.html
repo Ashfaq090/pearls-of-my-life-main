@@ -1,0 +1,120 @@
+<div class="modal-header">
+  <h4 class="modal-title">{{ data.name }} Memories</h4>
+  <button type="button" class="btn" aria-label="Close" (click)="closeModal()">
+    <img src="../../../../assets/icons/form/close-lg.svg" />
+  </button>
+</div>
+
+<form [formGroup]="memoriesForm" (submit)="submit()">
+  <div class="modal-body manage-memories mx-4">
+    <div class="profile-pic mx-auto my-3 position-relative">
+      <div class="w-100">
+        <img *ngIf="imageUrl && uploadedFile?.type?.startsWith('image/')" [src]="imageUrl" alt="Preview" />
+        <video *ngIf="imageUrl && uploadedFile?.type?.startsWith('video/')" [src]="imageUrl" controls style="width: 100%; max-height: 300px;"></video>
+        <div *ngIf="uploadedFile && !imageUrl" class="file-preview-placeholder p-3 text-center">
+          <p class="mb-0"><strong>{{ uploadedFile.name }}</strong></p>
+          <p class="text-muted small mb-0">{{ formatFileSize(uploadedFile.size) }}</p>
+        </div>
+      </div>
+      <button
+        type="button"
+        class="btn position-absolute bg-yellow border-0"
+        (click)="fileInput.click()"
+      >
+        <img src="../../../assets/icons/form/camera-broken.svg" />
+      </button>
+      <input
+        type="file"
+        #fileInput
+        id="profile-pic-input"
+        formControlName="file"
+        class="d-none"
+        (change)="onFileChange(fileInput.files)"
+      />
+    </div>
+    <div
+      class="invalid-feedback d-block text-center mb-3"
+      *ngIf="memoriesForm.get('file')?.errors?.['required'] && (memoriesForm.get('file')?.touched || memoriesForm.get('file')?.dirty)"
+    >
+      File is required
+    </div>
+
+    <div class="mb-3">
+      <label class="col-form-label">Folder</label>
+      <select
+        class="form-select"
+        id="folder"
+        [class.is-invalid]="
+          (memoriesForm.get('folder_id')?.touched ||
+            memoriesForm.get('folder_id')?.dirty) &&
+          memoriesForm.get('folder_id')?.invalid
+        "
+        formControlName="folder_id"
+      >
+        <option value="">Select</option>
+        <option *ngFor="let folder of memoryFolders" value="{{ folder?.id }}">
+          {{ folder?.folder_name }}
+        </option>
+      </select>
+      <div
+        class="invalid-feedback"
+        *ngIf="memoriesForm.get('folder_id')?.errors?.['required'] && (memoriesForm.get('folder_id')?.touched || memoriesForm.get('folder_id')?.dirty)"
+      >
+        Folder is required
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="date" class="col-form-label">Date</label>
+      <div class="input-group position-relative mb-3">
+        <input
+          class="form-control pe-5"
+          [class.is-invalid]="
+            (memoriesForm.get('date')?.touched ||
+              memoriesForm.get('date')?.dirty) &&
+            memoriesForm.get('date')?.invalid
+          "
+          placeholder="MM-DD-YY"
+          name="date"
+          formControlName="date"
+          ngbDatepicker
+          #date="ngbDatepicker"
+          readonly
+        />
+        <span class="input-group-text" (click)="date.toggle()">
+          <img src="../../../../assets/icons/form/calender.svg" />
+        </span>
+        <div
+          class="invalid-feedback"
+          *ngIf="memoriesForm.get('date')?.errors?.['required'] && (memoriesForm.get('date')?.touched || memoriesForm.get('date')?.dirty)"
+        >
+          Date is required
+        </div>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="description" class="col-form-label">Description</label>
+      <textarea
+        class="form-control"
+        [class.is-invalid]="
+          (memoriesForm.get('description')?.touched ||
+            memoriesForm.get('description')?.dirty) &&
+          memoriesForm.get('description')?.invalid
+        "
+        rows="3"
+        formControlName="description"
+      ></textarea>
+      <div
+        class="invalid-feedback"
+        *ngIf="memoriesForm.get('description')?.errors?.['required'] && (memoriesForm.get('description')?.touched || memoriesForm.get('description')?.dirty)"
+      >
+        Description is required
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-footer d-flex justify-content-end">
+    <button type="submit" class="btn submit-button">Save</button>
+  </div>
+</form>

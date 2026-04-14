@@ -1,0 +1,16 @@
+<section class="d-flex justify-content-center auth">
+  <a [routerLink]="'/'" class="back-home-btn"> ⬅ Back to Home </a>
+
+  <div class="container auth-card my-auto p-5">
+    <div class="d-flex justify-content-center">
+      <div class="logo">
+        <img
+          src="/assets/images/logo.webp"
+          alt="Pearls of Life Logo"
+          class="legacy-logo"
+        />
+      </div>
+    </div>
+    <router-outlet *ngIf="true"></router-outlet>
+  </div>
+</section>

@@ -1,0 +1,1372 @@
+{
+  "info": {
+    "_postman_id": "pearl-of-life-collection",
+    "name": "PearlOfLife API - Complete Collection",
+    "description": "Complete API collection for PearlOfLife application",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Register",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"first_name\": \"John\",\n    \"last_name\": \"Doe\",\n    \"email\": \"user@example.com\",\n    \"hashed_password\": \"password123\",\n    \"phone_number\": \"+1234567890\",\n    \"date_of_birth\": \"1990-01-01\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/register",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "register"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"user@example.com\",\n    \"hashed_password\": \"password123\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "login"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Forgot Password",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"user@example.com\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/forgot-password",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "forgot-password"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Reset Password",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"token\": \"reset-token-here\",\n    \"new_password\": \"newpassword123\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/reset-password",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "reset-password"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "KeyHolder Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"token_url\": \"keyholder-token\",\n    \"pin\": \"1234\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/keyholder",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "keyholder"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "Get Current User",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/users/me",
+              "host": ["{{baseUrl}}"],
+              "path": ["users", "me"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get User by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/users/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["users", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "user-id-here"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update User",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"first_name\": \"John Updated\",\n    \"last_name\": \"Doe Updated\",\n    \"phone_number\": \"+1234567890\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/users/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["users", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "user-id-here"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Terminate Account",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/users/me",
+              "host": ["{{baseUrl}}"],
+              "path": ["users", "me"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get User Plan",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/users/plan",
+              "host": ["{{baseUrl}}"],
+              "path": ["users", "plan"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Payments",
+      "item": [
+        {
+          "name": "Get Subscription Plans",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/payments/subscription-plans",
+              "host": ["{{baseUrl}}"],
+              "path": ["payments", "subscription-plans"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get My Subscription",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/payments/my-subscription",
+              "host": ["{{baseUrl}}"],
+              "path": ["payments", "my-subscription"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Order",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"amount\": 9.99\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/payments/create-order",
+              "host": ["{{baseUrl}}"],
+              "path": ["payments", "create-order"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Capture Order",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"orderId\": \"paypal-order-id\",\n    \"planId\": \"plan-id-here\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/payments/capture-order",
+              "host": ["{{baseUrl}}"],
+              "path": ["payments", "capture-order"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Cancel Subscription",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"subscriptionId\": \"subscription-id-here\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/payments/cancel-subscription",
+              "host": ["{{baseUrl}}"],
+              "path": ["payments", "cancel-subscription"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "PayPal Webhook",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"event_type\": \"BILLING.SUBSCRIPTION.CANCELLED\",\n    \"resource\": {\n        \"id\": \"subscription-id\"\n    }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/payments/webhook",
+              "host": ["{{baseUrl}}"],
+              "path": ["payments", "webhook"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Legacy / Uploads",
+      "item": [
+        {
+          "name": "Upload Video File",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": []
+                },
+                {
+                  "key": "title",
+                  "value": "My Video",
+                  "type": "text"
+                },
+                {
+                  "key": "description",
+                  "value": "Video description",
+                  "type": "text"
+                },
+                {
+                  "key": "duration",
+                  "value": "120",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/legacy/video/upload",
+              "host": ["{{baseUrl}}"],
+              "path": ["legacy", "video", "upload"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Video Link (YouTube/Vimeo)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"title\": \"YouTube Video\",\n    \"description\": \"Video description\",\n    \"url\": \"https://www.youtube.com/watch?v=VIDEO_ID\",\n    \"source_type\": \"youtube\",\n    \"duration\": 300\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/legacy/video",
+              "host": ["{{baseUrl}}"],
+              "path": ["legacy", "video"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Upload Image",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": []
+                },
+                {
+                  "key": "title",
+                  "value": "My Image",
+                  "type": "text"
+                },
+                {
+                  "key": "description",
+                  "value": "Image description",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/legacy/image/upload",
+              "host": ["{{baseUrl}}"],
+              "path": ["legacy", "image", "upload"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Note",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"title\": \"My Note\",\n    \"content\": \"This is a note content.\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/legacy/note",
+              "host": ["{{baseUrl}}"],
+              "path": ["legacy", "note"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Content",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/legacy/content",
+              "host": ["{{baseUrl}}"],
+              "path": ["legacy", "content"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "KeyHolders",
+      "item": [
+        {
+          "name": "Create KeyHolder",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"first_name\": \"Jane\",\n    \"last_name\": \"Doe\",\n    \"email\": \"jane@example.com\",\n    \"phone_number\": \"+1234567890\",\n    \"street\": \"123 Main St\",\n    \"city\": \"New York\",\n    \"state\": \"NY\",\n    \"zip\": \"10001\",\n    \"relation\": \"Spouse\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/key-holders",
+              "host": ["{{baseUrl}}"],
+              "path": ["key-holders"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get All KeyHolders",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/key-holders",
+              "host": ["{{baseUrl}}"],
+              "path": ["key-holders"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get KeyHolder by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/key-holders/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["key-holders", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "keyholder-id-here"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Admin",
+      "item": [
+        {
+          "name": "Get All Users",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/users/manage/list?page=1&limit=10",
+              "host": ["{{baseUrl}}"],
+              "path": ["users", "manage", "list"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update User Role",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"role\": \"admin\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/users/:userId/role",
+              "host": ["{{baseUrl}}"],
+              "path": ["users", ":userId", "role"],
+              "variable": [
+                {
+                  "key": "userId",
+                  "value": "user-id-here"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Block User",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/users/:userId/block",
+              "host": ["{{baseUrl}}"],
+              "path": ["users", ":userId", "block"],
+              "variable": [
+                {
+                  "key": "userId",
+                  "value": "user-id-here"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Unblock User",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/users/:userId/unblock",
+              "host": ["{{baseUrl}}"],
+              "path": ["users", ":userId", "unblock"],
+              "variable": [
+                {
+                  "key": "userId",
+                  "value": "user-id-here"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Dashboard Stats",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/admin/stats",
+              "host": ["{{baseUrl}}"],
+              "path": ["admin", "stats"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Users (Admin)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/admin/users?page=1&limit=10&search=&status=all",
+              "host": ["{{baseUrl}}"],
+              "path": ["admin", "users"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                },
+                {
+                  "key": "search",
+                  "value": ""
+                },
+                {
+                  "key": "status",
+                  "value": "all",
+                  "description": "all, active, inactive, terminated"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get User by ID (Admin)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/admin/users/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["admin", "users", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "user-id-here"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Activate User",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/admin/users/:id/activate",
+              "host": ["{{baseUrl}}"],
+              "path": ["admin", "users", ":id", "activate"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "user-id-here"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Deactivate User",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/admin/users/:id/deactivate",
+              "host": ["{{baseUrl}}"],
+              "path": ["admin", "users", ":id", "deactivate"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "user-id-here"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Terminate User",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/admin/users/:id/terminate",
+              "host": ["{{baseUrl}}"],
+              "path": ["admin", "users", ":id", "terminate"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "user-id-here"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Key Holders",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/admin/keyholders?page=1&limit=10",
+              "host": ["{{baseUrl}}"],
+              "path": ["admin", "keyholders"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Key Holder",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/admin/keyholders/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["admin", "keyholders", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "keyholder-id-here"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Uploads",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/admin/uploads?page=1&limit=10",
+              "host": ["{{baseUrl}}"],
+              "path": ["admin", "uploads"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                },
+                {
+                  "key": "userId",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "contentType",
+                  "value": "",
+                  "disabled": true,
+                  "description": "video, image, audio, note"
+                },
+                {
+                  "key": "startDate",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "endDate",
+                  "value": "",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Upload",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/admin/uploads/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["admin", "uploads", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "upload-id-here"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Plans",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/admin/plans",
+              "host": ["{{baseUrl}}"],
+              "path": ["admin", "plans"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Plan",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Premium Plan\",\n    \"price\": 29.99,\n    \"description\": \"Premium subscription plan\",\n    \"features\": \"[\\\"Unlimited videos\\\", \\\"Unlimited images\\\"]\",\n    \"isActive\": true,\n    \"max_video_length\": 3600,\n    \"max_images\": 1000,\n    \"max_uploads\": 10000,\n    \"billing_period\": \"monthly\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/admin/plans",
+              "host": ["{{baseUrl}}"],
+              "path": ["admin", "plans"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Plan",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"price\": 39.99,\n    \"max_video_length\": 7200\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/admin/plans/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["admin", "plans", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "plan-id-here"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Plan",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/admin/plans/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["admin", "plans", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "plan-id-here"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Subscriptions",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/admin/subscriptions?page=1&limit=10",
+              "host": ["{{baseUrl}}"],
+              "path": ["admin", "subscriptions"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Cancel Subscription",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/admin/subscriptions/:id/cancel",
+              "host": ["{{baseUrl}}"],
+              "path": ["admin", "subscriptions", ":id", "cancel"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "subscription-id-here"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Change Plan",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"planId\": \"new-plan-id-here\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/admin/subscriptions/:id/change-plan",
+              "host": ["{{baseUrl}}"],
+              "path": ["admin", "subscriptions", ":id", "change-plan"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "subscription-id-here"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Payments",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/admin/payments?page=1&limit=10",
+              "host": ["{{baseUrl}}"],
+              "path": ["admin", "payments"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                },
+                {
+                  "key": "userId",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "startDate",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "endDate",
+                  "value": "",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Email Logs",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/admin/email-logs?page=1&limit=10",
+              "host": ["{{baseUrl}}"],
+              "path": ["admin", "email-logs"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                },
+                {
+                  "key": "userId",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "emailType",
+                  "value": "",
+                  "disabled": true,
+                  "description": "registration, password_reset, account_termination, subscription, payment, general"
+                },
+                {
+                  "key": "startDate",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "endDate",
+                  "value": "",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000",
+      "type": "string"
+    },
+    {
+      "key": "accessToken",
+      "value": "",
+      "type": "string"
+    }
+  ]
+}

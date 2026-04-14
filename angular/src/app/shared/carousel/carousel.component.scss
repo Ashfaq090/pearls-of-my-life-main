@@ -1,0 +1,39 @@
+// .fixed-carousel {
+//     overflow-x: hidden;
+//     overflow-y: hidden;
+// }
+
+// .carousel-image {
+//     height: 100%;
+//     width: 100%;
+//     object-fit: cover;
+// }
+
+// .img-box{
+//     height: 450px;
+//     overflow: hidden;
+//     img{
+//         height: 450px;
+//         width: 100%;
+//     }
+// }
+
+
+.modal-body{
+    // background-color: #dbebd5;
+    // background-image: linear-gradient(225deg, #dbebd5 0%, #d7d3df 50%, #dfd1be 100%);
+    background-color: #333;
+    .img-box {
+        height: 420px;       /* Fixed height for container */
+        width: 100%;         /* Or any fixed width if needed */
+        overflow: hidden;    /* Hide anything beyond the container */
+        display: flex;
+        justify-content: center;
+        align-items: center;  
+        img.carousel-image {
+            max-height: 100%;    /* Prevent image from exceeding container's height */
+            width: auto;         /* Maintain aspect ratio */
+            object-fit: contain; /* Optional: scales nicely */
+        }
+    }
+}

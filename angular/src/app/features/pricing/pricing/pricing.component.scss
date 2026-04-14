@@ -1,0 +1,479 @@
+/* src/app/pages/pricing/pricing.component.scss */
+.page-container {
+    overflow-x: hidden;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 3rem;
+    position: relative;
+
+    &:after {
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 3px;
+        background: linear-gradient(90deg, #f39c12, #e67e22);
+    }
+}
+
+.pricing-section {
+    padding: 5rem 0;
+    background-color: white;
+    /* Make visible by default */
+    opacity: 1;
+    transform: none;
+    transition: opacity 0.8s ease, transform 0.8s ease;
+
+    .pricing-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+
+        .pricing-card {
+            background: #fff;
+            border-radius: 24px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+            padding: 2.5rem 2rem 2rem 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            // min-width: 280px;
+            // max-width: 370px;
+            height: 1100px;
+            margin: 0 auto;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            font-family: 'Inter', Arial, sans-serif;
+
+            &:hover {
+                transform: translateY(-10px) scale(1.03);
+                box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+            }
+
+            &.featured {
+                background: #36a9e1;
+                border: none;
+                height: 880px;
+
+                .card-header,
+                .card-body,
+                .card-footer {
+                    background: transparent;
+                }
+
+                .price .amount {
+                    color: #fff;
+                }
+
+                h3,
+                p,
+                ul li,
+                .price .period {
+                    color: #fff !important;
+                }
+            }
+
+            &.basic {
+                background: #36a9e1;
+                border: none;
+                height: 840px;
+
+                .card-header,
+                .card-body,
+                .card-footer {
+                    background: transparent;
+                }
+
+                .price .amount {
+                    color: #fff;
+                }
+
+                h3,
+                p,
+                ul li,
+                .price .period {
+                    color: #fff !important;
+                }
+            }
+
+
+            &.ultimate {
+                background: #36a9e1;
+                border: none;
+                height: 590px;
+
+                .card-header,
+                .card-body,
+                .card-footer {
+                    background: transparent;
+                }
+
+                .price .amount {
+                    color: #fff;
+                }
+
+                h3,
+                p,
+                ul li,
+                .price .period {
+                    color: #fff !important;
+                }
+            }
+
+            &:nth-child(1) {
+                background: #ff5757;
+                /* red for Auto-Obituary Plan */
+
+                h3,
+                .price .amount,
+                p,
+                ul li,
+                .price .period {
+                    color: #fff !important;
+                }
+            }
+
+            &:nth-child(2) {
+                background: #e6a6e6;
+                /* purple/pink for Advanced Plan */
+
+                h3,
+                .price .amount,
+                p,
+                ul li,
+                .price .period {
+                    color: #fff !important;
+                }
+            }
+
+            &:nth-child(4) {
+                background: #ffcb05;
+                /* yellow for Ultimate Plan */
+
+                h3,
+                .price .amount,
+                p,
+                ul li,
+                .price .period {
+                    color: #fff !important;
+                }
+            }
+
+            .card-header {
+                background: transparent;
+                text-align: center;
+                padding: 0 0 1.2rem 0;
+
+                h3 {
+                    font-size: 1rem;
+                    font-weight: 700;
+                    margin-bottom: 0.5rem;
+                    letter-spacing: 0.01em;
+                }
+
+                .price {
+                    display: flex;
+                    align-items: flex-end;
+                    justify-content: center;
+
+                    .amount {
+                        font-size: 2.8rem;
+                        font-weight: 800;
+                        margin-right: 0.3rem;
+                        line-height: 1;
+                    }
+
+                    .period {
+                        font-size: 1.1rem;
+                        font-weight: 500;
+                        margin-bottom: 0.3rem;
+                    }
+                }
+            }
+
+            .card-body {
+                background: transparent;
+                padding: 0 0 1.2rem 0;
+
+                p {
+                    font-size: 1.05rem;
+                    font-weight: 500;
+                    margin-bottom: 1.2rem;
+                    text-align: center;
+                }
+
+                ul {
+                    list-style: none;
+                    padding: 0;
+                    margin: 0;
+
+                    li {
+                        border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+                        padding: 0.6rem 0;
+                        font-size: 1.05rem;
+                        font-weight: 400;
+                        color: inherit;
+
+                        &:last-child {
+                            border-bottom: none;
+                        }
+                    }
+                }
+            }
+
+            .card-footer {
+                background: transparent;
+                padding: 0;
+                margin-top: 1.2rem;
+                text-align: center;
+
+                button,
+                app-button {
+                    background: #181818 !important;
+                    color: #fff !important;
+                    border-radius: 2em;
+                    font-size: 1.2rem;
+                    font-weight: 500;
+                    padding: 0.7em 2.5em;
+                    margin: 0 auto;
+                    display: block;
+                    border: none;
+                    box-shadow: 0 4px 24px 0 rgba(0, 0, 0, 0.10);
+                    transition: transform 0.2s, box-shadow 0.2s;
+                }
+            }
+        }
+    }
+}
+
+.additional-fees {
+    padding: 5rem 0;
+    background-color: #f9f9f9;
+    /* Make visible by default */
+    opacity: 1;
+    transform: none;
+    transition: opacity 0.8s ease, transform 0.8s ease;
+
+    .fees-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 3rem;
+
+        .fees-column {
+            flex: 1 1 400px;
+
+            h3 {
+                font-size: 1.2rem;
+                font-weight: 400;
+                margin: 0 0 1rem;
+                color: #333;
+            }
+
+            p {
+                color: #555;
+                margin-bottom: 2rem;
+                line-height: 1.6;
+            }
+
+            .fee-item {
+                background-color: white;
+                padding: 1.5rem;
+                border-radius: 10px;
+                margin-bottom: 1.5rem;
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+
+                h4 {
+                    font-size: 1.2rem;
+                    font-weight: 600;
+                    margin: 0 0 0.8rem;
+                    color: #333;
+                }
+
+                p {
+                    margin: 0 0 1rem;
+                    color: #555;
+                }
+
+                .fee {
+                    .amount {
+                        font-size: 1.5rem;
+                        font-weight: 700;
+                        color: #f39c12;
+                    }
+
+                    .period {
+                        font-size: 0.9rem;
+                        color: #777;
+                        margin-left: 5px;
+                    }
+                }
+            }
+        }
+
+        .funeral-home-column {
+            flex: 1 1 500px;
+
+            .funeral-home-plan {
+                background-color: rgb(204, 243, 161);
+                padding: 2rem;
+                border-radius: 10px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+                border: 2px solid #2ecc71;
+
+                h3 {
+                    font-size: 1.2rem;
+                    font-weight: 500;
+                    margin: 0 0 1rem;
+                    color: #333;
+                }
+
+                .price {
+                    margin-bottom: 1.5rem;
+
+                    .amount {
+                        font-size: 2.5rem;
+                        font-weight: 700;
+                        color: #2ecc71;
+                    }
+
+                    .period {
+                        font-size: 1rem;
+                        color: #777;
+                        margin-left: 5px;
+                    }
+                }
+
+                p {
+                    color: #555;
+                    line-height: 1.6;
+                    margin-bottom: 1.5rem;
+                }
+
+                ul {
+                    list-style: none;
+                    padding: 0;
+                    margin: 0 0 2rem;
+
+                    li {
+                        position: relative;
+                        padding-left: 1.5rem;
+                        margin-bottom: 1rem;
+                        color: #555;
+                        line-height: 1.5;
+
+                        &:before {
+                            content: '✓';
+                            position: absolute;
+                            left: 0;
+                            color: #2ecc71;
+                            font-weight: bold;
+                        }
+                    }
+                }
+
+                .plan-cta {
+                    text-align: center;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .pricing-section {
+        padding: 3rem 0;
+
+        .section-title {
+            font-size: 1.8rem;
+        }
+
+        .pricing-cards {
+            .pricing-card {
+                &.featured {
+                    transform: scale(1);
+
+                    &:hover {
+                        transform: translateY(-10px);
+                    }
+                }
+            }
+        }
+    }
+
+    .additional-fees {
+        padding: 3rem 0;
+    }
+}
+
+@media (max-width: 900px) {
+    .pricing-section .pricing-cards {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .pricing-section .pricing-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .pricing-section .pricing-card {
+        max-width: 100%;
+        min-width: 0;
+        padding: 1.2rem 0.5rem 1.2rem 0.5rem;
+    }
+}
+
+.plan-cta button {
+    background: #181818;
+    color: #fff;
+    border-radius: 2em;
+    font-size: 1.2rem;
+    font-weight: 500;
+    padding: 0.7em 2.5em;
+    margin: 1.2em auto 0 auto;
+    display: block;
+    border: none;
+    box-shadow: 0 4px 24px 0 rgba(0, 0, 0, 0.10);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.price {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #2c3e50;
+}
+
+.period {
+    font-size: 1rem;
+    color: #7f8c8d;
+}
+
+.annual-note {
+    font-size: 0.9rem;
+    color: white;
+    display: block;
+    margin-top: 0.2rem;
+    font-weight: 600;
+}
+
+.auto-renewal {
+
+    font-size: 0.9rem;
+    color: white;
+    display: block;
+    // margin-top: 0.5rem;
+    font-weight: 600;
+    text-align: center;
+}

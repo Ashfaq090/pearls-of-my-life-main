@@ -1,0 +1,35 @@
+<section class="confirm">
+    <div class="modal-header ps-3 ps-md-4">
+      <h4 class="modal-title">
+        {{
+            data?.title || 'Confirmation'
+        }}
+    </h4>
+      <button
+        type="button"
+        class="btn"
+        aria-label="Close"
+        (click)="activeModal.dismiss()"
+      >
+      <img src="../../../assets/icons/form/close-lg.svg">
+      </button>
+    </div>
+    <div class="modal-body mx-3 mx-md-2 mb-5">
+      <p class="fs-18">
+        {{
+            data?.text || 'I have reviewed the application details and found it to be correct.'
+        }}
+      </p>
+    </div>
+  
+    <div class="modal-footer px-3 px-md-4">
+      <button
+        type="button"
+        class="btn submit-button"
+        (click)="activeModal.close()"
+      >
+        Done
+      </button>
+    </div>
+  </section>
+  

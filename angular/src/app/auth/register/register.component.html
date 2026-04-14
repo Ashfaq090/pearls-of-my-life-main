@@ -1,0 +1,217 @@
+<form [formGroup]="registerForm" class="registerForm" (submit)="register()">
+  <div class="my-2">
+    <label for="firstName" class="col-form-label text-white">First Name</label>
+    <input
+      type="text"
+      placeholder="First Name"
+      class="form-control"
+      id="firstName"
+      formControlName="firstName"
+    />
+    <div
+      *ngIf="
+        registerForm.get('firstName')?.touched &&
+        registerForm.get('firstName')?.invalid
+      "
+      class="text-danger small"
+    >
+      First Name is required
+    </div>
+  </div>
+
+  <div class="my-2">
+    <label for="text" class="col-form-label text-white">Last Name</label>
+    <input
+      type="text"
+      placeholder="Last Name"
+      class="form-control"
+      id="lastName"
+      formControlName="lastName"
+    />
+    <div
+      *ngIf="
+        registerForm.get('lastName')?.touched &&
+        registerForm.get('lastName')?.invalid
+      "
+      class="text-danger small"
+    >
+      Last Name is required
+    </div>
+  </div>
+
+  <div class="my-2">
+    <label for="email" class="col-form-label text-white">Email</label>
+    <input
+      type="email"
+      placeholder="Email"
+      class="form-control"
+      id="email"
+      formControlName="email"
+    />
+    <div
+      *ngIf="
+        registerForm.get('email')?.touched && registerForm.get('email')?.invalid
+      "
+      class="text-danger small"
+    >
+      <div *ngIf="registerForm.get('email')?.errors?.['required']">
+        Email is required
+      </div>
+      <div *ngIf="registerForm.get('email')?.errors?.['email']">
+        Enter a valid email
+      </div>
+    </div>
+  </div>
+
+  <div class="my-2">
+    <label for="phone_number" class="col-form-label text-white"
+      >Mobile Number</label
+    >
+    <input
+      type="text"
+      placeholder="Mobile Number"
+      class="form-control"
+      id="phone_number"
+      formControlName="phone_number"
+    />
+  </div>
+
+  <div class="my-2">
+    <label for="password" class="col-form-label text-white">Password</label>
+    <div class="input-group">
+      <input
+        [type]="showPassword ? 'text' : 'password'"
+        placeholder="Password"
+        class="form-control"
+        id="password"
+        formControlName="password"
+      />
+      <span class="input-group-text" style="cursor: pointer;" (click)="showPassword = !showPassword">
+        <img
+          width="24"
+          [src]="
+            showPassword
+              ? '../../../assets/icons/form/eye-show.svg'
+              : '../../../assets/icons/form/eye-hide.svg'
+          "
+        />
+      </span>
+    </div>
+    <div
+      *ngIf="
+        registerForm.get('password')?.touched &&
+        registerForm.get('password')?.invalid
+      "
+      class="text-danger small"
+    >
+      Password is required
+    </div>
+  </div>
+
+  <div class="my-2">
+    <label for="confirmPassword" class="col-form-label text-white"
+      >Confirm Password</label
+    >
+    <div class="input-group">
+      <input
+        [type]="showConfirmPassword ? 'text' : 'password'"
+        placeholder="Confirm Password"
+        class="form-control"
+        id="confirmPassword"
+        formControlName="confirmPassword"
+      />
+      <span class="input-group-text" style="cursor: pointer;" (click)="showConfirmPassword = !showConfirmPassword">
+        <img
+          width="24"
+          [src]="
+            showConfirmPassword
+              ? '../../../assets/icons/form/eye-show.svg'
+              : '../../../assets/icons/form/eye-hide.svg'
+          "
+        />
+      </span>
+    </div>
+    <div
+      *ngIf="
+        registerForm.get('confirmPassword')?.touched &&
+        registerForm.get('confirmPassword')?.invalid
+      "
+      class="text-danger small"
+    >
+      <div *ngIf="registerForm.get('confirmPassword')?.errors?.['required']">
+        Confirm Password is required
+      </div>
+      <div *ngIf="registerForm.get('confirmPassword')?.errors?.['mismatch']">
+        Passwords do not match
+      </div>
+    </div>
+  </div>
+  <div class="my-2 form-check">
+    <input
+      type="checkbox"
+      id="agreeToTerms"
+      class="form-check-input"
+      formControlName="agreeToTerms"
+    />
+    <label for="agreeToTerms" class="form-check-label text-white">
+      I agree to the
+      <a
+        href="https://app.termly.io/policy-viewer/policy.html?policyUUID=eacf6cf7-8223-499b-a706-63b752e6b431"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="text-white"
+      >
+        Terms and Conditions
+      </a>
+    </label>
+
+    <div
+      *ngIf="
+        registerForm.get('agreeToTerms')?.touched &&
+        registerForm.get('agreeToTerms')?.invalid
+      "
+      class="text-danger small"
+    >
+      You must agree to the Terms and Conditions
+    </div>
+  </div>
+  <div class="my-2 form-check">
+    <input
+      type="checkbox"
+      id="email_marketing_opt_in"
+      class="form-check-input"
+      formControlName="email_marketing_opt_in"
+    />
+    <label for="email_marketing_opt_in" class="form-check-label text-white">
+      Yes, subscribe me to your emails!
+    </label>
+  </div>
+  <div class="my-2 form-check">
+    <input
+      type="checkbox"
+      id="sms_consent_opt_in"
+      class="form-check-input"
+      formControlName="sms_consent_opt_in"
+    />
+    <label for="sms_consent_opt_in" class="form-check-label text-white">
+      By checking this box, you agree to receive automated texts from
+      PearlOfLife at this number. Msg & data rates may apply.
+    </label>
+  </div>
+  <div class="mt-4 mb-3">
+    <button
+      type="submit"
+      class="btn secondary-button w-100"
+      [disabled]="registerForm.invalid"
+    >
+      Register
+    </button>
+  </div>
+
+  <div class="mt-4 text-center text-white">
+    Already have an Account?
+    <a class="text-white text-decoration-none" [routerLink]="['/auth/login']"
+      >Sign in</a
+    >
+  </div>
+</form>

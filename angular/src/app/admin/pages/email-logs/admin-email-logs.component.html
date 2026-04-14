@@ -1,0 +1,113 @@
+<div class="admin-email-logs">
+  <div class="page-header mb-4">
+    <h2>Email Logs</h2>
+    <p class="text-muted">View all sent emails</p>
+  </div>
+
+  <!-- Filters -->
+  <div class="card mb-4">
+    <div class="card-body">
+      <div class="row g-3">
+        <div class="col-md-3">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="User ID"
+            [(ngModel)]="filters.userId"
+            (keyup.enter)="applyFilters()"
+          />
+        </div>
+        <div class="col-md-3">
+          <select class="form-select" [(ngModel)]="filters.emailType" (change)="applyFilters()">
+            <option *ngFor="let type of emailTypes" [value]="type.value">
+              {{ type.label }}
+            </option>
+          </select>
+        </div>
+        <div class="col-md-2">
+          <input
+            type="date"
+            class="form-control"
+            [(ngModel)]="filters.startDate"
+            (change)="applyFilters()"
+          />
+        </div>
+        <div class="col-md-2">
+          <input
+            type="date"
+            class="form-control"
+            [(ngModel)]="filters.endDate"
+            (change)="applyFilters()"
+          />
+        </div>
+        <div class="col-md-2">
+          <button class="btn btn-secondary w-100" (click)="clearFilters()">Clear</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Logs Table -->
+  <div class="card">
+    <div class="card-body">
+      <div *ngIf="loading" class="text-center py-5">
+        <div class="spinner-border text-primary" role="status"></div>
+      </div>
+
+      <div *ngIf="!loading">
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Recipient</th>
+                <th>Subject</th>
+                <th>Type</th>
+                <th>User</th>
+                <th>Status</th>
+                <th>Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let log of logs">
+                <td>{{ log.recipient_email }}</td>
+                <td>{{ log.subject }}</td>
+                <td>
+                  <span class="badge bg-info">{{ log.email_type }}</span>
+                </td>
+                <td>{{ log.user?.email || 'N/A' }}</td>
+                <td>
+                  <span class="badge" [ngClass]="log.sent ? 'bg-success' : 'bg-danger'">
+                    {{ log.sent ? 'Sent' : 'Failed' }}
+                  </span>
+                </td>
+                <td>{{ log.created_at | date: 'short' }}</td>
+              </tr>
+              <tr *ngIf="logs.length === 0">
+                <td colspan="6" class="text-center text-muted py-4">No email logs found</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <nav *ngIf="totalPages > 1" class="mt-3">
+          <ul class="pagination justify-content-center">
+            <li class="page-item" [class.disabled]="page === 1">
+              <a class="page-link" (click)="goToPage(page - 1)">Previous</a>
+            </li>
+            <li
+              class="page-item"
+              *ngFor="let p of [].constructor(totalPages); let i = index"
+              [class.active]="page === i + 1"
+            >
+              <a class="page-link" (click)="goToPage(i + 1)">{{ i + 1 }}</a>
+            </li>
+            <li class="page-item" [class.disabled]="page === totalPages">
+              <a class="page-link" (click)="goToPage(page + 1)">Next</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</div>
+

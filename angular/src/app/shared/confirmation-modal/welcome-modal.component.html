@@ -1,0 +1,27 @@
+<div class="modal-header ps-3 ps-md-4">
+  <h4 class="modal-title">Welcome to POML</h4>
+  <button type="button" class="btn" aria-label="Close" (click)="dismiss()">
+    <img src="/assets/icons/form/close-lg.svg" />
+  </button>
+</div>
+<div class="modal-body mx-3 mx-md-2 mb-5">
+  <p class="fs-18 fw-semibold text-warning mb-3">
+    Let Your Legacy Memories Begin!
+  </p>
+  <p class="fs-16 mb-3">
+    You haven't assigned any key holders. Keyholder should be someone you trust
+    to carry out your final wishes for your homegoing services. Complete the key
+    holder information and an email will be sent to verify their acceptance.
+    Keyholders will be allowed access to the account with viewing and printing
+    capability only. They will not have editing ability. Start Here
+  </p>
+  <div class="d-flex justify-content-center align-items-center gap-2 flex-wrap mt-2">
+    <span class="fs-16 fw-semibold">Start Here <span aria-hidden="true">→</span></span>
+    <button type="button" class="btn submit-button" (click)="goToKeyHolders()">
+      Key Holder
+    </button>
+  </div>
+  <p class="fs-14 text-muted text-center mt-2 mb-0">
+    All account holders must assign at least 1 key holder before continuing
+  </p>
+</div>

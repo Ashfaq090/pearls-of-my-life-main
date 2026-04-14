@@ -1,0 +1,87 @@
+<div class="row pt-4 obituaries" *ngIf="itemsList && itemsList?.length">
+  <div class="col-sm-12 col-md-6 col-lg-4 pb-3" *ngFor="let item of itemsList">
+    <div class="card obituary-card">
+      <div class="card-body">
+        <div class="d-flex justify-content-between">
+          <h6 class="card-title">
+            {{ item?.current_name }} <br />
+            <small class="text-date"
+              >Birth: {{ item?.birth_date | date : "d/M/y" }}</small
+            >
+          </h6>
+          <div *ngIf="!isKeyHolder">
+            <button
+              type="button"
+              class="btn btn-sm icon-button me-2"
+              (click)="edit(item)"
+            >
+              <img
+                src="../../../assets/icons/form/edit.svg"
+                width="16"
+                height="16"
+                alt="Edit"
+              />
+            </button>
+            <button
+              type="button"
+              class="btn btn-sm icon-button"
+              (click)="delete(item)"
+            >
+              <img
+                src="../../../assets/icons/form/delete.svg"
+                width="16"
+                height="16"
+                alt="Delete"
+              />
+            </button>
+          </div>
+        </div>
+        <div class="card-text fs-14 text-content">
+          <p class="mb-2" *ngIf="item?.birth_name">
+            Birth Name: {{ item?.birth_name }}
+          </p>
+          <p class="mb-2" *ngIf="item?.married_name">
+            Married Name: {{ item?.married_name }}
+          </p>
+          <p class="mb-2" *ngIf="item?.birth_place">
+            Birth Place: {{ item?.birth_place }}
+          </p>
+          <p class="mb-2" *ngIf="item?.parent_names">
+            Parents: {{ item?.parent_names }}
+          </p>
+          <p class="mb-2" *ngIf="item?.spouse_name">
+            Spouse: {{ item?.spouse_name }}
+          </p>
+
+          <div *ngIf="item?.children?.length" class="mt-3">
+            <p class="mb-1"><strong>Children:</strong></p>
+            <ul class="list-unstyled ms-3">
+              <li *ngFor="let child of item.children">
+                {{ child.name }} ({{ child.dateOfBirth | date : "d/M/y" }})
+              </li>
+            </ul>
+          </div>
+
+          <div *ngIf="item?.siblings?.length" class="mt-3">
+            <p class="mb-1"><strong>Siblings:</strong></p>
+            <ul class="list-unstyled ms-3">
+              <li *ngFor="let sibling of item.siblings">
+                {{ sibling.name }} {{ sibling.isAlive ? "" : "(Deceased)" }}
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="col-sm-12 col-md-6 col-lg-4 pb-3"
+    *ngIf="!showAll && items.length > 6"
+  >
+    <div class="card see-more-card">
+      <div class="card-body text-center" (click)="redirectToYear('2024')">
+        See More
+      </div>
+    </div>
+  </div>
+</div>

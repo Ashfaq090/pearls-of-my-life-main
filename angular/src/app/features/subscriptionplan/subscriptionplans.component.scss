@@ -1,0 +1,142 @@
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+
+h2.text-center {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #4b0082;
+    margin-bottom: 2.5rem;
+}
+
+.card {
+    border: none;
+    border-radius: 1.5rem;
+    box-shadow: 0 6px 32px 0 rgba(80, 0, 120, 0.10);
+    transition: transform 0.2s, box-shadow 0.2s;
+    background: linear-gradient(135deg, #fff 60%, #f3e6ff 100%);
+}
+
+.card:hover {
+    transform: translateY(-8px) scale(1.03);
+    box-shadow: 0 12px 40px 0 rgba(80, 0, 120, 0.18);
+}
+
+.card-body {
+    padding: 2.5rem 1.5rem 2rem 1.5rem;
+}
+
+.card-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #6a1b9a;
+    margin-bottom: 0.5rem;
+}
+
+.card-subtitle {
+    font-size: 1.3rem;
+    color: #388e00;
+    font-weight: 600;
+    margin-bottom: 1.2rem;
+}
+
+.card-text {
+    color: #444;
+    font-size: 1.1rem;
+    margin-bottom: 1.2rem;
+    font-weight: 500;
+}
+
+.list-unstyled {
+    margin-bottom: 1.2rem;
+}
+
+.list-unstyled li {
+    color: #333;
+    font-size: 1rem;
+    padding: 0.3rem 0;
+    position: relative;
+    padding-left: 1.5rem;
+    font-weight: 500;
+}
+
+.list-unstyled li::before {
+    content: '\2713';
+    color: #6a1b9a;
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+#paypalButton,
+[id^="paypal-button-"] {
+    margin-top: 1.5rem;
+}
+
+@media (max-width: 900px) {
+    .card-body {
+        padding: 2rem 0.7rem 1.5rem 0.7rem;
+    }
+
+    h2.text-center {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .container {
+        padding: 1rem 0.2rem;
+    }
+
+    .card {
+        border-radius: 1rem;
+    }
+
+    .card-title {
+        font-size: 1.3rem;
+    }
+
+    .card-subtitle {
+        font-size: 1rem;
+    }
+}
+
+.back-home-btn {
+    position: absolute;
+    top: 20px;
+    left: 30px;
+    background: linear-gradient(to right, #f9a261, #fcd469);
+    color: white;
+    padding: 8px 14px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    transition: background 0.3s ease;
+    z-index: 1000;
+}
+
+.back-home-btn:hover {
+    background: linear-gradient(to right, #fcb361, #ffd36c);
+    text-decoration: none;
+}
+
+.annual-note {
+    font-size: 0.9rem;
+    display: block;
+    margin-top: 0.2rem;
+    font-weight: 600;
+}
+
+.auto-renewal {
+    font-size: 0.9em;
+    // color: rgb(212, 22, 22);
+    display: block;
+    margin-top: 5px;
+    margin-left: 15px;
+    font-weight: 600;
+}

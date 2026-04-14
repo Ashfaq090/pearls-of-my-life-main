@@ -1,0 +1,548 @@
+<div class="page-wrap">
+  <ng-container *ngIf="!latestObituary">
+    <app-add-items-card
+      [items]="addCardItems"
+      (label)="openManageObituaryModal($event)"
+    ></app-add-items-card>
+  </ng-container>
+
+  <ng-container *ngIf="latestObituary; else noRecords">
+    <div class="page-header card shadow-sm">
+      <div class="card-body">
+        <div class="d-flex align-items-start justify-content-between gap-2">
+          <div>
+            <h2 class="page-title">
+              {{
+                latestObituary?.full_name ||
+                  latestObituary?.current_name ||
+                  'Obituary'
+              }}
+            </h2>
+            <div class="page-subtitle" *ngIf="headerSummary">
+              {{ headerSummary }}
+            </div>
+            <div
+              class="page-subtitle"
+              *ngIf="
+                isNonEmpty(latestObituary?.birth_name) ||
+                isNonEmpty(latestObituary?.married_name)
+              "
+            >
+              <span *ngIf="isNonEmpty(latestObituary?.birth_name)">
+                Birth name: {{ latestObituary?.birth_name }}
+              </span>
+              <span
+                *ngIf="
+                  isNonEmpty(latestObituary?.birth_name) &&
+                  isNonEmpty(latestObituary?.married_name)
+                "
+              >
+                -
+              </span>
+              <span *ngIf="isNonEmpty(latestObituary?.married_name)">
+                Married name: {{ latestObituary?.married_name }}
+              </span>
+            </div>
+          </div>
+
+          <button
+            *ngIf="!isKeyHolder"
+            class="btn btn-outline-primary"
+            type="button"
+            (click)="openManageObituaryModal(latestObituary)"
+          >
+            Edit
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-3">
+      <div class="col-lg-6">
+        <section class="section-card" *ngIf="
+          isNonEmpty(latestObituary?.date_of_birth) ||
+          isNonEmpty(latestObituary?.date_of_death) ||
+          isNonEmpty(latestObituary?.birth_city) ||
+          isNonEmpty(latestObituary?.birth_state) ||
+          isNonEmpty(latestObituary?.place_of_birth) ||
+          isNonEmpty(latestObituary?.place_of_death)
+        ">
+          <div class="section-header">
+            <h4 class="section-title">Birth &amp; Death</h4>
+          </div>
+          <div class="section-body">
+            <dl class="kv">
+              <div class="kv-row" *ngIf="isNonEmpty(latestObituary?.date_of_birth)">
+                <dt class="kv-key">Born</dt>
+                <dd class="kv-val">{{ formatDate(latestObituary?.date_of_birth) }}</dd>
+              </div>
+              <div class="kv-row" *ngIf="isNonEmpty(latestObituary?.date_of_death)">
+                <dt class="kv-key">Died</dt>
+                <dd class="kv-val">{{ formatDate(latestObituary?.date_of_death) }}</dd>
+              </div>
+              <div
+                class="kv-row"
+                *ngIf="
+                  isNonEmpty(latestObituary?.birth_city) ||
+                  isNonEmpty(latestObituary?.birth_state) ||
+                  isNonEmpty(latestObituary?.place_of_birth)
+                "
+              >
+                <dt class="kv-key">Place of birth</dt>
+                <dd class="kv-val">
+                  {{
+                    formatLocation(
+                      latestObituary?.birth_city,
+                      latestObituary?.birth_state,
+                      latestObituary?.place_of_birth
+                    )
+                  }}
+                </dd>
+              </div>
+              <div class="kv-row" *ngIf="isNonEmpty(latestObituary?.place_of_death)">
+                <dt class="kv-key">Place of death</dt>
+                <dd class="kv-val">{{ latestObituary?.place_of_death }}</dd>
+              </div>
+            </dl>
+          </div>
+        </section>
+
+        <section class="section-card" *ngIf="
+          isNonEmpty(latestObituary?.father_name) ||
+          isNonEmpty(latestObituary?.mother_name) ||
+          isNonEmpty(latestObituary?.biological_mother_first) ||
+          isNonEmpty(latestObituary?.biological_father_first) ||
+          isNonEmpty(latestObituary?.stepmother_first) ||
+          isNonEmpty(latestObituary?.stepfather_first)
+        ">
+          <div class="section-header">
+            <h4 class="section-title">Parents &amp; Guardians</h4>
+          </div>
+          <div class="section-body">
+            <dl class="kv">
+              <div class="kv-row" *ngIf="isNonEmpty(latestObituary?.father_name)">
+                <dt class="kv-key">Father</dt>
+                <dd class="kv-val">{{ latestObituary?.father_name }}</dd>
+              </div>
+              <div class="kv-row" *ngIf="isNonEmpty(latestObituary?.mother_name)">
+                <dt class="kv-key">Mother</dt>
+                <dd class="kv-val">{{ latestObituary?.mother_name }}</dd>
+              </div>
+              <div class="kv-row" *ngIf="isNonEmpty(latestObituary?.biological_father_first)">
+                <dt class="kv-key">Biological father</dt>
+                <dd class="kv-val">
+                  {{
+                    joinParts(
+                      latestObituary?.biological_father_first,
+                      latestObituary?.biological_father_middle,
+                      latestObituary?.biological_father_last
+                    )
+                  }}
+                </dd>
+              </div>
+              <div class="kv-row" *ngIf="isNonEmpty(latestObituary?.biological_mother_first)">
+                <dt class="kv-key">Biological mother</dt>
+                <dd class="kv-val">
+                  {{
+                    joinParts(
+                      latestObituary?.biological_mother_first,
+                      latestObituary?.biological_mother_middle,
+                      latestObituary?.biological_mother_last
+                    )
+                  }}
+                </dd>
+              </div>
+              <div class="kv-row" *ngIf="isNonEmpty(latestObituary?.stepfather_first)">
+                <dt class="kv-key">Stepfather</dt>
+                <dd class="kv-val">
+                  {{
+                    joinParts(
+                      latestObituary?.stepfather_first,
+                      latestObituary?.stepfather_middle,
+                      latestObituary?.stepfather_last
+                    )
+                  }}
+                </dd>
+              </div>
+              <div class="kv-row" *ngIf="isNonEmpty(latestObituary?.stepmother_first)">
+                <dt class="kv-key">Stepmother</dt>
+                <dd class="kv-val">
+                  {{
+                    joinParts(
+                      latestObituary?.stepmother_first,
+                      latestObituary?.stepmother_middle,
+                      latestObituary?.stepmother_last
+                    )
+                  }}
+                </dd>
+              </div>
+            </dl>
+          </div>
+        </section>
+
+        <section class="section-card" *ngIf="
+          isNonEmpty(latestObituary?.spouse_name) ||
+          isNonEmpty(latestObituary?.spouse2_name) ||
+          isNonEmpty(latestObituary?.spouse3_name)
+        ">
+          <div class="section-header">
+            <h4 class="section-title">Spouse(s)</h4>
+          </div>
+          <div class="section-body">
+            <dl class="kv">
+              <div class="kv-row" *ngIf="isNonEmpty(latestObituary?.spouse_name)">
+                <dt class="kv-key">Spouse 1</dt>
+                <dd class="kv-val">
+                  {{ latestObituary?.spouse_name }}
+                  <span
+                    class="text-muted"
+                    *ngIf="isNonEmpty(latestObituary?.spouse_marriage_date)"
+                  >
+                    - married {{ formatDate(latestObituary?.spouse_marriage_date) }}
+                  </span>
+                </dd>
+              </div>
+              <div class="kv-row" *ngIf="isNonEmpty(latestObituary?.spouse2_name)">
+                <dt class="kv-key">Spouse 2</dt>
+                <dd class="kv-val">
+                  {{ latestObituary?.spouse2_name }}
+                  <span
+                    class="text-muted"
+                    *ngIf="isNonEmpty(latestObituary?.spouse2_marriage_date)"
+                  >
+                    - married {{ formatDate(latestObituary?.spouse2_marriage_date) }}
+                  </span>
+                </dd>
+              </div>
+              <div class="kv-row" *ngIf="isNonEmpty(latestObituary?.spouse3_name)">
+                <dt class="kv-key">Spouse 3</dt>
+                <dd class="kv-val">
+                  {{ latestObituary?.spouse3_name }}
+                  <span
+                    class="text-muted"
+                    *ngIf="isNonEmpty(latestObituary?.spouse3_marriage_date)"
+                  >
+                    - married {{ formatDate(latestObituary?.spouse3_marriage_date) }}
+                  </span>
+                </dd>
+              </div>
+            </dl>
+          </div>
+        </section>
+
+      </div>
+
+      <div class="col-lg-6">
+        <section class="section-card" *ngIf="asArray(latestObituary?.siblings).length">
+          <div class="section-header">
+            <h4 class="section-title">Siblings</h4>
+          </div>
+          <div class="section-body">
+            <ul class="clean-list">
+              <li *ngFor="let s of asArray(latestObituary?.siblings)">
+                {{ joinParts(s?.first, s?.middle, s?.last) || s?.name || s }}
+                <span class="text-muted" *ngIf="s?.isAlive === false">
+                  (Deceased)
+                </span>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="section-card" *ngIf="
+          asArray(latestObituary?.children).length ||
+          asArray(latestObituary?.children2).length ||
+          asArray(latestObituary?.children3).length
+        ">
+          <div class="section-header">
+            <h4 class="section-title">Children</h4>
+          </div>
+          <div class="section-body">
+            <div *ngIf="asArray(latestObituary?.children).length">
+              <div class="subsection-title">Children (Group 1)</div>
+              <ul class="clean-list">
+                <li *ngFor="let c of asArray(latestObituary?.children)">
+                  {{
+                    joinParts(c?.first, c?.middle, c?.last) ||
+                      c?.name ||
+                      c
+                  }}
+                  <span class="text-muted" *ngIf="isNonEmpty(c?.dateOfBirth)">
+                    - {{ formatDate(c?.dateOfBirth) }}
+                  </span>
+                  <span class="text-muted" *ngIf="c?.isLiving === false">
+                    (Deceased)
+                  </span>
+                </li>
+              </ul>
+            </div>
+
+            <div *ngIf="asArray(latestObituary?.children2).length">
+              <div class="subsection-title">Children (Group 2)</div>
+              <ul class="clean-list">
+                <li *ngFor="let c of asArray(latestObituary?.children2)">
+                  {{
+                    joinParts(c?.first, c?.middle, c?.last) ||
+                      c?.name ||
+                      c
+                  }}
+                  <span class="text-muted" *ngIf="isNonEmpty(c?.dateOfBirth)">
+                    - {{ formatDate(c?.dateOfBirth) }}
+                  </span>
+                  <span class="text-muted" *ngIf="c?.isLiving === false">
+                    (Deceased)
+                  </span>
+                </li>
+              </ul>
+            </div>
+
+            <div *ngIf="asArray(latestObituary?.children3).length">
+              <div class="subsection-title">Children (Group 3)</div>
+              <ul class="clean-list">
+                <li *ngFor="let c of asArray(latestObituary?.children3)">
+                  {{
+                    joinParts(c?.first, c?.middle, c?.last) ||
+                      c?.name ||
+                      c
+                  }}
+                  <span class="text-muted" *ngIf="isNonEmpty(c?.dateOfBirth)">
+                    - {{ formatDate(c?.dateOfBirth) }}
+                  </span>
+                  <span class="text-muted" *ngIf="c?.isLiving === false">
+                    (Deceased)
+                  </span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section class="section-card" *ngIf="
+          showPremiumFields &&
+          (
+            isNonEmpty(stringifyDisplay(latestObituary?.schools)) ||
+            isNonEmpty(stringifyDisplay(latestObituary?.employment)) ||
+            isNonEmpty(stringifyDisplay(latestObituary?.career_achievements)) ||
+            isNonEmpty(stringifyDisplay(latestObituary?.church_affiliation)) ||
+            isNonEmpty(stringifyDisplay(latestObituary?.other_achievements)) ||
+            isNonEmpty(stringifyDisplay(latestObituary?.club_memberships)) ||
+            isNonEmpty(stringifyDisplay(latestObituary?.other_group_affiliations)) ||
+            isNonEmpty(stringifyDisplay(latestObituary?.greatest_friendships)) ||
+            isNonEmpty(stringifyDisplay(latestObituary?.special_instructions))
+          )
+        ">
+          <div class="section-header">
+            <h4 class="section-title">Life &amp; Legacy (Advanced)</h4>
+          </div>
+          <div class="section-body">
+            <div class="subsection" *ngIf="isNonEmpty(stringifyDisplay(latestObituary?.schools))">
+              <div class="subsection-title">Schools (Dates &amp; Degrees)</div>
+              <ng-container *ngIf="toKeyValueRows(latestObituary?.schools).length; else schoolsList">
+                <dl class="kv">
+                  <div class="kv-row" *ngFor="let r of toKeyValueRows(latestObituary?.schools); trackBy: trackByKeyValueRow">
+                    <dt class="kv-key">{{ r.key }}</dt>
+                    <dd class="kv-val">{{ r.value }}</dd>
+                  </div>
+                </dl>
+              </ng-container>
+              <ng-template #schoolsList>
+                <ul class="clean-list">
+                  <li *ngFor="let s of asArray(latestObituary?.schools)">
+                    {{ joinParts(s?.school_name, s?.degree) || s?.text || s }}
+                    <span class="text-muted" *ngIf="s?.start_date || s?.end_date">
+                      {{ s?.start_date ? formatDate(s?.start_date) : '' }}{{ s?.start_date && s?.end_date ? ' to ' : '' }}{{ s?.end_date ? formatDate(s?.end_date) : '' }}
+                    </span>
+                  </li>
+                </ul>
+              </ng-template>
+            </div>
+
+            <div class="subsection" *ngIf="isNonEmpty(stringifyDisplay(latestObituary?.employment))">
+              <div class="subsection-title">Employment (Titles &amp; Dates)</div>
+              <ng-container *ngIf="toKeyValueRows(latestObituary?.employment).length; else employmentList">
+                <dl class="kv">
+                  <div class="kv-row" *ngFor="let r of toKeyValueRows(latestObituary?.employment); trackBy: trackByKeyValueRow">
+                    <dt class="kv-key">{{ r.key }}</dt>
+                    <dd class="kv-val">{{ r.value }}</dd>
+                  </div>
+                </dl>
+              </ng-container>
+              <ng-template #employmentList>
+                <ul class="clean-list">
+                  <li *ngFor="let e of asArray(latestObituary?.employment)">
+                    {{ joinParts(e?.employer, e?.title) || e?.text || e }}
+                    <span class="text-muted" *ngIf="e?.start_date || e?.end_date">
+                      {{ e?.start_date ? formatDate(e?.start_date) : '' }}{{ e?.start_date && e?.end_date ? ' to ' : '' }}{{ e?.end_date ? formatDate(e?.end_date) : '' }}
+                    </span>
+                  </li>
+                </ul>
+              </ng-template>
+            </div>
+
+            <div class="subsection" *ngIf="isNonEmpty(stringifyDisplay(latestObituary?.career_achievements))">
+              <div class="subsection-title">Career Achievements (Titles &amp; Dates)</div>
+              <ng-container *ngIf="toKeyValueRows(latestObituary?.career_achievements).length; else career_achievementsList">
+                <dl class="kv">
+                  <div class="kv-row" *ngFor="let r of toKeyValueRows(latestObituary?.career_achievements); trackBy: trackByKeyValueRow">
+                    <dt class="kv-key">{{ r.key }}</dt>
+                    <dd class="kv-val">{{ r.value }}</dd>
+                  </div>
+                </dl>
+              </ng-container>
+              <ng-template #career_achievementsList>
+                <ul class="clean-list">
+                  <li *ngFor="let c of asArray(latestObituary?.career_achievements)">
+                    {{ joinParts(c?.title, formatDate(c?.date)) || c?.text || stringifyDisplay(c) }}
+                  </li>
+                </ul>
+              </ng-template>
+            </div>
+
+            <div class="subsection" *ngIf="isNonEmpty(stringifyDisplay(latestObituary?.church_affiliation))">
+              <div class="subsection-title">Church Affiliation / Titles held / Year joined</div>
+              <ng-container *ngIf="toKeyValueRows(latestObituary?.church_affiliation).length; else church_affiliationPlain">
+                <dl class="kv">
+                  <div class="kv-row" *ngFor="let r of toKeyValueRows(latestObituary?.church_affiliation); trackBy: trackByKeyValueRow">
+                    <dt class="kv-key">{{ r.key }}</dt>
+                    <dd class="kv-val">{{ r.value }}</dd>
+                  </div>
+                </dl>
+              </ng-container>
+              <ng-template #church_affiliationPlain>
+                <div class="value-only">{{ stringifyDisplay(latestObituary?.church_affiliation) }}</div>
+              </ng-template>
+            </div>
+
+            <div class="subsection" *ngIf="isNonEmpty(stringifyDisplay(latestObituary?.other_achievements))">
+              <div class="subsection-title">Other Achievements</div>
+              <div class="value-only">{{ formatAdvancedText(latestObituary?.other_achievements) }}</div>
+            </div>
+
+            <div class="subsection" *ngIf="isNonEmpty(stringifyDisplay(latestObituary?.club_memberships))">
+              <div class="subsection-title">Club Memberships</div>
+              <div class="value-only">{{ formatAdvancedText(latestObituary?.club_memberships) }}</div>
+            </div>
+
+            <div class="subsection" *ngIf="isNonEmpty(stringifyDisplay(latestObituary?.other_group_affiliations))">
+              <div class="subsection-title">Other Group Affiliations etc</div>
+              <div class="value-only">{{ formatAdvancedText(latestObituary?.other_group_affiliations) }}</div>
+            </div>
+
+            <div class="subsection" *ngIf="isNonEmpty(stringifyDisplay(latestObituary?.greatest_friendships))">
+              <div class="subsection-title">Greatest Friendships</div>
+              <div class="value-only">{{ formatAdvancedText(latestObituary?.greatest_friendships) }}</div>
+            </div>
+
+            <div class="subsection" *ngIf="isNonEmpty(stringifyDisplay(latestObituary?.special_instructions))">
+              <div class="subsection-title">Special Instructions</div>
+              <div class="value-only">{{ formatAdvancedText(latestObituary?.special_instructions) }}</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section-card" *ngIf="isNonEmpty(latestObituary?.biography)">
+          <div class="section-header">
+            <h4 class="section-title">Biography</h4>
+          </div>
+          <div class="section-body">
+            <p class="mb-0">{{ latestObituary?.biography }}</p>
+          </div>
+        </section>
+
+        <section class="section-card" *ngIf="
+          isNonEmpty(stringifyDisplay(latestObituary?.education)) ||
+          isNonEmpty(stringifyDisplay(latestObituary?.career)) ||
+          isNonEmpty(stringifyDisplay(latestObituary?.hobbies)) ||
+          isNonEmpty(stringifyDisplay(latestObituary?.achievements)) ||
+          isNonEmpty(stringifyDisplay(latestObituary?.funeral_details))
+        ">
+          <div class="section-header">
+            <h4 class="section-title">Additional Details</h4>
+          </div>
+          <div class="section-body">
+            <div class="subsection" *ngIf="isNonEmpty(stringifyDisplay(latestObituary?.education))">
+              <div class="subsection-title">Education</div>
+              <ng-container *ngIf="toKeyValueRows(latestObituary?.education).length; else educationPlain">
+                <dl class="kv">
+                  <div class="kv-row" *ngFor="let r of toKeyValueRows(latestObituary?.education); trackBy: trackByKeyValueRow">
+                    <dt class="kv-key">{{ r.key }}</dt>
+                    <dd class="kv-val">{{ r.value }}</dd>
+                  </div>
+                </dl>
+              </ng-container>
+              <ng-template #educationPlain>
+                <div class="value-only">{{ stringifyDisplay(latestObituary?.education) }}</div>
+              </ng-template>
+            </div>
+
+            <div class="subsection" *ngIf="isNonEmpty(stringifyDisplay(latestObituary?.career))">
+              <div class="subsection-title">Career</div>
+              <ng-container *ngIf="toKeyValueRows(latestObituary?.career).length; else careerPlain">
+                <dl class="kv">
+                  <div class="kv-row" *ngFor="let r of toKeyValueRows(latestObituary?.career); trackBy: trackByKeyValueRow">
+                    <dt class="kv-key">{{ r.key }}</dt>
+                    <dd class="kv-val">{{ r.value }}</dd>
+                  </div>
+                </dl>
+              </ng-container>
+              <ng-template #careerPlain>
+                <div class="value-only">{{ stringifyDisplay(latestObituary?.career) }}</div>
+              </ng-template>
+            </div>
+
+            <div class="subsection" *ngIf="isNonEmpty(stringifyDisplay(latestObituary?.hobbies))">
+              <div class="subsection-title">Hobbies</div>
+              <ng-container *ngIf="toKeyValueRows(latestObituary?.hobbies).length; else hobbiesPlain">
+                <dl class="kv">
+                  <div class="kv-row" *ngFor="let r of toKeyValueRows(latestObituary?.hobbies); trackBy: trackByKeyValueRow">
+                    <dt class="kv-key">{{ r.key }}</dt>
+                    <dd class="kv-val">{{ r.value }}</dd>
+                  </div>
+                </dl>
+              </ng-container>
+              <ng-template #hobbiesPlain>
+                <div class="value-only">{{ stringifyDisplay(latestObituary?.hobbies) }}</div>
+              </ng-template>
+            </div>
+
+            <div class="subsection" *ngIf="isNonEmpty(stringifyDisplay(latestObituary?.achievements))">
+              <div class="subsection-title">Achievements</div>
+              <ng-container *ngIf="toKeyValueRows(latestObituary?.achievements).length; else achievementsPlain">
+                <dl class="kv">
+                  <div class="kv-row" *ngFor="let r of toKeyValueRows(latestObituary?.achievements); trackBy: trackByKeyValueRow">
+                    <dt class="kv-key">{{ r.key }}</dt>
+                    <dd class="kv-val">{{ r.value }}</dd>
+                  </div>
+                </dl>
+              </ng-container>
+              <ng-template #achievementsPlain>
+                <div class="value-only">{{ stringifyDisplay(latestObituary?.achievements) }}</div>
+              </ng-template>
+            </div>
+
+            <div class="subsection" *ngIf="isNonEmpty(stringifyDisplay(latestObituary?.funeral_details))">
+              <div class="subsection-title">Funeral details</div>
+              <ng-container *ngIf="toKeyValueRows(latestObituary?.funeral_details).length; else funeral_detailsPlain">
+                <dl class="kv">
+                  <div class="kv-row" *ngFor="let r of toKeyValueRows(latestObituary?.funeral_details); trackBy: trackByKeyValueRow">
+                    <dt class="kv-key">{{ r.key }}</dt>
+                    <dd class="kv-val">{{ r.value }}</dd>
+                  </div>
+                </dl>
+              </ng-container>
+              <ng-template #funeral_detailsPlain>
+                <div class="value-only">{{ stringifyDisplay(latestObituary?.funeral_details) }}</div>
+              </ng-template>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-template #noRecords>
+    <div class="text-center my-4">No records found</div>
+  </ng-template>
+</div>
+
+

@@ -1,0 +1,454 @@
+<div class="personal-info">
+  <div class="container">
+    <div class="profile-pic mx-auto my-3 position-relative">
+      <div class="w-100">
+        <img
+          *ngIf="!imageUrl"
+          src="../../../assets/images/user-default-image.avif"
+        />
+        <img *ngIf="imageUrl" [src]="imageUrl" alt="Fetched Image" />
+      </div>
+      <div class="d-flex gap-2 position-absolute" style="bottom: 0; right: 0">
+        <button
+          type="button"
+          class="btn bg-yellow border-0"
+          (click)="openCamera()"
+          title="Capture from camera"
+        >
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+            <g
+              id="SVGRepo_tracerCarrier"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            ></g>
+            <g id="SVGRepo_iconCarrier">
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M8 4C8 3.44772 8.41328 3 8.92308 3H15.0769C15.5867 3 16 3.44772 16 4C16 4.55228 15.5867 5 15.0769 5H8.92308C8.41328 5 8 4.55228 8 4Z"
+                fill="#1C274C"
+              ></path>
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M9.77778 21H14.2222C17.3433 21 18.9038 21 20.0248 20.2777C20.51 19.965 20.9267 19.5632 21.251 19.0953C22 18.0143 22 16.5095 22 13.4999C22 10.4903 21.9998 8.9857 21.2508 7.90473C20.9266 7.43676 20.5099 7.03497 20.0246 6.72228C18.9036 6 17.3431 6 14.2221 6H9.77761C6.65659 6 5.09607 6 3.97508 6.72228C3.48979 7.03497 3.07312 7.43676 2.74886 7.90473C2 8.98547 2 10.4896 2 13.4979L2 13.4999C2 16.5095 2 18.0143 2.74902 19.0953C3.07328 19.5632 3.48995 19.965 3.97524 20.2777C5.09624 21 6.65675 21 9.77778 21ZM7.83333 13.4999C7.83333 11.2808 9.69881 9.48196 12 9.48196C14.3012 9.48196 16.1667 11.2808 16.1667 13.4999C16.1667 15.7189 14.3012 17.5178 12 17.5178C9.69881 17.5178 7.83333 15.7189 7.83333 13.4999ZM9.5 13.4999C9.5 12.1685 10.6193 11.0891 12 11.0891C13.3807 11.0891 14.5 12.1685 14.5 13.4999C14.5 14.8313 13.3807 15.9106 12 15.9106C10.6193 15.9106 9.5 14.8313 9.5 13.4999ZM18.1111 9.48196C17.6509 9.48196 17.2778 9.84174 17.2778 10.2855C17.2778 10.7294 17.6509 11.0891 18.1111 11.0891H18.6667C19.1269 11.0891 19.5 10.7294 19.5 10.2855C19.5 9.84174 19.1269 9.48196 18.6667 9.48196H18.1111Z"
+                fill="#1C274C"
+              ></path>
+            </g>
+          </svg>
+        </button>
+        <button
+          type="button"
+          class="btn bg-yellow border-0"
+          (click)="fileInput.click()"
+          title="Upload from device"
+        >
+          <svg
+            width="24"
+            height="24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+            <g
+              id="SVGRepo_tracerCarrier"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            ></g>
+            <g id="SVGRepo_iconCarrier">
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M12 10.25C12.4142 10.25 12.75 10.5858 12.75 11V12.25H14C14.4142 12.25 14.75 12.5858 14.75 13C14.75 13.4142 14.4142 13.75 14 13.75H12.75V15C12.75 15.4142 12.4142 15.75 12 15.75C11.5858 15.75 11.25 15.4142 11.25 15V13.75H10C9.58579 13.75 9.25 13.4142 9.25 13C9.25 12.5858 9.58579 12.25 10 12.25H11.25V11C11.25 10.5858 11.5858 10.25 12 10.25Z"
+                fill="#1C274C"
+              ></path>
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M9.77778 21H14.2222C17.3433 21 18.9038 21 20.0248 20.2646C20.51 19.9462 20.9267 19.5371 21.251 19.0607C22 17.9601 22 16.4279 22 13.3636C22 10.2994 22 8.76721 21.251 7.6666C20.9267 7.19014 20.51 6.78104 20.0248 6.46268C19.3044 5.99013 18.4027 5.82123 17.022 5.76086C16.3631 5.76086 15.7959 5.27068 15.6667 4.63636C15.4728 3.68489 14.6219 3 13.6337 3H10.3663C9.37805 3 8.52715 3.68489 8.33333 4.63636C8.20412 5.27068 7.63685 5.76086 6.978 5.76086C5.59733 5.82123 4.69555 5.99013 3.97524 6.46268C3.48995 6.78104 3.07328 7.19014 2.74902 7.6666C2 8.76721 2 10.2994 2 13.3636C2 16.4279 2 17.9601 2.74902 19.0607C3.07328 19.5371 3.48995 19.9462 3.97524 20.2646C5.09624 21 6.65675 21 9.77778 21ZM16 13C16 15.2091 14.2091 17 12 17C9.79086 17 8 15.2091 8 13C8 10.7909 9.79086 9 12 9C14.2091 9 16 10.7909 16 13ZM18 9.25C17.5858 9.25 17.25 9.58579 17.25 10C17.25 10.4142 17.5858 10.75 18 10.75H19C19.4142 10.75 19.75 10.4142 19.75 10C19.75 9.58579 19.4142 9.25 19 9.25H18Z"
+                fill="#1C274C"
+              ></path>
+            </g>
+          </svg>
+        </button>
+      </div>
+      <input
+        type="file"
+        #fileInput
+        accept="image/*"
+        id="profile-pic-input"
+        class="d-none"
+        (change)="uploadFile(fileInput.files)"
+      />
+    </div>
+
+    <!-- Camera Modal -->
+    <div
+      *ngIf="showCameraModal"
+      class="camera-modal"
+      style="
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.9);
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      "
+    >
+      <div
+        class="camera-container"
+        style="position: relative; max-width: 90%; max-height: 90%"
+      >
+        <video
+          #videoElement
+          autoplay
+          playsinline
+          style="
+            max-width: 100%;
+            max-height: 70vh;
+            border: 2px solid white;
+            border-radius: 8px;
+          "
+        ></video>
+        <div
+          class="camera-controls"
+          style="
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+          "
+        >
+          <button
+            type="button"
+            class="btn btn-primary"
+            (click)="capturePhoto()"
+            style="padding: 10px 20px"
+          >
+            Capture Photo
+          </button>
+          <button
+            type="button"
+            class="btn btn-secondary"
+            (click)="closeCamera()"
+            style="padding: 10px 20px"
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Image Resize Modal -->
+    <div
+      class="modal fade"
+      [class.show]="showResizeModal"
+      [style.display]="showResizeModal ? 'block' : 'none'"
+      tabindex="-1"
+      *ngIf="showResizeModal"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Resize Profile Picture</h5>
+            <button
+              type="button"
+              class="btn-close"
+              (click)="cancelResize()"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="mb-3 text-center">
+              <img
+                [src]="resizableImage"
+                alt="Preview"
+                style="max-width: 100%; max-height: 300px; border-radius: 8px"
+              />
+            </div>
+            <div class="row mb-3">
+              <div class="col-6">
+                <label class="form-label">Width (px)</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  [(ngModel)]="resizeWidth"
+                  (input)="adjustSize('width', resizeWidth)"
+                  min="100"
+                  max="500"
+                />
+              </div>
+              <div class="col-6">
+                <label class="form-label">Height (px)</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  [(ngModel)]="resizeHeight"
+                  (input)="adjustSize('height', resizeHeight)"
+                  min="100"
+                  max="500"
+                />
+              </div>
+            </div>
+            <div class="alert alert-info">
+              <small
+                >Recommended size: 188x188 pixels. You can adjust the dimensions
+                before uploading.</small
+              >
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              (click)="cancelResize()"
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              (click)="resizeAndUpload()"
+            >
+              Upload
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="modal-backdrop fade"
+      [class.show]="showResizeModal"
+      *ngIf="showResizeModal"
+    ></div>
+
+    <form [formGroup]="personalInfoForm" (submit)="submit()">
+      <div class="row mb-3">
+        <div class="col-12 col-lg-6">
+          <label for="first_name" class="col-form-label">First Name</label>
+          <input
+            type="text"
+            placeholder="First Name"
+            class="form-control"
+            id="first_name"
+            formControlName="first_name"
+          />
+        </div>
+        <div class="col-12 col-lg-6">
+          <label for="last_name" class="col-form-label">Last Name</label>
+          <input
+            type="text"
+            placeholder="Last Name"
+            class="form-control"
+            id="last_name"
+            formControlName="last_name"
+          />
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col-12 col-lg-6">
+          <label for="email" class="col-form-label">Email</label>
+          <div class="form-control email" id="email" aria-disabled="true">
+            {{ personalInfoForm.value?.email || "" }}
+          </div>
+        </div>
+        <div class="col-12 col-lg-6">
+          <label for="phone_number" class="col-form-label">Phone Number</label>
+          <input
+            type="text"
+            placeholder="Phone Number"
+            class="form-control"
+            id="phone_number"
+            formControlName="phone_number"
+          />
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="address" class="col-form-label">Address</label>
+        <input
+          type="text"
+          placeholder="Address"
+          class="form-control"
+          id="address"
+          formControlName="address"
+        />
+      </div>
+
+      <div class="mb-3">
+        <label for="permanent_address" class="col-form-label"
+          >Permanent Address</label
+        >
+        <input
+          type="text"
+          placeholder="Permanent Address"
+          class="form-control"
+          id="permanent_address"
+          formControlName="permanent_address"
+        />
+      </div>
+
+      <div class="row mb-3">
+        <div class="col-12 col-lg-6">
+          <label for="password" class="col-form-label">Password</label>
+          <div class="input-group">
+            <input
+              type="password"
+              placeholder="Enter new password to change"
+              class="form-control"
+              id="password"
+              formControlName="hashed_password"
+            />
+            <span
+              class="input-group-text"
+              style="cursor: pointer"
+              title="Enter new password to change existing one"
+            >
+              <img width="24" src="../../../assets/icons/form/eye-hide.svg" />
+            </span>
+          </div>
+          <small class="text-muted"
+            >Leave blank to keep current password, or enter a new password to
+            change it.</small
+          >
+        </div>
+
+        <div class="col-12 col-lg-6">
+          <label for="date_of_birth" class="col-form-label"
+            >Date of birth</label
+          >
+          <div class="input-group position-relative mb-3">
+            <input
+              class="form-control pe-5"
+              placeholder="MM-DD-YY"
+              name="date_of_birth"
+              formControlName="date_of_birth"
+              ngbDatepicker
+              #dob="ngbDatepicker"
+              readonly
+            />
+            <span class="input-group-text" (click)="dob.toggle()">
+              <img src="../../../../assets/icons/form/calender.svg" />
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer d-flex justify-content-between mb-4">
+        <div class="mb-2">
+          <button
+            type="button"
+            class="btn submit-button"
+            (click)="upgradePlan()"
+          >
+            Upgrade Plan
+          </button>
+          <button
+            type="button"
+            class="btn btn-outline-primary ms-2"
+            (click)="togglePaymentHistory()"
+          >
+            Payment History
+          </button>
+          <button
+            *ngIf="hasActiveSubscription"
+            type="button"
+            class="btn btn-outline-danger ms-2"
+            (click)="unsubscribeCurrentPlan()"
+            [disabled]="isUnsubscribing"
+          >
+            Unsubscribe your current plan
+          </button>
+        </div>
+        <div class="d-flex justify-content-end">
+          <button
+            type="button"
+            class="btn btn-danger me-3"
+            (click)="deleteAccount()"
+          >
+            Delete Account
+          </button>
+          <button type="submit" class="btn submit-button me-3">Save</button>
+          <button type="button" class="btn btn-secondary" (click)="cancel()">
+            Cancel
+          </button>
+        </div>
+      </div>
+    </form>
+
+    <!-- Payment History Section -->
+    <div class="card mt-4" *ngIf="showPaymentHistory">
+      <div
+        class="card-header d-flex justify-content-between align-items-center"
+      >
+        <h5 class="mb-0">Payment History</h5>
+        <button
+          type="button"
+          class="btn-close"
+          (click)="showPaymentHistory = false"
+        ></button>
+      </div>
+      <div class="card-body">
+        <div *ngIf="paymentHistoryLoading" class="text-center py-3">
+          <div class="spinner-border text-primary" role="status"></div>
+        </div>
+        <div *ngIf="!paymentHistoryLoading">
+          <div
+            class="table-responsive"
+            *ngIf="paymentHistory?.payments?.length"
+          >
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Amount</th>
+                  <th>Status</th>
+                  <th>Order ID</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let payment of paymentHistory.payments">
+                  <td>{{ payment.created_on | date : "short" }}</td>
+                  <td>${{ payment.amount }}</td>
+                  <td>
+                    <span
+                      class="badge"
+                      [ngClass]="{
+                        'bg-success': payment.status === 'completed',
+                        'bg-warning': payment.status === 'pending',
+                        'bg-danger': payment.status === 'failed'
+                      }"
+                    >
+                      {{ payment.status }}
+                    </span>
+                  </td>
+                  <td>
+                    <small>{{ payment.paypal_order_id || "N/A" }}</small>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div
+            *ngIf="!paymentHistory?.payments?.length"
+            class="text-center py-4 text-muted"
+          >
+            No payment history found
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

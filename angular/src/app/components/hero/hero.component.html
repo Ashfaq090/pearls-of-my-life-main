@@ -1,0 +1,11 @@
+<!-- src/app/components/hero/hero.component.html -->
+<section class="hero" [style.background-image]="'url(' + bgImage + ')'">
+  <div class="overlay"></div>
+  <div class="container">
+    <h1 [@titleAnimation]>{{ title }}</h1>
+    <p>{{ subtitle }}</p>
+  </div>
+  <div class="subtitle" *ngIf="subtitle">
+    <!-- <p>{{ subtitle }}</p> -->
+  </div>
+</section>

@@ -1,0 +1,85 @@
+<!-- Accept Invitation Form -->
+<div *ngIf="isAcceptingInvitation" class="accept-invitation-form">
+    <h3 class="text-white mb-3">Accept Key Holder Invitation</h3>
+    <p class="text-white-50 mb-4" *ngIf="keyHolderInfo">
+        Hello, <strong>{{ keyHolderInfo.first_name }} {{ keyHolderInfo.last_name }}</strong>!
+        You have been invited to be a key holder. Please set your password to continue.
+    </p>
+
+    <form [formGroup]="acceptInvitationForm" (submit)="acceptInvitation()">
+        <div class="my-2">
+            <label for="pin" class="col-form-label text-white">Enter PIN</label>
+            <input type="text" placeholder="Enter PIN" class="form-control" id="pin"
+            formControlName="pin">
+            <div *ngIf="acceptInvitationForm.get('pin')?.invalid && acceptInvitationForm.get('pin')?.touched"
+                 class="text-danger small">PIN is required</div>
+        </div>
+
+        <div class="my-2">
+            <label for="password" class="col-form-label text-white">Set Password</label>
+            <div class="input-group">
+                <input [type]="showPassword ? 'text' : 'password'" placeholder="Enter password (min 6 characters)" class="form-control" id="password"
+                formControlName="password">
+                <span class="input-group-text" style="cursor: pointer;" (click)="showPassword = !showPassword">
+                    <img
+                        width="24"
+                        [src]="
+                            showPassword
+                            ? '../../../assets/icons/form/eye-show.svg'
+                            : '../../../assets/icons/form/eye-hide.svg'
+                        "
+                    />
+                </span>
+            </div>
+            <div *ngIf="acceptInvitationForm.get('password')?.invalid && acceptInvitationForm.get('password')?.touched"
+                 class="text-danger small">
+                Password is required (minimum 6 characters)
+            </div>
+        </div>
+
+        <div class="my-2">
+            <label for="confirmPassword" class="col-form-label text-white">Confirm Password</label>
+            <div class="input-group">
+                <input [type]="showConfirmPassword ? 'text' : 'password'" placeholder="Confirm password" class="form-control" id="confirmPassword"
+                formControlName="confirmPassword">
+                <span class="input-group-text" style="cursor: pointer;" (click)="showConfirmPassword = !showConfirmPassword">
+                    <img
+                        width="24"
+                        [src]="
+                            showConfirmPassword
+                            ? '../../../assets/icons/form/eye-show.svg'
+                            : '../../../assets/icons/form/eye-hide.svg'
+                        "
+                    />
+                </span>
+            </div>
+            <div *ngIf="acceptInvitationForm.get('confirmPassword')?.errors?.['passwordMismatch'] && acceptInvitationForm.get('confirmPassword')?.touched"
+                 class="text-danger small">Passwords do not match</div>
+        </div>
+
+        <div class="mt-4 mb-3">
+            <button type="submit" class="btn secondary-button w-100" [disabled]="acceptInvitationForm.invalid">
+                Accept Invitation & Set Password
+            </button>
+        </div>
+    </form>
+</div>
+
+<!-- Login Form -->
+<form *ngIf="!isAcceptingInvitation" [formGroup]="loginKeyHolderForm" class="loginKeyHolderForm" (submit)="submit()">
+    <h3 class="text-white mb-3">Key Holder Login</h3>
+    <p class="text-white-50 mb-4" *ngIf="keyHolderInfo">
+        Hello, <strong>{{ keyHolderInfo.first_name }} {{ keyHolderInfo.last_name }}</strong>!
+        Please enter your PIN to login.
+    </p>
+
+    <div class="my-2">
+        <label for="pin" class="col-form-label text-white">Enter PIN</label>
+        <input type="text" placeholder="Enter PIN" class="form-control" id="pin"
+        formControlName="pin">
+    </div>
+
+    <div class="mt-4 mb-3">
+        <button type="submit" class="btn secondary-button w-100">Login</button>
+    </div>
+</form>

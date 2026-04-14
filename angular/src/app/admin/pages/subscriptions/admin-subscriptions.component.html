@@ -1,0 +1,149 @@
+<div class="admin-subscriptions">
+  <div class="page-header mb-4">
+    <h2>Subscription Management</h2>
+    <p class="text-muted">Manage all user subscriptions</p>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <div *ngIf="loading" class="text-center py-5">
+        <div class="spinner-border text-primary" role="status"></div>
+      </div>
+
+      <div *ngIf="!loading">
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>User</th>
+                <th>Plan</th>
+                <th>Status</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>PayPal ID</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let sub of subscriptions">
+                <td>{{ sub.user?.email || "N/A" }}</td>
+                <td>{{ sub.plan?.name || "N/A" }}</td>
+                <td>
+                  <span
+                    class="badge"
+                    [ngClass]="{
+                      'bg-success': sub.status === 'active',
+                      'bg-warning': sub.status === 'cancelled',
+                      'bg-danger': sub.status === 'expired'
+                    }"
+                  >
+                    {{ sub.status }}
+                  </span>
+                </td>
+                <td>{{ sub.startDate | date : "short" }}</td>
+                <td>{{ sub.endDate | date : "short" }}</td>
+                <td>{{ sub.paypalSubscriptionId || "N/A" }}</td>
+                <td>
+                  <div class="btn-group" role="group">
+                    <button
+                      *ngIf="sub.status === 'active'"
+                      class="btn btn-outline-warning"
+                      (click)="cancelSubscription(sub.id)"
+                      title="Cancel"
+                    >
+                      <i class="bi bi-x-circle"></i> Cancel
+                    </button>
+                    <button
+                      class="btn btn-outline-primary"
+                      (click)="openChangePlanModal(sub)"
+                      title="Change Plan"
+                    >
+                      <i class="bi bi-arrow-repeat"></i> Change Plan
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              <tr *ngIf="subscriptions.length === 0">
+                <td colspan="7" class="text-center text-muted py-4">
+                  No subscriptions found
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <nav *ngIf="totalPages > 1" class="mt-3">
+          <ul class="pagination justify-content-center">
+            <li class="page-item" [class.disabled]="page === 1">
+              <a class="page-link" (click)="goToPage(page - 1)">Previous</a>
+            </li>
+            <li
+              class="page-item"
+              *ngFor="let p of [].constructor(totalPages); let i = index"
+              [class.active]="page === i + 1"
+            >
+              <a class="page-link" (click)="goToPage(i + 1)">{{ i + 1 }}</a>
+            </li>
+            <li class="page-item" [class.disabled]="page === totalPages">
+              <a class="page-link" (click)="goToPage(page + 1)">Next</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+
+  <!-- Change Plan Modal -->
+  <div
+    class="modal fade"
+    [class.show]="selectedSubscription"
+    [style.display]="selectedSubscription ? 'block' : 'none'"
+    tabindex="-1"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Change Plan</h5>
+          <button
+            type="button"
+            class="btn-close"
+            (click)="selectedSubscription = null"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label">Select New Plan</label>
+            <select class="form-select" [(ngModel)]="newPlanId">
+              <option value="">Select a plan</option>
+              <option *ngFor="let plan of plans" [value]="plan.id">
+                {{ plan.name }} - ${{ plan.price }}/{{ plan.billing_period }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            (click)="selectedSubscription = null"
+          >
+            Cancel
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            (click)="changePlan()"
+            [disabled]="!newPlanId"
+          >
+            Change Plan
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="modal-backdrop fade"
+    [class.show]="selectedSubscription"
+    *ngIf="selectedSubscription"
+  ></div>
+</div>

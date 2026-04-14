@@ -1,0 +1,63 @@
+/* src/app/shared/button/button.component.scss */
+.btn {
+    padding: 0.8rem 1.5rem;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+    
+    &:active {
+      transform: translateY(-1px);
+    }
+    
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+    
+    &.primary {
+      background-color: #3498db;
+      color: white;
+      
+      &:hover {
+        background-color: #2980b9;
+      }
+    }
+    
+    &.secondary {
+      background-color: transparent;
+      color: #3498db;
+      border: 2px solid #3498db;
+      
+      &:hover {
+        background-color: rgba(52, 152, 219, 0.1);
+      }
+    }
+    
+    &.gradient-orange {
+      background: linear-gradient(90deg, #f39c12, #e67e22);
+      color: white;
+      
+      &:hover {
+        background: linear-gradient(90deg, #e67e22, #d35400);
+      }
+    }
+    
+    &.gradient-green {
+      background: linear-gradient(90deg, #2ecc71, #27ae60);
+      color: white;
+      
+      &:hover {
+        background: linear-gradient(90deg, #27ae60, #219653);
+      }
+    }
+  }

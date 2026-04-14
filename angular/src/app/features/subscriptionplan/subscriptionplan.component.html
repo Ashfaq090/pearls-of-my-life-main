@@ -1,0 +1,67 @@
+<div class="container mt-5">
+  <a [routerLink]="'/dashboard'" class="back-home-btn"> ⬅ Back to Home </a>
+  <h2 class="text-center mb-4">Choose Your Subscription Plan</h2>
+
+  <div *ngIf="loading" class="text-center py-5">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <p class="mt-3">Loading subscription plans...</p>
+  </div>
+
+  <div
+    *ngIf="!loading && plans.length === 0"
+    class="alert alert-warning text-center"
+  >
+    <p>No subscription plans available. Please contact administrator.</p>
+  </div>
+
+<div class="row" *ngIf="!loading && plans.length > 0">
+    <div class="col-md-6" *ngFor="let plan of plans; trackBy: trackByPlanId">
+      <div class="card mb-4 h-100">
+        <div class="card-body text-center">
+          <h3 class="card-title">{{ plan.name }}</h3>
+          <h4 class="card-subtitle mb-2 text-muted">
+            $ {{ getDisplayYearly(plan) }}/year
+          </h4>
+          <div class="annual-note" *ngIf="plan.membership">
+            {{ getMembershipLabel(plan) }}
+          </div>
+          <span class="auto-renewal" *ngIf="plan.auto">{{ plan.auto }}</span>
+          <p class="card-text">{{ plan.description }}</p>
+          <ul class="list-unstyled">
+            <li *ngFor="let feature of plan.featuresList">{{ feature }}</li>
+          </ul>
+          <div class="plan-limits mt-3 p-3 bg-light rounded">
+            <h6 class="mb-2">Plan Limits:</h6>
+            <div class="row g-2 small">
+              <div class="col-6" *ngIf="plan.videoRecordingAllowed !== undefined">
+                <strong>Video:</strong> {{ plan.videoRecordingAllowed ? 'Yes' : 'No' }}
+                <span *ngIf="plan.videoRecordingAllowed">
+                  ({{ plan.maxVideoLengthInSeconds || plan.max_video_length }}s, {{ plan.maxVideoUploads || 0 }} uploads)
+                </span>
+              </div>
+              <div class="col-6" *ngIf="plan.audioRecordingAllowed !== undefined">
+                <strong>Audio:</strong> {{ plan.audioRecordingAllowed ? 'Yes' : 'No' }}
+                <span *ngIf="plan.audioRecordingAllowed">
+                  ({{ plan.maxAudioLengthInSeconds || 0 }}s, {{ plan.maxAudioUploads || 0 }} uploads)
+                </span>
+              </div>
+              <div class="col-6">
+                <strong>Images:</strong> {{ plan.max_images || 0 }}
+              </div>
+              <div class="col-6">
+                <strong>Notes:</strong> {{ plan.maxNotes || 0 }}
+              </div>
+            </div>
+          </div>
+          <div
+            #paypalButton
+            id="paypal-button-{{ plan.id }}"
+            class="mt-3"
+          ></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

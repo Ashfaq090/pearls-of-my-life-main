@@ -1,0 +1,33 @@
+<!-- src/app/components/footer/footer.component.html -->
+<footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-logo">
+          <h2>PEARLS OF MY LYFE</h2>
+          <p>Leave a legacy for generations to come.</p>
+        </div>
+        
+        <div class="footer-links">
+          <div class="footer-column">
+            <h3>Navigation</h3>
+            <a routerLink="/about-us">About Us</a>
+            <a routerLink="/services">Services</a>
+            <a routerLink="/contact-us">Contact Us</a>
+            <a routerLink="/pricing">Pricing</a>
+          </div>
+          
+          <div class="footer-column">
+            <h3>Contact</h3>
+            <a [href]="'mailto:POML.Wendy@gmail.com'">
+                {{ 'POML.Wendy@gmail.com' }}
+              </a>
+            <p>Phone: 973-346-2740</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>&copy; {{ currentYear }} Pearls of My Lyfe. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>

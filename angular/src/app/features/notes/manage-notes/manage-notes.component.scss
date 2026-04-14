@@ -1,0 +1,16 @@
+.manage-note {
+    textarea {
+        resize: none;
+    }
+}
+
+.invalid-feedback {
+    color: #dc3545;
+    /* Red error text */
+    font-size: 0.875em;
+}
+
+.is-invalid {
+    border-color: #dc3545 !important;
+    /* Red border for invalid fields */
+}

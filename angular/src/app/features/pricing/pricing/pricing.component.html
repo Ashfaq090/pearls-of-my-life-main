@@ -1,0 +1,225 @@
+<div class="page-container">
+  <app-hero
+    title="Pearls Of My Lyfe"
+    bgImage="/assets/Pricing_cta.webp"
+    subtitle="Creation Plans"
+  >
+  </app-hero>
+
+  <app-nav-bar></app-nav-bar>
+
+  <section class="pricing-section">
+    <div class="container">
+      <!-- <h2 class="section-title">Choose the Perfect Plan for You</h2> -->
+
+      <div class="pricing-cards">
+        <div class="pricing-card basic">
+          <div class="card-header">
+            <h3>Auto-Obituary Plan</h3>
+            <div class="price">
+              <span class="amount">$0</span>
+            </div>
+          </div>
+          <div class="card-body">
+            <p>
+              Includes basic obituary information to be place in your funeral
+              program.
+            </p>
+            <ul>
+              <li>Birth Name</li>
+              <li>Married Name</li>
+              <li>Current Name</li>
+              <li>Birth Date</li>
+              <li>Birth Place</li>
+              <li>Parents Names</li>
+              <li>Spouse Name</li>
+              <li>Child(rens) Names Date of Birth</li>
+              <li>Name of Siblings (Alive/Deceased)</li>
+            </ul>
+          </div>
+          <div class="card-footer">
+            <button variant="gradient-orange">Get It Now</button>
+          </div>
+        </div>
+
+        <div class="pricing-card advanced">
+          <div class="card-header">
+            <h3>Advanced Auto-Obituary Plan</h3>
+            <div class="price">
+              <span class="amount">$3</span>
+              <span class="period">/Month</span>
+            </div>
+            <span class="annual-note">One Year Membership $36</span>
+            <span class="auto-renewal">Automatic Renewal</span>
+          </div>
+          <div class="card-body">
+            <p>Includes auto-obituary section plus additional life details.</p>
+            <ul>
+              <li>1 picture to be used as funeral program cover photo.</li>
+              <li>Grandchildren Names & age</li>
+              <li>Work, Achievements</li>
+              <li>When & where you met your spouse.</li>
+              <li>Other</li>
+            </ul>
+          </div>
+          <div class="card-footer">
+            <button variant="gradient-orange" (click)="scrollToTop()">
+              Get It Now
+            </button>
+          </div>
+        </div>
+
+        <!-- <div class="pricing-card advanced">
+          <div class="card-header">
+            <h3>Advanced Auto-Obituary Plan</h3>
+            <div class="price">
+              <span class="amount">$3</span>
+              <span class="period">/Monthly</span>
+            </div>
+            <span class="annual-note">One Year Membership $36</span>
+          </div>
+          <div class="card-body">
+            <p class="plan-description">
+              Comprehensive life documentation including achievements,
+              education, employment, and personal milestones.
+            </p>
+            <ul class="features">
+              <li>1 funeral program cover photo</li>
+              <li>Detailed family records (grandchildren, siblings)</li>
+              <li>Educational & career history</li>
+              <li>Church affiliations and memberships</li>
+              <li>Spouse meeting story</li>
+              <li>Special achievements and awards</li>
+            </ul>
+          </div>
+          <div class="card-footer">
+            <button class="cta-button">Start Your Legacy</button>
+          </div>
+        </div> -->
+
+        <div class="pricing-card featured">
+          <!-- <div class="ribbon">Popular</div> -->
+          <div class="card-header">
+            <h3>Legacy Creation Plan</h3>
+            <div class="price">
+              <span class="amount">$7</span>
+              <!-- <span class="period">Monthly</span> -->
+              <span class="period">/Month</span>
+            </div>
+            <span class="annual-note">One Year Membership $84</span>
+            <span class="auto-renewal">Automatic Renewal</span>
+          </div>
+          <div class="card-body">
+            <p>
+              Leave the comfort of the sound of your voice. Make a video of you
+              talking singing etc. (Look in the Moments to share section for
+              talking topics).
+            </p>
+            <ul>
+              <li>Includes the advanced auto-obituary plan</li>
+              <li>Video memories, picture stories, audio notes</li>
+              <li>
+                Highlight your significant moments in past, present & future
+                years
+              </li>
+              <li>Record up to ten -- 3 minute videos per year</li>
+              <li>
+                Show up to 30 family pictures w/ audio recorded descriptions
+              </li>
+            </ul>
+          </div>
+          <div class="card-footer">
+            <button variant="gradient-orange" (click)="scrollToTop()">
+              Get It Now
+            </button>
+          </div>
+        </div>
+
+        <!-- Ultimate Legacy Creation Plan removed from public pricing -->
+      </div>
+    </div>
+  </section>
+
+  <section class="additional-fees" @fadeInOnScroll>
+    <div class="container">
+      <div class="fees-container">
+        <!-- <div class="fees-column">
+          <h3>Fees:</h3>
+          <p>These items can be purchased independently.</p>
+
+          <div class="fee-item">
+            <h4>Funeral Program Link</h4>
+            <p>
+              A 30 min. video to be used at funeral. Includes all chosen videos,
+              pictures up to 30 min.
+            </p>
+            <div class="fee">
+              <span class="amount">$12.50</span>
+              <span class="period">One time fee</span>
+            </div>
+          </div>
+
+          <div class="fee-item">
+            <h4>Individual Picture upload</h4>
+            <p>
+              Includes space for a note description. Yearly maintenance fee is
+              equal to total fees paid.
+            </p>
+            <div class="fee">
+              <span class="amount">$3.00</span>
+              <span class="period">each</span>
+            </div>
+          </div>
+        </div> -->
+
+        <div class="funeral-home-column">
+          <div class="funeral-home-plan">
+            <h3>Funeral Home Plan</h3>
+            <!-- <div class="price">
+              <span class="amount">$350</span>
+              <span class="period">Yearly</span>
+            </div> -->
+            <p>
+              Exclusively for organizations specializing in burial & home going
+              services. Includes access to videos, pictures and obituary
+              information of POML member accounts (When keyholders are
+              inaccessible) for purposes of providing an accurate funeral
+              program created by and according to the wishes of the deceased.
+            </p>
+            <ul>
+              <li>
+                Gain access to POML member account for funeral program
+                information in order to provide a service according to the
+                direct wishes of the deceased. (limited to auto-obituary and
+                chosen videos and pictures).
+              </li>
+              <li>Includes Video Link, if chosen my POML account holder.</li>
+            </ul>
+            <div class="plan-cta">
+              <!-- <button class="gradient-orange" (click)="scrollToTop()">
+                Get It Now
+              </button> -->\
+              <button class="gradient-orange">
+                <a href="tel:646-780-9231" style="color: inherit; text-decoration: none;">
+                  Call Wendy: 646-780-9231
+                </a>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="upgrade-section" *ngIf="!isHighestPlan">
+    <div class="container">
+      <div class="upgrade-button-container text-center">
+        <button class="btn btn-primary" (click)="goToPricing()">
+          Click here to upgrade your plan to leave photos, videos and more
+        </button>
+      </div>
+    </div>
+  </section>
+</div>
+
+<app-footer></app-footer>

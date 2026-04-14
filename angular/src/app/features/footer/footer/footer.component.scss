@@ -1,0 +1,238 @@
+.site-footer {
+    background: linear-gradient(180deg, #8f2fff 0%, #ff7c2b 100%);
+    color: #222;
+    padding: 4rem 0 2rem;
+    font-family: 'Arial', sans-serif;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr 1fr 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 3rem;
+    align-items: center;
+}
+
+.footer-column {
+    padding: 0 0 0 5rem;
+}
+
+.footer-heading {
+    color: #222;
+    font-size: 1.2rem;
+    // margin-bottom: 1.5rem;
+    font-weight: 600;
+    position: relative;
+    // padding-bottom: 0.5rem;
+}
+
+.footer-heading::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 40px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+// .footer-links li {
+//     margin-bottom: 0.8rem;
+// }
+
+.footer-links a {
+    color: #222;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    font-size: 0.9rem;
+    font-weight: 500;
+    // margin-left: 20px;
+}
+
+.footer-links a:hover {
+    color: #e2c908;
+}
+
+.footer-bottom {
+    border-top: 1px solid #fff;
+    padding-top: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    color: #222;
+    font-size: 0.95rem;
+    margin-top: 2rem;
+}
+
+.footer-logo-column {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
+    margin-left: -150px;
+}
+
+.footer-logo-column img,
+.footer-logo-responsive {
+    max-width: 400px;
+    width: 100%;
+    height: auto;
+    margin: 0 auto;
+    display: block;
+    object-fit: contain;
+    
+    // Responsive sizing
+    @media (max-width: 768px) {
+        max-width: 200px;
+    }
+
+    @media (max-width: 480px) {
+        max-width: 150px;
+    }
+}
+
+.legal-links {
+    margin-bottom: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem 1rem;
+}
+
+.legal-links a {
+    color: #222;
+    text-decoration: none;
+    font-size: 0.70rem;
+    transition: color 0.3s ease;
+    margin-bottom: 40px;
+}
+
+.legal-links a:hover {
+    color: #eded0a;
+}
+
+.legal-links span {
+
+    color: #555;
+
+}
+
+.copyright {
+    color: #222;
+    font-size: 0.70rem;
+    margin-bottom: 40px;
+}
+
+.legacy-main-btn-inner-text {
+    display: inline-block;
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+// @media (max-width: 600px) {
+//     .legacy-main-btn-inner-text {
+//         display: none;
+//     }
+
+//     .legacy-main-btn-text {
+//         display: block;
+//     }
+// }
+
+// @media (min-width: 601px) {
+//     .legacy-main-btn-text {
+//         display: none;
+//     }
+// }
+
+/* Responsive Adjustments */
+@media (max-width: 1200px) {
+    .footer-grid {
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+
+    .footer-logo-column {
+        grid-column: span 4;
+        justify-content: center;
+        margin-bottom: 2rem;
+    }
+}
+
+@media (max-width: 900px) {
+    .footer-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .footer-logo-column {
+        grid-column: span 2;
+        margin-bottom: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .footer-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .footer-column {
+        margin-bottom: 1.5rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .footer-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-logo-column {
+        grid-column: span 1;
+        margin-bottom: 2rem;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .footer-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .legal-links {
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .legal-links span {
+        display: none;
+    }
+}
+
+.company {
+    margin-top: 45px;
+}
+
+.Featured {
+    margin-top: 61px;
+}
+
+.get-started {
+    margin-top: 20px;
+}
+
+.support {
+    margin-top: -10px;
+}

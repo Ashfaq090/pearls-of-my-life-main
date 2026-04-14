@@ -1,0 +1,11 @@
+<span (click)="showEdit = true" *ngIf="!showEdit">
+    {{text}}
+</span>
+
+<input *ngIf="showEdit"
+    class="editable-text-input" 
+    type="text"
+    (blur)="onSubmit()"
+    (keydown.enter)="onSubmit()"
+    [(ngModel)]="text"
+/>

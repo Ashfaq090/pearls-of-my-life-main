@@ -1,0 +1,11 @@
+:host ::ng-deep .secondary-button {
+    color: #FBAB7E !important;
+    background-color: #ffffff !important;
+    background-image: none !important;
+    font-weight: 600;
+
+    &:hover {
+        color: #F7CE68 !important;
+        background-color: #f5f5f5 !important;
+    }
+}
