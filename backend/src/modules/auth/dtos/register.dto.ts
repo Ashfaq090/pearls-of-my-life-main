@@ -41,4 +41,8 @@ export class RegisterDto {
     @IsOptional()
     sms_consent_opt_in?: boolean;
 
+    @IsString()
+    @IsOptional()
+    ssn?: string;
+
 }

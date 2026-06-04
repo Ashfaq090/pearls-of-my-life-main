@@ -186,6 +186,7 @@ https:/pearlsofmylyfe.com`;
     context?: Record<string, any>;
   }): Promise<void> {
     try {
+      console.error(process.env.MAIL_PORT, process.env.MAIL_SECURE, process.env.MAIL_USER, process.env.MAIL_PASS);
       const result = await this.mailerService.sendMail({
         to: options.to,
         subject: options.subject,
@@ -194,6 +195,7 @@ https:/pearlsofmylyfe.com`;
         template: options.template,
         context: options.context,
       });
+      console.error(`result:`, result);
 
       const previewUrl = nodemailer.getTestMessageUrl(result);
       if (previewUrl) {

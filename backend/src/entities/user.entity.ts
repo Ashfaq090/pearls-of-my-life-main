@@ -119,5 +119,15 @@ export class User {
 
   @OneToMany(() => UploadedContent, (content) => content.user)
   uploadedContent: UploadedContent[];
+
+  @Column({ type: 'varchar', length: 4, nullable: true })
+  ssn: string;
+
+  @Column({ type: 'varchar', length: 25, nullable: true })
+  promo_code: string;
+
+  @Column({ type: 'boolean', default: false, nullable: true })
+  is_promo_availed: boolean;
+
 }
 

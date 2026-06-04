@@ -51,6 +51,17 @@ export class AuthController {
         HttpStatus.FORBIDDEN,
       );
     }
+    const isSSNExists = await this.usersService.findOneBySSN(input.ssn);
+    if (isSSNExists) {
+      throw new HttpException(
+        {
+          status: HttpStatus.FORBIDDEN,
+          message: 'User already exists with this SSN.',
+          error: 'User already registered - Forebidden',
+        },
+        HttpStatus.FORBIDDEN,
+      );
+    }
     const user = await this.usersService.create(input);
     this.emailService.sendRegistrationEmail(user);
     // return SuccessMessageResponse(MESSAGE.ENTITLEMENTS.USER_REGISTERED, user);
@@ -73,7 +84,7 @@ export class AuthController {
       throw new HttpException(
         {
           status: HttpStatus.UNAUTHORIZED,
-          message: 'Invalid email or password.',
+          message: 'Invalid email or password or SSN!',
           error: 'Unauthorized',
         },
         HttpStatus.UNAUTHORIZED,

@@ -195,6 +195,20 @@ export class AdminService {
     return await this.userRepository.save(user);
   }
 
+  async addupdateUserPromo(id: string, promoCode: string) {
+    const user = await this.userRepository.findOne({ where: { id } });
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
+    console.log(`Updating promo code for user ${id} to ${promoCode}`);
+
+    user.promo_code = promoCode;
+    user.is_promo_availed = false; // Reset promo availed status when promo code is updated
+    await this.userRepository.save(user);
+    return { message: 'Promo code updated successfully' };
+  }
+
   // KeyHolder Management
   async getKeyHolders(page: number = 1, limit: number = 10) {
     const skip = (page - 1) * limit;
