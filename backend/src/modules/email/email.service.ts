@@ -73,7 +73,73 @@ https:/pearlsofmylyfe.com`;
       const acceptInvitationUrl = `${baseUrl}/auth/keyholder/accept/${keyHolder.token_url}`;
       const loginUrl = `${baseUrl}/auth/keyholder/${keyHolder.token_url}`;
 
-      const emailTemplate = `
+    //   const emailTemplate = `
+    //   <!DOCTYPE html>
+    //   <html>
+    //   <head>
+    //       <style>
+    //           body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+    //           .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+    //           .header { color: #2c3e50; border-bottom: 1px solid #eee; padding-bottom: 10px; }
+    //           .content { margin: 20px 0; }
+    //           .button {
+    //               display: inline-block;
+    //               padding: 12px 24px;
+    //               background-color: #14c44d;
+    //               color: white !important;
+    //               text-decoration: none;
+    //               border-radius: 5px;
+    //               margin: 10px 0;
+    //               font-weight: bold;
+    //           }
+    //           .footer { font-size: 12px; color: #777; border-top: 1px solid #eee; padding-top: 10px; margin-top: 20px; }
+    //           .credentials { background-color: #f9f9f9; padding: 15px; border-radius: 5px; margin: 15px 0; border-left: 4px solid #14c44d; }
+    //           .warning { background-color: #fff3cd; padding: 10px; border-radius: 5px; margin: 15px 0; border-left: 4px solid #ffc107; }
+    //       </style>
+    //   </head>
+    //   <body>
+    //       <div class="container">
+    //           <div class="header">
+    //               <h2>Pearls of Life</h2>
+    //           </div>
+    //           <div class="content">
+    //               <p>Hello, <strong>${keyHolder.first_name} ${keyHolder.last_name}</strong>,</p>
+    //               <p>You have been registered as a key holder by <strong>${userName}</strong>.</p>
+                  
+    //               <div class="credentials">
+    //                   <p><strong>Your login credentials:</strong></p>
+    //                   <p><strong>Token URL:</strong> ${keyHolder.token_url}</p>
+    //                   <p><strong>PIN:</strong> ${keyHolder.pin}</p>
+    //               </div>
+
+    //               <div class="warning">
+    //                   <p><strong>Important:</strong> As a key holder, you have view-only access. You can view and download content but cannot edit, delete, or modify account information.</p>
+    //               </div>
+                  
+    //               <p><strong>Step 1:</strong> Accept the invitation and set your password:</p>
+    //               <p style="text-align: center;">
+    //                   <a href="${acceptInvitationUrl}" class="button">Accept Invitation & Set Password</a>
+    //               </p>
+                  
+    //               <p><strong>Step 2:</strong> After setting your password, you can login:</p>
+    //               <p style="text-align: center;">
+    //                   <a href="${loginUrl}" class="button" style="background-color: #3498db;">Login to Your Account</a>
+    //               </p>
+                  
+    //               <p>If the buttons don't work, copy and paste these links into your browser:</p>
+    //               <p><strong>Accept Invitation:</strong><br>${acceptInvitationUrl}</p>
+    //               <p><strong>Login:</strong><br>${loginUrl}</p>
+    //           </div>
+    //           <div class="footer">
+    //               <p><strong>NOTE:</strong> Please do not share these credentials with anyone.</p>
+    //               <p>© ${new Date().getFullYear()} Pearls of Life. All rights reserved.</p>
+    //           </div>
+    //       </div>
+    //   </body>
+    //   </html>
+    // `;
+
+    const emailTemplate = `
       <!DOCTYPE html>
       <html>
       <head>
@@ -104,31 +170,59 @@ https:/pearlsofmylyfe.com`;
               </div>
               <div class="content">
                   <p>Hello, <strong>${keyHolder.first_name} ${keyHolder.last_name}</strong>,</p>
-                  <p>You have been registered as a key holder by <strong>${userName}</strong>.</p>
-                  
-                  <div class="credentials">
-                      <p><strong>Your login credentials:</strong></p>
-                      <p><strong>Token URL:</strong> ${keyHolder.token_url}</p>
-                      <p><strong>PIN:</strong> ${keyHolder.pin}</p>
-                  </div>
+                  <p>
+                    You’ve been chosen as a Pearls Of My Lyfe Keyholder for <strong>${userName}</strong>.
+                    This person created an account with <a href="${baseUrl}" target="_blank">PearlsOfMyLyfe.com</a> and selected you to serve as one of their trusted Keyholders.
+                  </p>
 
-                  <div class="warning">
-                      <p><strong>Important:</strong> As a key holder, you have view-only access. You can view and download content but cannot edit, delete, or modify account information.</p>
-                  </div>
-                  
-                  <p><strong>Step 1:</strong> Accept the invitation and set your password:</p>
-                  <p style="text-align: center;">
-                      <a href="${acceptInvitationUrl}" class="button">Accept Invitation & Set Password</a>
+                  <p>
+                    A Keyholder is someone entrusted with helping access the account after the account holder’s passing. 
+                    Through this role, you may assist in retrieving important legacy and obituary information intended for family and loved ones.
+                  </p>
+
+                  <p>
+                    Through Pearls Of My Lyfe, the account holder has preserved pieces of their life story, 
+                    important information they want you to have and remember — including videos, audio messages, written notes, and photographs — to share memories, lessons, and moments with the people they care about most. 
                   </p>
                   
-                  <p><strong>Step 2:</strong> After setting your password, you can login:</p>
-                  <p style="text-align: center;">
-                      <a href="${loginUrl}" class="button" style="background-color: #3498db;">Login to Your Account</a>
+                  <p>
+                    They have also taken steps to make difficult times easier by organizing accurate biographical and obituary information, including details such as:
                   </p>
                   
-                  <p>If the buttons don't work, copy and paste these links into your browser:</p>
-                  <p><strong>Accept Invitation:</strong><br>${acceptInvitationUrl}</p>
-                  <p><strong>Login:</strong><br>${loginUrl}</p>
+                  <p>
+                    Parents’ names </br>
+                    Children and family relationships  </br>
+                    Marriages </br>
+                    Schools attended </br>
+                    Career history </br>
+                    Important life milestones </br>
+                    Personal reflections and memories </br>
+                    The purpose of this platform is to celebrate and preserve the life they lived — the joy they experienced, the challenges they overcame, the laughter they shared, the unexpected moments that shaped them, and the legacy they chose to leave behind. Some of the information included can assist with the eulogy as they have shared life moments the way they lived and experienced them.
+                  </p>
+
+                  <p>
+                    Account Access:
+                  </p>
+
+                  <p>
+                    Go to <a href="${baseUrl}" target="_blank">pearlsofmylyfe.com</a> and click on the KEY HOLDER ACCESS BUTTON. 
+                    </br>You must enter 
+                    </br>(A) The Account Holder's date of death (mm/dd/yyyy) 
+                    </br>(B) Your first and last name, and 
+                    </br>(C) The last 4 digits of the Account Holder's  SS #  in order to access the account. The account will remain accessible for 30 days from the date of access before it is disabled. You will have 30 days to print and/or download the obituary information and legacy left for you.
+                  </p>
+
+                  <p>
+                    Being selected as a Keyholder is both a responsibility and an honor. Thank you for helping ensure their story, memories, and legacy can be shared with future generations.
+                  </p>
+
+                  <p>
+                    If you are interested in starting your free Pearls Of My Lyfe Account please visit https:PearlsOfMyLyfe.com and leave your legacy today!
+                  </p>
+
+                  <p>
+                    YOUR WHOLE LIFE IS YOUR LEGACY
+                  </p>
               </div>
               <div class="footer">
                   <p><strong>NOTE:</strong> Please do not share these credentials with anyone.</p>

@@ -295,4 +295,35 @@ export class SubscriptionService {
       relations: ['plan', 'user'],
     });
   }
+
+  async subscribeViaPromo(userId: string, planId: string, promoCode: string) {
+
+    const isPromoUserExists = await this.usersService.findOneByPromo(userId, planId, promoCode); 
+
+    if(!isPromoUserExists) {
+      throw new NotFoundException('Promo not found');
+    } 
+
+    const userSubs = await this.getUserSubscription(userId);
+    if(userSubs){
+      userSubs.status = SubscriptionStatus.CANCELLED;
+      await this.userSubscriptionRepository.save(userSubs);
+    }
+
+
+    const startDate = new Date();
+    const endDate = new Date();
+    endDate.setMonth(endDate.getMonth() + 1);
+
+    const subscription = await this.userSubscriptionRepository.create({
+      userId,
+      planId,
+      startDate,
+      endDate,
+      status: SubscriptionStatus.ACTIVE
+    });
+
+    return await this.userSubscriptionRepository.save(subscription);
+  }
+
 }

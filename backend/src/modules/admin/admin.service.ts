@@ -195,6 +195,33 @@ export class AdminService {
     return await this.userRepository.save(user);
   }
 
+  async addupdateUserPromo(id: string, promoCode?: string, promoPlanId?: string) {
+    const user = await this.userRepository.findOne({ where: { id } });
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
+    console.log(`Updating promo code for user ${id} to ${promoCode}`);
+
+    user.promo_code = promoCode || null;
+    user.promo_plan_id = promoPlanId || null;
+    user.is_promo_availed = promoCode ? false : true; // Reset promo availed status when promo code is updated
+    await this.userRepository.save(user);
+    return { message: 'Promo code updated successfully' };
+  }
+
+  async addupdateUserDateOfDeath(id: string, dateOfDeath: string) {
+    const user = await this.userRepository.findOne({ where: { id } });
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+    user.date_of_death = new Date(dateOfDeath) || null;
+    await this.userRepository.save(user);
+    // if(dateOfDeath) await this.terminateUser(id); // Terminate user upon setting date of death
+    return { message: 'Date of death updated successfully' };
+  }
+
+
   // KeyHolder Management
   async getKeyHolders(page: number = 1, limit: number = 10) {
     const skip = (page - 1) * limit;

@@ -24,7 +24,7 @@ import { UsersService } from '../users/users.service';
 import { JwtHelper } from 'src/common/helpers/jwt-helper';
 import { EmailService } from '../email/email.service';
 import { KeyHoldersService } from '../key-holders/key-holders.service';
-import { KeyHolderLoginDto } from './dtos/keyholder-login.dto';
+import { KeyHolderAccessDto, KeyHolderLoginDto } from './dtos/keyholder-login.dto';
 import { ForgotPasswordDto } from './dtos/forgot-password.dto';
 import { ChangePasswordDto } from './dtos/change-password.dto';
 import { ResetPasswordDto } from './dtos/reset-password.dto';
@@ -46,6 +46,17 @@ export class AuthController {
         {
           status: HttpStatus.FORBIDDEN,
           message: 'User already exists with this email.',
+          error: 'User already registered - Forebidden',
+        },
+        HttpStatus.FORBIDDEN,
+      );
+    }
+    const isSSNExists = await this.usersService.findOneBySSN(input.ssn);
+    if (isSSNExists) {
+      throw new HttpException(
+        {
+          status: HttpStatus.FORBIDDEN,
+          message: 'User already exists with this SSN.',
           error: 'User already registered - Forebidden',
         },
         HttpStatus.FORBIDDEN,
@@ -73,7 +84,7 @@ export class AuthController {
       throw new HttpException(
         {
           status: HttpStatus.UNAUTHORIZED,
-          message: 'Invalid email or password.',
+          message: 'Invalid email or password or SSN!',
           error: 'Unauthorized',
         },
         HttpStatus.UNAUTHORIZED,
@@ -120,6 +131,43 @@ export class AuthController {
       );
     else
       return SuccessMessageResponse(MESSAGE.ENTITLEMENTS.KEYHOLDER_REGISTERED);
+  }
+
+  @Post('keyholder-access')
+  async loginViaKeyHolderAccess(
+    @Body() input: KeyHolderAccessDto,
+    @Req() request: any,
+  ): Promise<any> {
+    const user = await this.usersService.findOneByDateOfDeathandSSN(input.date_of_death, input.ssn);
+    if(!user) {
+      throw new HttpException(
+        {
+          status: HttpStatus.FORBIDDEN,
+          message: 'Invalid details provided. Please check and try again.',
+          error: 'Invalid Credentials',
+        },
+        HttpStatus.FORBIDDEN,
+      );
+    }
+    const keyHolder = await this.keyHolderService.findOneByUserIdandName(user.id, input.first_name, input.last_name);
+    if (!keyHolder) {
+      throw new HttpException(
+        {
+          status: HttpStatus.FORBIDDEN,
+          message: 'Invalid details provided. Please check and try again.',
+          error: 'Invalid Credentials',
+        },
+        HttpStatus.FORBIDDEN,
+      );
+    }
+    // Generate token with keyholder flag
+    const token = this.jwtHelper.generateToken(user.id, true);
+    request.res.setHeader(X_ACCESS_TOKEN, token.access_token);
+    return {
+      ...user,
+      is_keyholder: true,
+      keyholder_id: keyHolder.id,
+    };
   }
 
   @Post('keyholder')

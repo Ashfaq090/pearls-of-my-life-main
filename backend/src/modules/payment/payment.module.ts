@@ -8,6 +8,7 @@ import { SubscriptionService } from './subsription.service';
 import { SubscriptionSchedulerService } from './subscription-scheduler.service';
 import { EmailModule } from '../email/email.module';
 import { UsersModule } from '../users/users.module';
+import { AdminModule } from '../admin/admin.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { UsersModule } from '../users/users.module';
     TypeOrmModule.forFeature([SubscriptionPlan, UserSubscription, Payment]),
     forwardRef(() => EmailModule),
     forwardRef(() => UsersModule),
+    forwardRef(() => AdminModule),
   ],
   controllers: [PaymentsController],
   providers: [PaymentsService, SubscriptionService, SubscriptionSchedulerService],

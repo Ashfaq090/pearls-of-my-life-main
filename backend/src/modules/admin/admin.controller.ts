@@ -56,6 +56,16 @@ export class AdminController {
     return await this.adminService.terminateUser(id);
   }
 
+  @Patch('users/:id/promo')
+  async addupdateUserPromo(@Param('id', ParseUUIDPipe) id: string, @Body() reqObj: any) {
+    return await this.adminService.addupdateUserPromo(id, reqObj.promoCode, reqObj.promoPlanId);
+  }
+
+  @Patch('users/:id/date-of-death')
+  async addupdateUserDateOfDeath(@Param('id', ParseUUIDPipe) id: string, @Body() reqObj: any) {
+    return await this.adminService.addupdateUserDateOfDeath(id, reqObj.dateOfDeath);
+  }
+
   // KeyHolder Management
   @Get('keyholders')
   async getKeyHolders(

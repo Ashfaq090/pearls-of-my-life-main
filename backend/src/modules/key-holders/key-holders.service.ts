@@ -10,7 +10,7 @@ import { KeyHolder } from '../../entities/keyholder.entity';
 import { PaginateDto } from 'src/common/dtos/paginate.dto';
 import { FilterKeyHoldersDto } from './dtos/filter-key-holders.dto';
 import { CreateKeyHolderDto } from './dtos/create-key-holder.dto';
-import { KeyHolderLoginDto } from '../auth/dtos/keyholder-login.dto';
+import { KeyHolderAccessDto, KeyHolderLoginDto } from '../auth/dtos/keyholder-login.dto';
 
 @Injectable()
 export class KeyHoldersService {
@@ -151,6 +151,17 @@ export class KeyHoldersService {
       where: {
         token_url: creds.token_url,
         pin: creds.pin,
+        deleted_on: null,
+      },
+    });
+  }
+
+  async findOneByUserIdandName(user_id: string, first_name: string, last_name: string): Promise<KeyHolder>{
+    return await this.keyHoldersRepository.findOne({
+      where: {
+        user_id,
+        first_name,
+        last_name,
         deleted_on: null,
       },
     });

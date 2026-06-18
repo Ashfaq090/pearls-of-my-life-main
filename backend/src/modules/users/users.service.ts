@@ -36,10 +36,14 @@ export class UsersService {
       return null;
     }
 
+    if(loginDto.ssn && user.ssn) {
+      // For simplicity, we are treating the incoming ssn as a plain string to compare with the stored hashed_password.
+      if(user.ssn != loginDto.ssn) return null;
+    }
+
     // Compare password (assuming hashed_password in DTO is actually plain password for comparison)
     // In production, you should hash the incoming password and compare with stored hash
     const isPasswordValid = await bcrypt.compare(loginDto.hashed_password, user.hashed_password);
-    
     if (!isPasswordValid) {
       return null;
     }
@@ -67,6 +71,7 @@ export class UsersService {
           : true,
       subscription_email_sent: false,
       date_of_birth: input?.date_of_birth || null,
+      ssn: input?.ssn || null,
     });
     return await this.usersRepository.save(newUser);
   }
@@ -133,6 +138,12 @@ export class UsersService {
   async findOneByEmail(email: string): Promise<User | null> {
     return await this.usersRepository.findOne({
       where: { email },
+    });
+  }
+
+  async findOneBySSN(ssn: string): Promise<User | null> {
+    return await this.usersRepository.findOne({
+      where: { ssn },
     });
   }
 
@@ -296,4 +307,17 @@ export class UsersService {
 
     this.logger.log(`Account termination completed for user: ${userId}`);
   }
+
+  async findOneByPromo(id: string, planId: string, promoCode: string): Promise<User | null> {
+    return await this.usersRepository.findOne({
+      where: { id, promo_plan_id: planId, promo_code: promoCode }
+    });
+  }
+
+  async findOneByDateOfDeathandSSN(date_of_death: Date, ssn: string): Promise<User | null> {
+    return await this.usersRepository.findOne({
+      where: { date_of_death, ssn }
+    });
+  }
+
 }

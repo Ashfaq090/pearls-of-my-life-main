@@ -7,11 +7,13 @@ import {
   Headers,
   Logger,
   Query,
+  Patch,
 } from '@nestjs/common';
 import { AuthGraud } from '../../common/guards/auth.guard';
-import { CurrentUser } from '../../common/decorators/current-user.decorator';
+import { CurrentUser } from 'src/common/decorators/current-user.decorator';
 import { PaymentsService } from './payment.service';
 import { SubscriptionService } from './subsription.service';
+import { AdminService } from '../admin/admin.service';
 
 @Controller('payments')
 export class PaymentsController {
@@ -20,6 +22,7 @@ export class PaymentsController {
   constructor(
     private readonly paymentsService: PaymentsService,
     private readonly subscriptionService: SubscriptionService,
+    private readonly adminService: AdminService
   ) {}
 
   @Get('subscription-plans')
@@ -227,4 +230,17 @@ export class PaymentsController {
 
     return { status: 'success' };
   }
+
+  @Patch('subscribe-via-promo')
+  @UseGuards(AuthGraud)
+  async subscribeViaPromo(@CurrentUser() user: any, @Body() reqObj: any) {
+    const plan = await this.subscriptionService.getPlanById(reqObj.planId);
+    if (!plan) {
+      throw new Error('Subscription plan not found');
+    }
+    const promo = await this.subscriptionService.subscribeViaPromo(user.user_id, reqObj.planId, reqObj.promoCode);
+    await this.adminService.addupdateUserPromo(user.user_id, '', '');
+    return { success: true, data: promo };
+  }
+
 }
