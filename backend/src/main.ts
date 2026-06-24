@@ -36,7 +36,7 @@ async function bootstrap() {
   // Enable CORS
   app.enableCors({
     origin: [
-      'http://localhost:4200',
+      // 'http://localhost:4200',
       'http://pearlsofmylyfe.com',
       'https://pearlsofmylyfe.com',
     ],
