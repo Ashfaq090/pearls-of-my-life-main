@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AdminController } from './admin.controller';
 import { AdminService } from './admin.service';
@@ -13,6 +13,7 @@ import { LegacyNote } from '../../entities/legacy-note.entity';
 import { SubscriptionPlan } from '../../entities/subscription-plan.entity';
 import { EmailLog } from '../../entities/email-log.entity';
 import { EmailModule } from '../email/email.module';
+import { KeyHoldersModule } from '../key-holders/key-holders.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { EmailModule } from '../email/email.module';
       EmailLog,
     ]),
     EmailModule,
+    forwardRef(() => KeyHoldersModule),
   ],
   controllers: [AdminController],
   providers: [AdminService],

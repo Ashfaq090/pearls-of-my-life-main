@@ -1,6 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { MoreThan, Repository } from 'typeorm';
 import {
   generateRandomAlphanumeric,
   TOKEN_PIN_LENGTH,
@@ -163,6 +163,7 @@ export class KeyHoldersService {
         first_name,
         last_name,
         deleted_on: null,
+        expired_on: MoreThan(new Date())
       },
     });
   }
@@ -195,4 +196,20 @@ export class KeyHoldersService {
     });
     return this.findOne(id);
   }
+
+  async handleUserDateOfDeathUpdate(user_id: string, dateOfDeath: string) {
+    const key_holders = await this.keyHoldersRepository.find({
+      where: {
+        user_id,
+        deleted_on: null,
+      },
+    });
+    // Set add one month from today's date
+    const expiry_date: any = dateOfDeath ? new Date(Date.now() + 30 * 24 * 60 * 60 * 1000) : null;
+    key_holders.forEach(async (kh) => {
+      kh.expired_on = expiry_date;
+      await this.keyHoldersRepository.save(kh);
+    });
+  } 
+
 }

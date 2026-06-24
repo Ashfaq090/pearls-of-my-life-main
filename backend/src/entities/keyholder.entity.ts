@@ -84,5 +84,8 @@ export class KeyHolder {
 
   @Column({ type: 'uuid', nullable: true })
   deleted_by: string;
+
+  @DeleteDateColumn({ type: 'datetime', nullable: true })
+  expired_on: Date;
 }
 

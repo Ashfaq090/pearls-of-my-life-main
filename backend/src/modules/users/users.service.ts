@@ -142,9 +142,9 @@ export class UsersService {
   }
 
   async findOneBySSN(ssn: string): Promise<User | null> {
-    return await this.usersRepository.findOne({
+    return ssn ? await this.usersRepository.findOne({
       where: { ssn },
-    });
+    }) : null;
   }
 
   async getPersonalInfo(id: string): Promise<User | null> {
@@ -314,7 +314,8 @@ export class UsersService {
     });
   }
 
-  async findOneByDateOfDeathandSSN(date_of_death: Date, ssn: string): Promise<User | null> {
+  async findOneByDateOfDeathandSSN(dod: string, ssn: string): Promise<User | null> {
+    const date_of_death = new Date(dod);
     return await this.usersRepository.findOne({
       where: { date_of_death, ssn }
     });

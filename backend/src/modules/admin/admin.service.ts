@@ -22,6 +22,7 @@ import { UpdatePlanDto } from './dto/update-plan.dto';
 import { FilterUsersDto, UserStatusFilter } from './dto/filter-users.dto';
 import { FilterUploadsDto } from './dto/filter-uploads.dto';
 import { EmailService } from '../email/email.service';
+import { KeyHoldersService } from '../key-holders/key-holders.service';
 
 @Injectable()
 export class AdminService {
@@ -47,6 +48,7 @@ export class AdminService {
     @InjectRepository(EmailLog)
     private emailLogRepository: Repository<EmailLog>,
     private emailService: EmailService,
+    private keyholderService: KeyHoldersService,
   ) {}
 
   // Dashboard Stats
@@ -217,6 +219,7 @@ export class AdminService {
     }
     user.date_of_death = new Date(dateOfDeath) || null;
     await this.userRepository.save(user);
+    await this.keyholderService.handleUserDateOfDeathUpdate(user.id, dateOfDeath);
     // if(dateOfDeath) await this.terminateUser(id); // Terminate user upon setting date of death
     return { message: 'Date of death updated successfully' };
   }
