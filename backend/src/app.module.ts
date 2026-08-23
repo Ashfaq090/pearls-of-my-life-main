@@ -79,7 +79,8 @@ import { LegacyNote } from './entities/legacy-note.entity';
         synchronize: false, // Disabled - tables created manually via SQL script
         logging: configService.get('NODE_ENV') === 'development',
         charset: 'utf8mb4',
-        timezone: '+00:00',
+        // timezone: '+00:00',
+        timezone: 'Z',
       }),
       inject: [ConfigService],
     }),

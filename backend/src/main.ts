@@ -9,6 +9,7 @@ import { DataSource } from 'typeorm';
 // import * as dotenv from 'dotenv';
 // dotenv.config();
 async function bootstrap() {
+  process.env.TZ = 'UTC';
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
   // Serve uploaded files at /uploads.
@@ -36,7 +37,7 @@ async function bootstrap() {
   // Enable CORS
   app.enableCors({
     origin: [
-      // 'http://localhost:4200',
+      'http://localhost:4200',
       'http://pearlsofmylyfe.com',
       'https://pearlsofmylyfe.com',
     ],

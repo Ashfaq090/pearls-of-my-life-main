@@ -11,12 +11,14 @@ import { PaginateDto } from 'src/common/dtos/paginate.dto';
 import { FilterKeyHoldersDto } from './dtos/filter-key-holders.dto';
 import { CreateKeyHolderDto } from './dtos/create-key-holder.dto';
 import { KeyHolderAccessDto, KeyHolderLoginDto } from '../auth/dtos/keyholder-login.dto';
+import { EmailService } from '../email/email.service';
 
 @Injectable()
 export class KeyHoldersService {
   constructor(
     @InjectRepository(KeyHolder)
     private readonly keyHoldersRepository: Repository<KeyHolder>,
+    private readonly emailService: EmailService,
   ) {}
 
   async findAll(
@@ -209,7 +211,18 @@ export class KeyHoldersService {
     key_holders.forEach(async (kh) => {
       kh.expired_on = expiry_date;
       await this.keyHoldersRepository.save(kh);
+      this.sendDeseaseNotificationEmail(kh);
     });
   } 
+
+  async sendDeseaseNotificationEmail(keyHolder: KeyHolder) {
+    this.emailService.sendDeseaseNotificationEmail(keyHolder)
+    .then(() => {
+        console.log(`[DESEASED NOTIFICATION EMAIL] sent to ${keyHolder.email}`);
+    })
+    .catch((error) => {
+        console.error('DESEASED NOTIFICATION EMAIL failed:', error?.message || error);
+    });
+  }
 
 }

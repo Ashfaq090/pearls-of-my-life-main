@@ -45,4 +45,8 @@ export class RegisterDto {
     @IsOptional()
     ssn?: string;
 
+    @IsString()
+    @IsOptional()
+    reference?: string;
+
 }

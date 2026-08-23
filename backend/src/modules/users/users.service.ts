@@ -72,6 +72,7 @@ export class UsersService {
       subscription_email_sent: false,
       date_of_birth: input?.date_of_birth || null,
       ssn: input?.ssn || null,
+      reference: input?.reference || null,
     });
     return await this.usersRepository.save(newUser);
   }

@@ -135,5 +135,8 @@ export class User {
   @Column({ type: 'datetime', nullable: true })
   date_of_death: Date;
 
+  @Column({ type: 'varchar', length: 225, nullable: true })
+  reference: string;
+
 }
 

@@ -473,4 +473,71 @@ https:/pearlsofmylyfe.com`;
       throw error;
     }
   }
+
+
+  async sendDeseaseNotificationEmail(keyHolder: any){
+    try{
+      const emailTemplate = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <style>
+                body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+                .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+                .header { color: #2c3e50; border-bottom: 1px solid #eee; padding-bottom: 10px; }
+                .content { margin: 20px 0; }
+                .button {
+                    display: inline-block;
+                    padding: 10px 20px;
+                    background-color: #3498db;
+                    color: white !important;
+                    text-decoration: none;
+                    border-radius: 5px;
+                    margin: 10px 0;
+                }
+                .footer { font-size: 12px; color: #777; border-top: 1px solid #eee; padding-top: 10px; }
+            </style>
+        </head>
+        <body>
+            <div class="container">
+                <div class="content">
+                    <p>Dear Keyholder,</p>
+                    </br>
+                    <p>We were deeply saddened to learn of your loss. Please accept our heartfelt condolences during this difficult time. May God grant you comfort, peace, and strength in the days ahead.</p>
+                    <p>As the designated Keyholder, you have been given access to your loved one's Pearls of My Lyfe account for the next 30 days. During this time, you may review and download the information they thoughtfully prepared for you and your family, including:</p>
+                    <p>Their Auto-Obituary with accurate biographical information</p>
+                    <p>Their Legacy messages</p>
+                    <p>Gifted photos</p>
+                    <p>Video messages</p>
+                    <p>Written notes and personal messages</p>
+                    </br>
+                    <p>We encourage you to take your time and access the information you need to help prepare for the funeral or homegoing service, as well as to preserve the treasured memories your loved one chose to leave behind</p>
+                    <p>Please note that your access to this account will expire after 30 days. Once the account closes, the photos, videos, notes, and other legacy materials will no longer be accessible through this Keyholder link. We recommend downloading any items you wish to keep before the access period ends.</p>
+                    <p>If you have any questions or need assistance during this season of bereavement, please do not hesitate to contact us. We are here to support you in any way we can.</p>
+                    </br>
+                    <p>May God bless you, comfort your heart, and surround you with His peace.
+                    </br>
+                    <p>With our deepest sympathy,</p>
+                    <p>The Pearls of My Lyfe Team</p>
+                    <p>Reimagining How We Leave Our Legacy</p>
+                    <p>Start your account today at www.PearlsOfMyLyfe.Com</p>
+
+                </div>
+            </div>
+        </body>
+        </html>
+      `;
+
+      await this.mailerService.sendMail({
+          to: keyHolder.email,
+          subject: 'Pearls of Life - Deceased Notification',
+          html: emailTemplate,
+        });
+    } catch (error) {
+      console.error(`Failed to send deceased notification email: ${error}`);
+      throw error;
+    }
+
+  }
+
 }
