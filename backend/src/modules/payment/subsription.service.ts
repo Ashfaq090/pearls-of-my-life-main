@@ -3,9 +3,10 @@ import {
   NotFoundException,
   Inject,
   forwardRef,
+  BadRequestException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, LessThan } from 'typeorm';
+import { Repository, LessThan, EntityManager } from 'typeorm';
 import {
   SubscriptionPlan,
   UserSubscription,
@@ -163,6 +164,7 @@ export class SubscriptionService {
     userId: string,
     planId: string,
     paypalOrderId: string,
+    manager?: EntityManager,
   ) {
     const plan = await this.subscriptionPlanRepository.findOne({
       where: { id: planId },
@@ -188,7 +190,8 @@ export class SubscriptionService {
       endDate.setMonth(endDate.getMonth() + 1);
     }
 
-    const subscription = this.userSubscriptionRepository.create({
+    const repository = manager ? manager.getRepository(UserSubscription) : this.userSubscriptionRepository;
+    const subscription = repository.create({
       userId,
       planId,
       startDate,
@@ -197,7 +200,7 @@ export class SubscriptionService {
       paypalOrderId,
     });
 
-    return await this.userSubscriptionRepository.save(subscription);
+    return await repository.save(subscription);
   }
 
   async cancelSubscription(subscriptionId: string, userId: string) {
@@ -297,33 +300,20 @@ export class SubscriptionService {
   }
 
   async subscribeViaPromo(userId: string, planId: string, promoCode: string) {
-
+    if (typeof promoCode !== 'string' || !promoCode.trim() || !planId) {
+      throw new BadRequestException('Plan ID and promo code are required');
+    }
     const isPromoUserExists = await this.usersService.findOneByPromo(userId, planId, promoCode); 
 
-    if(!isPromoUserExists) {
+    if(!isPromoUserExists || isPromoUserExists.is_promo_availed) {
       throw new NotFoundException('Promo not found');
     } 
-
-    const userSubs = await this.getUserSubscription(userId);
-    if(userSubs){
-      userSubs.status = SubscriptionStatus.CANCELLED;
-      await this.userSubscriptionRepository.save(userSubs);
-    }
-
-
-    const startDate = new Date();
-    const endDate = new Date();
-    endDate.setMonth(endDate.getMonth() + 1);
-
-    const subscription = await this.userSubscriptionRepository.create({
-      userId,
-      planId,
-      startDate,
-      endDate,
-      status: SubscriptionStatus.ACTIVE
-    });
-
-    return await this.userSubscriptionRepository.save(subscription);
+    const plan = await this.getPlanById(planId);
+    if (!plan || !plan.isActive) throw new NotFoundException('Subscription plan not found');
+    const originalAmount = await this.computeEffectiveYearlyCharge(userId, plan);
+    const amount = Math.round(originalAmount * 50) / 100;
+    if (!Number.isFinite(amount) || amount <= 0) throw new BadRequestException('Invalid plan amount');
+    return { originalAmount, amount, discountPercent: 50, currency: 'USD' };
   }
 
 }

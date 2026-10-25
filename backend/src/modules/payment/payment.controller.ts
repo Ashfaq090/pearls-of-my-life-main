@@ -95,6 +95,16 @@ export class PaymentsController {
       throw new Error('Order ID is required');
     }
 
+    const promoPayment = await this.paymentsService.capturePromoOrder(
+      orderId,
+      user.user_id || user.id,
+      planId,
+      (manager) => this.subscriptionService.createSubscription(
+        user.user_id || user.id, planId, orderId, manager,
+      ),
+    );
+    if (promoPayment) return promoPayment;
+
     // Check if this is a dev mode fake order
     const isDevMode =
       process.env.NODE_ENV === 'development' ||
@@ -234,13 +244,10 @@ export class PaymentsController {
   @Patch('subscribe-via-promo')
   @UseGuards(AuthGraud)
   async subscribeViaPromo(@CurrentUser() user: any, @Body() reqObj: any) {
-    const plan = await this.subscriptionService.getPlanById(reqObj.planId);
-    if (!plan) {
-      throw new Error('Subscription plan not found');
-    }
-    const promo = await this.subscriptionService.subscribeViaPromo(user.user_id, reqObj.planId, reqObj.promoCode);
-    await this.adminService.addupdateUserPromo(user.user_id, '', '');
-    return { success: true, data: promo };
+    const userId = user.user_id || user.id;
+    const pricing = await this.subscriptionService.subscribeViaPromo(userId, reqObj.planId, reqObj.promoCode);
+    const orderId = await this.paymentsService.createPromoOrder(userId, reqObj.planId, reqObj.promoCode, pricing.amount);
+    return { success: true, orderId, data: { orderId, planId: reqObj.planId, ...pricing, status: 'pending' } };
   }
 
 }

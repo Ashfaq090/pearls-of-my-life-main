@@ -1,15 +1,82 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger, BadRequestException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, EntityManager } from 'typeorm';
 import * as paypal from '@paypal/checkout-server-sdk';
 import axios from 'axios';
-import { Payment } from '../../entities/payment.entity';
+import { Payment, PaymentStatus } from '../../entities/payment.entity';
+import { User } from '../../entities/user.entity';
+import { UserSubscription, SubscriptionStatus } from '../../entities/user-subscription.entity';
 
 @Injectable()
 export class PaymentsService {
   private client: paypal.core.PayPalHttpClient;
   private readonly logger = new Logger(PaymentsService.name);
+
+  async createPromoOrder(userId: string, planId: string, promoCode: string, amount: number) {
+    const orderId = await this.createOrder(amount);
+    await this.paymentRepository.save(this.paymentRepository.create({
+      user_id: userId,
+      amount,
+      currency: 'USD',
+      status: PaymentStatus.PENDING,
+      paypal_order_id: orderId,
+      notes: JSON.stringify({ type: 'promo', planId, promoCode }),
+    }));
+    return orderId;
+  }
+
+  async capturePromoOrder(
+    orderId: string,
+    userId: string,
+    planId: string,
+    activate: (manager: EntityManager) => Promise<unknown>,
+  ): Promise<any | null> {
+    // Persisted context prevents a discounted order being applied to another user or plan.
+    return this.paymentRepository.manager.transaction(async (manager) => {
+      const repository = manager.getRepository(Payment);
+      const record = await repository.findOne({
+        where: { paypal_order_id: orderId },
+        lock: { mode: 'pessimistic_write' },
+      });
+      if (!record) return null; // Existing normal payment flow.
+      const context = record.notes ? JSON.parse(record.notes) : null;
+      if (context?.type !== 'promo') return null;
+      if (record.user_id !== userId || context.planId !== planId) {
+        throw new BadRequestException('Order does not belong to this user and plan');
+      }
+      if (record.status === PaymentStatus.COMPLETED) return JSON.parse(record.transaction_data);
+
+      const user = await manager.getRepository(User).findOne({
+        where: { id: userId }, lock: { mode: 'pessimistic_write' },
+      });
+      if (!user || user.is_promo_availed || user.promo_code !== context.promoCode || user.promo_plan_id !== planId) {
+        throw new BadRequestException('Promo is no longer available');
+      }
+      // Recover a completed capture if a previous attempt failed while saving locally.
+      const order = (await this.client.execute(new paypal.orders.OrdersGetRequest(orderId))).result;
+      const payment = order.status === 'COMPLETED' ? order : await this.capturePayment(orderId);
+      if (payment.status !== 'COMPLETED') return payment;
+      const captures = payment.purchase_units?.flatMap((unit: any) => unit.payments?.captures || []) || [];
+      const total = captures.reduce((sum: number, capture: any) => sum + Math.round(Number(capture.amount?.value) * 100), 0);
+      if (!captures.length || captures.some((capture: any) => capture.status !== 'COMPLETED' || capture.amount?.currency_code !== record.currency) || total !== Math.round(Number(record.amount) * 100)) {
+        throw new BadRequestException('Captured payment does not match the order amount');
+      }
+      await manager.getRepository(UserSubscription).update(
+        { userId, status: SubscriptionStatus.ACTIVE },
+        { status: SubscriptionStatus.CANCELLED },
+      );
+      await activate(manager);
+      user.promo_code = null;
+      user.promo_plan_id = null;
+      user.is_promo_availed = true;
+      await manager.getRepository(User).save(user);
+      record.status = PaymentStatus.COMPLETED;
+      record.transaction_data = JSON.stringify(payment);
+      await repository.save(record);
+      return payment;
+    });
+  }
 
   constructor(
     private configService: ConfigService,

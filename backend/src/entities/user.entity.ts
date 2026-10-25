@@ -129,7 +129,19 @@ export class User {
   @Column({ type: 'varchar', length: 36, nullable: true })
   promo_plan_id: string;
 
-  @Column({ type: 'boolean', default: false, nullable: true })
+  // The existing database column is BIT(1). Boolean hydration would treat
+  // Buffer([0]) as truthy and incorrectly mark an unused promo as consumed.
+  @Column({
+    type: 'bit',
+    width: 1,
+    default: false,
+    nullable: true,
+    transformer: {
+      to: (value: boolean | null) => value == null ? value : Number(value),
+      from: (value: Buffer | number | boolean | null) =>
+        value == null ? value : Buffer.isBuffer(value) ? value[0] !== 0 : Boolean(value),
+    },
+  })
   is_promo_availed: boolean;
 
   @Column({ type: 'datetime', nullable: true })
